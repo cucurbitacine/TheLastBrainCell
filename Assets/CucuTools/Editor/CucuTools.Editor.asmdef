@@ -1,0 +1,18 @@
+{
+    "name": "CucuTools.Editor",
+    "rootNamespace": "",
+    "references": [
+        "GUID:ae963c2085b110c4d8c867ec0f839788"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
