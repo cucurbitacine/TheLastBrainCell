@@ -52,8 +52,8 @@ namespace Game.Dev.UI
 
         private void OnEnable()
         {
-            character.Health.OnValueChanged.AddListener(HealthChanged);
-            character.Stamina.OnValueChanged.AddListener(StaminaChanged);
+            character.Health.Events.OnValueChanged.AddListener(HealthChanged);
+            character.Stamina.Events.OnValueChanged.AddListener(StaminaChanged);
         }
 
         private void Start()
@@ -70,8 +70,8 @@ namespace Game.Dev.UI
 
         private void OnDisable()
         {
-            character.Health.OnValueChanged.RemoveListener(HealthChanged);
-            character.Stamina.OnValueChanged.RemoveListener(StaminaChanged);
+            character.Health.Events.OnValueChanged.RemoveListener(HealthChanged);
+            character.Stamina.Events.OnValueChanged.RemoveListener(StaminaChanged);
         }
     }
 }

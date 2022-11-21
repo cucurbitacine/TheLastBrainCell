@@ -1,5 +1,6 @@
 using System.Collections;
 using Game.Stats;
+using Game.Stats.Impl;
 using UnityEngine;
 
 namespace Game.Characters

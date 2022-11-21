@@ -1,4 +1,4 @@
-﻿namespace Game.Stats
+﻿namespace Game.Stats.Impl
 {
     public class HealthIntBehaviour : ValueIntBehaviour
     {

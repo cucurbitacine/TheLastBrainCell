@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -12,7 +13,7 @@ namespace Game.Stats
         [SerializeField] private int maxValue = 1;
 
         [Space]
-        [SerializeField] private UnityEvent<int> onValueChanged = new UnityEvent<int>();
+        [SerializeField] private ValueIntEvents valueEvents = null;
 
         public int Value
         {
@@ -25,8 +26,8 @@ namespace Game.Stats
             get => maxValue;
             set => SetMaxValue(value);
         }
-        
-        public UnityEvent<int> OnValueChanged => onValueChanged ??= new UnityEvent<int>();
+
+        public ValueIntEvents Events => valueEvents ??= new ValueIntEvents();
 
         private void SetValue(int newValue)
         {
@@ -36,7 +37,10 @@ namespace Game.Stats
 
             value = newValue;
             
-            OnValueChanged.Invoke(value);
+            Events.OnValueChanged.Invoke(value);
+
+            if (value == 0) Events.OnValueIsEmpty.Invoke();
+            else if (value == maxValue) Events.OnValueIsFull.Invoke();
         }
 
         private void SetMaxValue(int newMaxValue)
@@ -54,7 +58,19 @@ namespace Game.Stats
         {
             SetValue(Value);
             
-            OnValueChanged.Invoke(value);
+            Events.OnValueChanged.Invoke(value);
         }
+    }
+
+    [Serializable]
+    public class ValueIntEvents
+    {
+        [SerializeField] private UnityEvent<int> onValueChanged = new UnityEvent<int>();
+        [SerializeField] private UnityEvent onValueIsEmpty = new UnityEvent();
+        [SerializeField] private UnityEvent onValueIsFull = new UnityEvent();
+        
+        public UnityEvent<int> OnValueChanged => onValueChanged ??= new UnityEvent<int>();
+        public UnityEvent OnValueIsEmpty => onValueIsEmpty ??= new UnityEvent();
+        public UnityEvent OnValueIsFull => onValueIsFull ??= new UnityEvent();
     }
 }
