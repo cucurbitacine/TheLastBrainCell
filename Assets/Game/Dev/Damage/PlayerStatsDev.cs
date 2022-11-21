@@ -32,7 +32,7 @@ namespace Game.Dev.UI
         {
             _staminaFillAmount = (float)character.Stamina.Value / character.Stamina.MaxValue;
             
-            staminaText.text = $"{character.Stamina.Value} / {character.Stamina.MaxValue}";
+            staminaText.text = $"{character.Stamina.Value / 10} / {character.Stamina.MaxValue / 10}";
         }
 
         private void HealthChanged(int value)

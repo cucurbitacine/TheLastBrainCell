@@ -3,13 +3,13 @@ using UnityEngine;
 
 namespace Game.Dev.Damage
 {
-    public class DestroyableBox : MonoBehaviour
+    public class DestroyableBehaviour : MonoBehaviour
     {
         public HealthIntBehaviour Health;
 
         public void DestroyBox()
         {
-            Destroy(gameObject);
+            gameObject.SetActive(false);
         }
 
         private void OnEnable()
