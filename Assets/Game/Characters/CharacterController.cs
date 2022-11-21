@@ -1,4 +1,5 @@
 using System.Collections;
+using Game.Stats;
 using UnityEngine;
 
 namespace Game.Characters
@@ -18,6 +19,10 @@ namespace Game.Characters
         [SerializeField] private JumpSetting jumpSetting = null;
         [SerializeField] private AttackSetting attackSetting = null;
 
+        [Header("References")]
+        [SerializeField] private HealthIntBehaviour health = null;
+        [SerializeField] private StaminaIntBehaviour stamina = null;
+        
         #endregion
 
         #region Private Fields
@@ -68,6 +73,9 @@ namespace Game.Characters
         public ViewSetting ViewSetting => viewSetting ??= new ViewSetting();
         public JumpSetting JumpSetting => jumpSetting ??= new JumpSetting();
         public AttackSetting AttackSetting => attackSetting ??= new AttackSetting();
+
+        public HealthIntBehaviour Health => health ??= GetComponentInChildren<HealthIntBehaviour>();
+        public StaminaIntBehaviour Stamina => stamina ??= GetComponentInChildren<StaminaIntBehaviour>();
 
         #endregion
 
