@@ -1,5 +1,4 @@
 using System.Collections;
-using Game.Stats;
 using Game.Stats.Impl;
 using UnityEngine;
 
@@ -144,7 +143,7 @@ namespace Game.Characters
         {
             return AttackSetting.enabled &&
                    AttackSetting.useStamina && Stamina.Value >= AttackSetting.staminaCost &&
-                   !CharacterInfo.isAttacking;
+                   (AttackSetting.ableWhileAttack || !CharacterInfo.isAttacking);
         }
 
         #endregion

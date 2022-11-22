@@ -67,6 +67,9 @@ namespace Game.Characters
     public class AttackSetting : BaseSetting
     {
         [Space]
+        public bool ableWhileAttack = false;
+        
+        [Space]
         public bool useStamina = true;
         public int staminaCost = 1;
         

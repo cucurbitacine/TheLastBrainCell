@@ -4,6 +4,9 @@ using UnityEngine.Events;
 
 namespace Game.Stats
 {
+    /// <summary>
+    /// Integer value's keeper. Value is between 0 and <see cref="MaxValue"/>
+    /// </summary>
     public class ValueIntBehaviour : MonoBehaviour
     {
         [Space]
@@ -14,6 +17,8 @@ namespace Game.Stats
 
         [Space]
         [SerializeField] private ValueIntEvents valueEvents = null;
+
+        #region Public API
 
         public int Value
         {
@@ -28,6 +33,10 @@ namespace Game.Stats
         }
 
         public ValueIntEvents Events => valueEvents ??= new ValueIntEvents();
+
+        #endregion
+
+        #region Private API
 
         private void SetValue(int newValue)
         {
@@ -53,6 +62,8 @@ namespace Game.Stats
 
             SetValue(value);
         }
+
+        #endregion
         
         private void OnValidate()
         {
