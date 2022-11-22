@@ -1,4 +1,3 @@
-using System;
 using Game.AI;
 using Game.Characters;
 using Game.Inputs;
