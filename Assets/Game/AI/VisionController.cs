@@ -173,10 +173,13 @@ namespace Game.AI
                 
                 var dir = (center - position).normalized;
                 var shl = Vector2.Perpendicular(dir);
-                
-                Debug.DrawLine(center, center + shl * (width * 0.5f), Color.blue);
-                Debug.DrawLine(center, center - shl * (width * 0.5f), Color.red);
 
+                if (debugMode)
+                {
+                    Debug.DrawLine(center, center + shl * (width * 0.5f), Color.blue);
+                    Debug.DrawLine(center, center - shl * (width * 0.5f), Color.red);
+                }
+                
                 var countValidRaycast = 0;
                 var steps = Cucu.LinSpace(0f, width, countMaxRaycast);
                 for (var j = 0; j < steps.Length; j++)
@@ -241,8 +244,8 @@ namespace Game.AI
                 if (!match)
                 {
                     _visibleColliders.RemoveAt(i);
-                    
-                    Events.Lost.Invoke(cld);
+
+                    if (cld != null) Events.Lost.Invoke(cld);
                 }
             }
             
@@ -332,7 +335,7 @@ namespace Game.AI
         {
             UpdateOverlap();
 
-             UpdateEvents();
+            UpdateEvents();
         }
 
         private void OnDrawGizmos()
@@ -346,7 +349,7 @@ namespace Game.AI
         }
 
         #endregion
-
+        
         [Serializable]
         public class VisionEvents
         {
