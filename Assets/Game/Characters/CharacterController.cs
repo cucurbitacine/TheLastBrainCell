@@ -1,4 +1,5 @@
 using System.Collections;
+using Game.Stats.Impl;
 using UnityEngine;
 
 namespace Game.Characters
@@ -18,6 +19,10 @@ namespace Game.Characters
         [SerializeField] private JumpSetting jumpSetting = null;
         [SerializeField] private AttackSetting attackSetting = null;
 
+        [Header("References")]
+        [SerializeField] private HealthIntBehaviour health = null;
+        [SerializeField] private StaminaIntBehaviour stamina = null;
+        
         #endregion
 
         #region Private Fields
@@ -69,6 +74,9 @@ namespace Game.Characters
         public JumpSetting JumpSetting => jumpSetting ??= new JumpSetting();
         public AttackSetting AttackSetting => attackSetting ??= new AttackSetting();
 
+        public HealthIntBehaviour Health => health ??= GetComponentInChildren<HealthIntBehaviour>();
+        public StaminaIntBehaviour Stamina => stamina ??= GetComponentInChildren<StaminaIntBehaviour>();
+
         #endregion
 
         #region Public API
@@ -96,6 +104,8 @@ namespace Game.Characters
         {
             if (!CanJump()) return;
 
+            if (JumpSetting.useStamina) Stamina.Value -= JumpSetting.staminaCost;
+            
             if (_jumpProcess != null) StopCoroutine(_jumpProcess);
             _jumpProcess = StartCoroutine(JumpProcess());
         }
@@ -103,6 +113,8 @@ namespace Game.Characters
         public void Attack(string attackName)
         {
             if (!CanAttack()) return;
+
+            if (AttackSetting.useStamina) Stamina.Value -= AttackSetting.staminaCost;
             
             if (_attackProcess != null) StopCoroutine(_attackProcess);
             _attackProcess = StartCoroutine(AttackProcess(attackName));
@@ -110,22 +122,28 @@ namespace Game.Characters
 
         public virtual bool CanMove()
         {
-            return MoveSetting.enabled && !CharacterInfo.isJumping && !CharacterInfo.isAttacking;
+            return MoveSetting.enabled && !CharacterInfo.isJumping &&
+                   (MoveSetting.ableWhileAttack || !CharacterInfo.isAttacking);
         }
 
         public virtual bool CanView()
         {
-            return ViewSetting.enabled && !CharacterInfo.isJumping && !CharacterInfo.isAttacking;
+            return ViewSetting.enabled && !CharacterInfo.isJumping &&
+                   (ViewSetting.ableWhileAttack || !CharacterInfo.isAttacking);
         }
         
         public virtual bool CanJump()
         {
-            return JumpSetting.enabled && !CharacterInfo.isJumping && !CharacterInfo.isAttacking;
+            return JumpSetting.enabled &&
+                   JumpSetting.useStamina && Stamina.Value >= JumpSetting.staminaCost &&
+                   !CharacterInfo.isJumping && !CharacterInfo.isAttacking;
         }
 
         public virtual bool CanAttack()
         {
-            return AttackSetting.enabled && !CharacterInfo.isAttacking;
+            return AttackSetting.enabled &&
+                   AttackSetting.useStamina && Stamina.Value >= AttackSetting.staminaCost &&
+                   (AttackSetting.ableWhileAttack || !CharacterInfo.isAttacking);
         }
 
         #endregion
@@ -135,7 +153,7 @@ namespace Game.Characters
         private IEnumerator JumpProcess()
         {
             CharacterInfo.isJumping = true;
-            
+
             var durationJump = Time.fixedDeltaTime * Mathf.FloorToInt(JumpSetting.duration / Time.fixedDeltaTime);
             var speedJump = JumpSetting.distance / durationJump;
             
