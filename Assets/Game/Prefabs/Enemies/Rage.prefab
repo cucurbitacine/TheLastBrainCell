@@ -1,5 +1,225 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &3227466029669353603
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 9062121429288379544}
+  - component: {fileID: 8987827218084108510}
+  - component: {fileID: 6957657981791788147}
+  m_Layer: 10
+  m_Name: HitBox
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &9062121429288379544
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3227466029669353603}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7146343676234592418}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!58 &8987827218084108510
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3227466029669353603}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.5
+--- !u!114 &6957657981791788147
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3227466029669353603}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5765fddfa4af4905aa990601315d43c1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isEnabled: 1
+  mode: 0
+  hitMask:
+    serializedVersion: 2
+    m_Bits: 2560
+  _onDamageReceived:
+    m_PersistentCalls:
+      m_Calls: []
+  receiver: {fileID: 0}
+--- !u!1 &4174728147145519831
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1180190756837575273}
+  - component: {fileID: 2084849863536452747}
+  - component: {fileID: 2243317269929347167}
+  m_Layer: 7
+  m_Name: Stamina
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1180190756837575273
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4174728147145519831}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7146343676234592418}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2084849863536452747
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4174728147145519831}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 261ea6562b784fc29a81228454ad56fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  value: 30
+  maxValue: 30
+  valueEvents:
+    onValueChanged:
+      m_PersistentCalls:
+        m_Calls: []
+    onValueIsEmpty:
+      m_PersistentCalls:
+        m_Calls: []
+    onValueIsFull:
+      m_PersistentCalls:
+        m_Calls: []
+--- !u!114 &2243317269929347167
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4174728147145519831}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e09fde9476034a2fb8d04a48bd4bfd29, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  recoveryActive: 1
+  recoveryAmount: 1
+  recoveryPeriod: 0.2
+  intBehaviour: {fileID: 2084849863536452747}
+--- !u!1 &6570325428331731357
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 293279899374918321}
+  - component: {fileID: 1411155933879268259}
+  - component: {fileID: 4016552162631702233}
+  m_Layer: 7
+  m_Name: Health
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &293279899374918321
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6570325428331731357}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7146343676234592418}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1411155933879268259
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6570325428331731357}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6381042be5334fbb9e7a45d9dc731726, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  value: 1
+  maxValue: 1
+  valueEvents:
+    onValueChanged:
+      m_PersistentCalls:
+        m_Calls: []
+    onValueIsEmpty:
+      m_PersistentCalls:
+        m_Calls: []
+    onValueIsFull:
+      m_PersistentCalls:
+        m_Calls: []
+--- !u!114 &4016552162631702233
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6570325428331731357}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e66c7fa4159411fa84d2d0c84d0a09c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sleepAfterDamage: 0
+  sleepDuration: 0.2
+  isSleeping: 0
+  onDamageReceive:
+    m_PersistentCalls:
+      m_Calls: []
+  health: {fileID: 1411155933879268259}
+  damageReceiver: {fileID: 1007026857175893847}
 --- !u!1 &7146343676234592428
 GameObject:
   m_ObjectHideFlags: 0
@@ -13,6 +233,7 @@ GameObject:
   - component: {fileID: 7146343676234592423}
   - component: {fileID: 7146343676234592416}
   - component: {fileID: 7146343676234592417}
+  - component: {fileID: 1007026857175893847}
   m_Layer: 7
   m_Name: Rage
   m_TagString: Untagged
@@ -31,7 +252,10 @@ Transform:
   m_LocalPosition: {x: 0, y: 4, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 9062121429288379544}
+  - {fileID: 293279899374918321}
+  - {fileID: 1180190756837575273}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -110,19 +334,28 @@ MonoBehaviour:
   moveSetting:
     enabled: 1
     speedMax: 3
+    ableWhileAttack: 0
     damp: 32
     direction: {x: 0, y: 0}
   viewSetting:
     enabled: 1
+    ableWhileAttack: 0
     damp: 32
     direction: {x: 0, y: 0}
   jumpSetting:
     enabled: 1
     speed: 12
     distance: 4
+    useStamina: 1
+    staminaCost: 1
   attackSetting:
     enabled: 1
+    ableWhileAttack: 0
+    useStamina: 1
+    staminaCost: 1
     duration: 0
+  health: {fileID: 1411155933879268259}
+  stamina: {fileID: 2084849863536452747}
 --- !u!50 &7146343676234592416
 Rigidbody2D:
   serializedVersion: 4
@@ -160,3 +393,19 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
+--- !u!114 &1007026857175893847
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7146343676234592428}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9de7f946f0264039941e17c6f574c93f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isEnabled: 1
+  _onDamageReceived:
+    m_PersistentCalls:
+      m_Calls: []

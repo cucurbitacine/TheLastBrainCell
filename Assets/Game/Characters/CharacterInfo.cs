@@ -17,45 +17,62 @@ namespace Game.Characters
         
         public Vector2 velocityTotal => velocityMove + velocityJump;
     }
-    
+
     [Serializable]
-    public class MoveSetting
+    public abstract class BaseSetting
     {
         public bool enabled = true;
+    }
+    
+    [Serializable]
+    public class MoveSetting : BaseSetting
+    {
         [Space]
         [Min(0.001f)] public float speedMax = 6f;
+        public bool ableWhileAttack = false;
         [Min(0.001f)] public float damp = 32f;
         
+        [Space]
         public Vector2 direction = Vector2.zero;
 
         public Vector2 velocity => direction * speedMax;
     }
     
     [Serializable]
-    public class ViewSetting
+    public class ViewSetting : BaseSetting
     {
-        public bool enabled = true;
         [Space]
+        public bool ableWhileAttack = false;
         [Min(0.001f)] public float damp = 32f;
-        
+
+        [Space]
         public Vector2 direction = Vector2.zero;
     }
     
     [Serializable]
-    public class JumpSetting
+    public class JumpSetting : BaseSetting
     {
-        public bool enabled = true;
         [Space] 
         [Min(0.001f)] public float speed = 12f;
         [Min(0.001f)] public float distance = 4f;
-
+        
+        [Space]
+        public bool useStamina = true;
+        public int staminaCost = 1;
+        
         public float duration => distance / speed;
     }
     
     [Serializable]
-    public class AttackSetting
+    public class AttackSetting : BaseSetting
     {
-        public bool enabled = true;
+        [Space]
+        public bool ableWhileAttack = false;
+        
+        [Space]
+        public bool useStamina = true;
+        public int staminaCost = 1;
+        
         [Space]
         public float duration = 0f;
     }
