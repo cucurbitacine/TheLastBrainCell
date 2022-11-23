@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using CharacterController = Game.Characters.CharacterController;
 
-namespace Game.Dev.UI
+namespace Game.Dev.Damage
 {
     public class PlayerStatsDev : MonoBehaviour
     {

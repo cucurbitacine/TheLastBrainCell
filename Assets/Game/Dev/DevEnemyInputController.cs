@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Game.AI;
 using Game.Characters;
@@ -9,20 +10,21 @@ namespace Game.Dev
 {
     public class DevEnemyInputController : InputController<EnemyController>
     {
+        [Space]
         [Min(0f)]
         public float periodUpdatePath = 0.1f;
+        public bool turnOnMoveByMouse = false;
+        
+        [Space]
         public PlayerController Player;
         public bool VisiblePlayer;
         public Vector2 LastPlayerPoint;
-        
-        [Space]
-        public bool turnOnMoveByMouse = false;
-        
+
         [Space]
         public DetectionController Detection;
         public MovementController Movement;
         
-        public List<Vector2> _currentPath;
+        private List<Vector2> _currentPath;
         private Camera _camera;
         private Vector2 _initPos;
         private Vector2 _initDir;
@@ -55,21 +57,15 @@ namespace Game.Dev
                         Player = null;
                         _timer = 0f;
 
-                        if (Movement.Navigation.TryFindPath(Character.position, _initPos, out _currentPath))
-                        {
-                            Movement.FollowThePath(_currentPath, () => Character.View(_initDir));
-                        }
+                        Move(_initPos, () => Character.View(_initDir));
                     }
                     else if (sample.status == DetectionStatus.Losing)
                     {
                         VisiblePlayer = false;
 
                         LastPlayerPoint = Player.position;
-                        
-                        if (Movement.Navigation.TryFindPath(Character.position, LastPlayerPoint, out _currentPath))
-                        {
-                            Movement.FollowThePath(_currentPath);
-                        }
+
+                        Move(LastPlayerPoint);
                     }
                     else if (sample.status == DetectionStatus.Detected)
                     {
@@ -79,6 +75,16 @@ namespace Game.Dev
             }
         }
 
+        private void Move(Vector2 point, Action actionAfter = null)
+        {
+            if (!Movement.gameObject.activeInHierarchy) return;
+            
+            if (Movement.Navigation.TryFindPath(Character.position, point, out _currentPath))
+            {
+                Movement.FollowThePath(_currentPath, actionAfter);
+            }
+        }
+        
         private void Awake()
         {
             _initPos = Character.position;
@@ -101,10 +107,7 @@ namespace Game.Dev
             {
                 var worldPoint = _camera.ScreenToWorldPoint(Input.mousePosition);
 
-                if (Movement.Navigation.TryFindPath(Character.position, worldPoint, out _currentPath))
-                {
-                    Movement.FollowThePath(_currentPath);
-                }
+                Move(worldPoint);
             }
 
             if (Player != null)
@@ -113,10 +116,7 @@ namespace Game.Dev
                 {
                     var targetPoint = VisiblePlayer ? Player.position : LastPlayerPoint;
                     
-                    if (Movement.Navigation.TryFindPath(Character.position, targetPoint, out _currentPath))
-                    {
-                        Movement.FollowThePath(_currentPath);
-                    }
+                    Move(targetPoint);
                 }
 
                 if (VisiblePlayer) _timer += Time.deltaTime;

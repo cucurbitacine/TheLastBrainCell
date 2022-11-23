@@ -15,11 +15,21 @@ namespace Game.Navigations
             {
                 if (_instance != null) return _instance;
 
-                _instance = FindObjectOfType<NavigationController>();
+                var navigations = FindObjectsOfType<NavigationController>();
 
-                if (_instance != null) return _instance;
-
+                for (var i = 0; i < navigations.Length; i++)
+                {
+                    if (navigations[i].isSingleton)
+                    {
+                        _instance = navigations[i];
+                        return _instance;
+                    }
+                }
+                
                 _instance = new GameObject(nameof(NavigationController)).AddComponent<NavigationController>();
+                
+                DontDestroyOnLoad(_instance.gameObject);
+                _instance.isSingleton = true;
                 
                 return _instance;
             }
@@ -27,7 +37,7 @@ namespace Game.Navigations
         
         [Header("Navigator options")]
         [Min(0.1f)]
-        [SerializeField] private float gridSize = 0.5f; //increase patience or gridSize for larger maps
+        [SerializeField] private float gridSize = 1f; //increase patience or gridSize for larger maps
 
         [Tooltip("The layers that the navigator can not pass through.")]
         [SerializeField] private LayerMask obstacleLayer = 1;
@@ -42,7 +52,7 @@ namespace Game.Navigations
 
         [Space]
         
-        [SerializeField] private bool dontDestroyOnLoad = true;
+        [SerializeField] private bool isSingleton = false;
         
         private Pathfinder<Vector2> _pathfinder; //the pathfinder object that stores the methods and patience
         
@@ -165,7 +175,17 @@ namespace Game.Navigations
 
         private void Awake()
         {
-            if (dontDestroyOnLoad) DontDestroyOnLoad(gameObject);
+            if (isSingleton)
+            {
+                if (Instance != this)
+                {
+                    Destroy(gameObject);
+                }
+                else
+                {
+                    DontDestroyOnLoad(gameObject);
+                }
+            }
         }
     }
 }

@@ -1,4 +1,3 @@
-using System;
 using Game.Characters;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -7,6 +6,7 @@ namespace Game.Inputs
 {
     public class PlayerInputController : InputController<PlayerController>
     {
+        [Space]
         public InputAction mouseMoveAction;
         public InputAction mouseAttackAction;
         public InputAction moveAction;
