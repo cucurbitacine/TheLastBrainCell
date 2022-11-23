@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1366501411017353498}
   - component: {fileID: 7873250255068568072}
   - component: {fileID: 8950100843449823165}
-  m_Layer: 6
+  m_Layer: 9
   m_Name: Sword Dev
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -137,7 +137,7 @@ GameObject:
   - component: {fileID: 1989535271972795905}
   - component: {fileID: 5928152263660508403}
   - component: {fileID: 5495104457061816122}
-  m_Layer: 6
+  m_Layer: 9
   m_Name: Hit Box
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -191,7 +191,7 @@ MonoBehaviour:
   mode: 0
   hitMask:
     serializedVersion: 2
-    m_Bits: 384
+    m_Bits: 3072
   _onDamageReceived:
     m_PersistentCalls:
       m_Calls: []
@@ -370,6 +370,7 @@ MonoBehaviour:
     staminaCost: 10
   attackSetting:
     enabled: 1
+    ableWhileAttack: 0
     useStamina: 1
     staminaCost: 10
     duration: 0
@@ -510,7 +511,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4656195683014468426}
   - component: {fileID: 1780746894709639494}
-  m_Layer: 6
+  m_Layer: 9
   m_Name: Weapon
   m_TagString: Untagged
   m_Icon: {fileID: 0}

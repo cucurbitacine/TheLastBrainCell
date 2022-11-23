@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 9062121429288379544}
   - component: {fileID: 8987827218084108510}
   - component: {fileID: 6957657981791788147}
-  m_Layer: 7
+  m_Layer: 10
   m_Name: HitBox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -65,7 +65,7 @@ MonoBehaviour:
   mode: 0
   hitMask:
     serializedVersion: 2
-    m_Bits: 320
+    m_Bits: 2560
   _onDamageReceived:
     m_PersistentCalls:
       m_Calls: []
@@ -350,6 +350,7 @@ MonoBehaviour:
     staminaCost: 1
   attackSetting:
     enabled: 1
+    ableWhileAttack: 0
     useStamina: 1
     staminaCost: 1
     duration: 0
