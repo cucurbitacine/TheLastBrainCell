@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Game.AI;
 using Game.Characters;
 using Game.Inputs;
@@ -8,91 +9,139 @@ namespace Game.Dev
 {
     public class DevEnemyInputController : InputController<EnemyController>
     {
-        [Header("Auto Link")]
-        public MovementController Movement;
-        public VisionController Vision;
+        [Min(0f)]
+        public float periodUpdatePath = 0.1f;
+        public PlayerController Player;
+        public bool VisiblePlayer;
+        public Vector2 LastPlayerPoint;
+        
+        [Space]
+        public bool turnOnMoveByMouse = false;
+        
+        [Space]
         public DetectionController Detection;
-        public NavigationController Navigation;
-
-        public float periodUpdatePath = 0.2f;
+        public MovementController Movement;
+        
+        private List<Vector2> _currentPath;
+        private Camera _camera;
+        private Vector2 _initPos;
+        private Vector2 _initDir;
         private float _timer;
         
-        private Vector2 _initPos;
-        private Vector2 _initRot;
-        
-        private PlayerController _player;
-        
-        private void OnFoundCollider(DetectionSample sample)
+        private void DetectionChange(DetectionSample sample)
         {
-            if (sample.status != DetectionStatus.Detected) return;
-
-            var cld = sample.collider;
-
-            if (cld == null) return;
-            
-            _player = cld.GetComponent<PlayerController>();
-        }
-        
-        private void OnLostCollider(DetectionSample sample)
-        {
-            if (sample.status != DetectionStatus.Undefined) return;
-
-            var cld = sample.collider;
-
-            if (cld == null) return;
-            
-            if (_player != cld.GetComponent<PlayerController>()) return;
-
-            _player = null;
-            
-            if (Navigation.TryFindPath(Character.position, _initPos, out var path))
+            if (Player == null)
             {
-                Movement.FollowThePath(path, () => Character.View(_initRot));
-            }
-        }
+                if (sample.status == DetectionStatus.Detected)
+                {
+                    var player = sample.collider.GetComponent<PlayerController>();
 
-        private void Initialize()
-        {
-            if (Navigation == null) Navigation = NavigationController.Instance;
-            if (Movement == null) Movement = GetComponent<MovementController>();
-            if (Vision == null) Vision = GetComponent<VisionController>();
-            
-            Navigation.SnapToGrid = true;
-            
-            Movement.Initialize(Character, Navigation);
-            
-            Vision.Initialize(Character.transform);
+                    if (player != null)
+                    {
+                        VisiblePlayer = true;
+                        Player = player;
+                        _timer = 0f;
+                    }
+                }
+            }
+            else
+            {
+                var player = sample.collider.GetComponent<PlayerController>();
+
+                if (player == Player)
+                {
+                    if (sample.status == DetectionStatus.Undefined)
+                    {
+                        Player = null;
+                        _timer = 0f;
+
+                        if (Movement.Navigation.TryFindPath(Character.position, _initPos, out _currentPath))
+                        {
+                            Movement.FollowThePath(_currentPath, () => Character.View(_initDir));
+                        }
+                    }
+                    else if (sample.status == DetectionStatus.Losing)
+                    {
+                        VisiblePlayer = false;
+
+                        LastPlayerPoint = Player.position;
+                    }
+                    else if (sample.status == DetectionStatus.Detected)
+                    {
+                        VisiblePlayer = true;
+                    }
+                }
+            }
         }
 
         private void Awake()
         {
-            Initialize();
-
             _initPos = Character.position;
-            _initRot = Character.direction;
+            _initDir = Character.direction;
+        }
+
+        private void OnEnable()
+        {
+            Detection.OnStatusChanged.AddListener(DetectionChange);
         }
 
         private void Start()
         {
-            Detection.OnStatusChanged.AddListener(OnFoundCollider);
-            Detection.OnStatusChanged.AddListener(OnLostCollider);
+            _camera = Camera.main;
         }
-        
+
         private void Update()
         {
-            if (_player == null) return;
-
-            if (_timer <= 0f)
+            if (turnOnMoveByMouse && Input.GetKeyDown(KeyCode.Mouse0))
             {
-                if (Navigation.TryFindPath(Character.position, _player.position, out var path))
+                var worldPoint = _camera.ScreenToWorldPoint(Input.mousePosition);
+
+                if (Movement.Navigation.TryFindPath(Character.position, worldPoint, out _currentPath))
                 {
-                    Movement.FollowThePath(path);
+                    Movement.FollowThePath(_currentPath);
                 }
             }
 
-            _timer += Time.deltaTime;
+            if (Player != null)
+            {
+                if (_timer <= 0f)
+                {
+                    var targetPoint = VisiblePlayer ? Player.position : LastPlayerPoint;
+                    
+                    if (Movement.Navigation.TryFindPath(Character.position, targetPoint, out _currentPath))
+                    {
+                        Movement.FollowThePath(_currentPath);
+                    }
+                }
+                
+                _timer += Time.deltaTime;
 
-            if (_timer >= periodUpdatePath) _timer = 0f;
+                if (periodUpdatePath <= _timer)
+                {
+                    _timer = 0f;
+                }
+            }
+        }
+
+        private void OnDisable()
+        {
+            Detection.OnStatusChanged.RemoveListener(DetectionChange);
+        }
+
+        private void OnDrawGizmos()
+        {
+            if (_currentPath != null && _currentPath.Count > 0)
+            {
+                for (var i = 0; i < _currentPath.Count; i++)
+                {
+                    Gizmos.DrawWireSphere(_currentPath[i], 0.1f);
+
+                    if (i > 0)
+                    {
+                        Gizmos.DrawLine(_currentPath[i - 1], _currentPath[i]);
+                    }
+                }
+            }
         }
     }
 }

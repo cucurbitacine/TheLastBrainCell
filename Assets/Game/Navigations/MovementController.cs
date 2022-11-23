@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using CharacterController = Game.Characters.CharacterController;
 
@@ -10,15 +11,24 @@ namespace Game.Navigations
     public class MovementController : MonoBehaviour
     {
         [Range(0.001f, 0.1f)]
-        [SerializeField] private float toleranceMovement = 0.01f;
+        [SerializeField] private float toleranceDistance = 0.01f;
+        [Min(0f)]
+        [SerializeField] private float timeLimit = 20f;
+        
         [Space]
         [SerializeField] private CharacterController character;
         [SerializeField] private NavigationController navigation;
         
-        public float ToleranceMovement
+        public float ToleranceDistance
         {
-            get => toleranceMovement;
-            set => toleranceMovement = value;
+            get => toleranceDistance;
+            set => toleranceDistance = value;
+        }
+
+        public float TimeLimit
+        {
+            get => timeLimit;
+            set => timeLimit = value;
         }
 
         public CharacterController Character => character ??= GetComponent<CharacterController>();
@@ -62,7 +72,7 @@ namespace Game.Navigations
             return true;
         }
         
-        public void FollowThePath(IEnumerable<Vector2> path, Action action = null)
+        public void FollowThePath(List<Vector2> path, Action action = null)
         {
             Stop();
 
@@ -71,42 +81,57 @@ namespace Game.Navigations
         
         public void FollowThePath(params Vector2[] path)
         {
-            FollowThePath(path as IEnumerable<Vector2>);
+            FollowThePath(path.ToList());
         }
 
-        private IEnumerator FollowThePathProcess(IEnumerable<Vector2> path, Action action)
+        private IEnumerator FollowThePathProcess(List<Vector2> path, Action action)
         {
-            var lastPoint = Vector2.zero;
-            
-            foreach (var point in path)
+            for (var i = 0; i < path.Count; i++)
             {
-                if (Vector2.Distance(lastPoint, point) <= 0.001f) continue;
-                
-                var nextPoint = false;
-                var prevVector = point - Character.position;
-                
-                Character.Move(prevVector);
-                Character.View(prevVector);
-                
-                while (!nextPoint)
-                {
-                    var vector = point - Character.position;
-                    
-                    nextPoint = vector.magnitude <= ToleranceMovement ||
-                                prevVector.sqrMagnitude < vector.sqrMagnitude ||
-                                prevVector.normalized == -vector.normalized;
+                var targetPoint = path[i];
 
-                    prevVector = vector;
+                if (i > 0)
+                {
+                    if (Vector2.Distance(targetPoint, path[i - 1]) <= 0.001f) continue;
+                }
+                
+                var startPoint = Character.position;
+                var timer = 0f;
+
+                while (true)
+                {
+                    var vector = targetPoint - Character.position;
+
+                    if (NeedStop(startPoint, targetPoint, Character.position, ToleranceDistance, timer, TimeLimit))
+                    {
+                        break;
+                    }
+
+                    Character.Move(vector);
+                    Character.View(vector);
 
                     yield return new WaitForFixedUpdate();
+                    timer += Time.fixedDeltaTime;
                 }
-
-                lastPoint = point;
             }
 
             Character.Stop();
+            Character.View(Character.direction);
             
             action?.Invoke();
+        }
+        
+        private static bool NeedStop(
+            Vector2 startPoint, Vector2 targetPoint,
+            Vector2 currentPoint, float minDistance,
+            float duration, float maxDuration)
+        {
+            var direction = targetPoint - startPoint;
+            var vector = targetPoint - currentPoint;
+
+            return Vector2.Distance(currentPoint, targetPoint) <= minDistance ||
+                   Vector2.Dot(direction, vector) <= 0 ||
+                   maxDuration <= duration;
         }
     }
 }
