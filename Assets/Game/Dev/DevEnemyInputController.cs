@@ -22,7 +22,7 @@ namespace Game.Dev
         public DetectionController Detection;
         public MovementController Movement;
         
-        private List<Vector2> _currentPath;
+        public List<Vector2> _currentPath;
         private Camera _camera;
         private Vector2 _initPos;
         private Vector2 _initDir;
@@ -65,6 +65,11 @@ namespace Game.Dev
                         VisiblePlayer = false;
 
                         LastPlayerPoint = Player.position;
+                        
+                        if (Movement.Navigation.TryFindPath(Character.position, LastPlayerPoint, out _currentPath))
+                        {
+                            Movement.FollowThePath(_currentPath);
+                        }
                     }
                     else if (sample.status == DetectionStatus.Detected)
                     {
@@ -113,8 +118,8 @@ namespace Game.Dev
                         Movement.FollowThePath(_currentPath);
                     }
                 }
-                
-                _timer += Time.deltaTime;
+
+                if (VisiblePlayer) _timer += Time.deltaTime;
 
                 if (periodUpdatePath <= _timer)
                 {

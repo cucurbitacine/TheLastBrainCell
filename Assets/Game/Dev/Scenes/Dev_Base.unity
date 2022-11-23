@@ -1683,6 +1683,7 @@ MonoBehaviour:
   turnOnMoveByMouse: 0
   Detection: {fileID: 792911980}
   Movement: {fileID: 792911979}
+  _currentPath: []
 --- !u!114 &792911979
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3170,7 +3171,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1
   searchShortcut: 1
-  snapToGrid: 1
+  snapToGrid: 0
   patience: 1000
   dontDestroyOnLoad: 1
 --- !u!4 &1936936478

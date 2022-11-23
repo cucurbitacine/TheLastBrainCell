@@ -7,6 +7,9 @@ using CharacterController = Game.Characters.CharacterController;
 
 namespace Game.Navigations
 {
+    /// <summary>
+    /// Movement logic which using <see cref="NavigationController"/> for getting path
+    /// </summary>
     [DisallowMultipleComponent]
     public class MovementController : MonoBehaviour
     {
@@ -18,31 +21,54 @@ namespace Game.Navigations
         [Space]
         [SerializeField] private CharacterController character;
         [SerializeField] private NavigationController navigation;
-        
+
+        #region Public API
+
+        /// <summary>
+        /// Minimum distance to destination point
+        /// </summary>
         public float ToleranceDistance
         {
             get => toleranceDistance;
             set => toleranceDistance = value;
         }
 
+        /// <summary>
+        /// Maximum time limit to moving to the one point
+        /// </summary>
         public float TimeLimit
         {
             get => timeLimit;
             set => timeLimit = value;
         }
 
+        /// <summary>
+        /// Movable character
+        /// </summary>
         public CharacterController Character => character ??= GetComponent<CharacterController>();
 
+        /// <summary>
+        /// Using navigation
+        /// </summary>
         public NavigationController Navigation => navigation ??= NavigationController.Instance;
 
         private Coroutine _followToPointsProcess = null;
 
+        /// <summary>
+        /// Setup movement controller
+        /// </summary>
+        /// <param name="character"></param>
+        /// <param name="navigation"></param>
         public void Initialize(CharacterController character, NavigationController navigation)
         {
             this.character = character;
             this.navigation = navigation;
         }
         
+        /// <summary>
+        /// Setup movement controller
+        /// </summary>
+        /// <param name="character"></param>
         public void Initialize(CharacterController character)
         {
             Initialize(character, NavigationController.Instance);
@@ -54,35 +80,57 @@ namespace Game.Navigations
             this.navigation = null;
         }
         
-        public void Stop()
+        /// <summary>
+        /// Stop Character
+        /// </summary>
+        public void StopCharacter()
         {
             if (_followToPointsProcess != null) StopCoroutine(_followToPointsProcess);
             
             Character.Stop();
         }
 
-        public bool TryFollowToPoint(Vector2 point, Action action = null)
+        /// <summary>
+        /// Try move to the point by path
+        /// </summary>
+        /// <param name="point"></param>
+        /// <param name="actionAfter"></param>
+        /// <returns></returns>
+        public bool TryFollowToPoint(Vector2 point, Action actionAfter = null)
         {
             if (Navigation == null) return false;
 
             if (!Navigation.TryFindPath(Character.position, point, out var path)) return false;
             
-            FollowThePath(path, action);
+            FollowThePath(path, actionAfter);
 
             return true;
         }
         
-        public void FollowThePath(List<Vector2> path, Action action = null)
+        /// <summary>
+        /// Try move by path
+        /// </summary>
+        /// <param name="path"></param>
+        /// <param name="actionAfter"></param>
+        public void FollowThePath(List<Vector2> path, Action actionAfter = null)
         {
-            Stop();
+            StopCharacter();
 
-            _followToPointsProcess = StartCoroutine(FollowThePathProcess(path, action));
+            _followToPointsProcess = StartCoroutine(FollowThePathProcess(path, actionAfter));
         }
         
+        /// <summary>
+        /// Try move by path
+        /// </summary>
+        /// <param name="path"></param>
         public void FollowThePath(params Vector2[] path)
         {
             FollowThePath(path.ToList());
         }
+
+        #endregion
+
+        #region Private API
 
         private IEnumerator FollowThePathProcess(List<Vector2> path, Action action)
         {
@@ -133,5 +181,7 @@ namespace Game.Navigations
                    Vector2.Dot(direction, vector) <= 0 ||
                    maxDuration <= duration;
         }
+
+        #endregion
     }
 }
