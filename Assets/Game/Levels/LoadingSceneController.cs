@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using CucuTools.Async;
+using CucuTools.Attributes;
 using CucuTools.Injects;
 using CucuTools.Scenes;
 using UnityEngine;
@@ -67,6 +68,7 @@ namespace Game.Levels
     [Serializable]
     public class LoadingSceneArg : CucuArg
     {
+        [CucuScene]
         public string sceneName;
         public CucuArg[] sceneArgs;
         

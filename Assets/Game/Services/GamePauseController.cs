@@ -1,12 +1,12 @@
 ﻿using Game.Inputs;
-using Game.Levels;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
+using CallbackContext = UnityEngine.InputSystem.InputAction.CallbackContext;
 
 namespace Game.Services
 {
-    public class PauseController : InputController
+    public class GamePauseController : InputController
     {
         public bool paused;
 
@@ -15,12 +15,21 @@ namespace Game.Services
 
         [Space]
         public InputAction pauseAction;
-        
+
+        #region Public API
+
+        /// <summary>
+        /// Toggle pause state
+        /// </summary>
         public void TogglePause()
         {
             ChangePause(!paused);
         }
         
+        /// <summary>
+        /// Change pause state on new
+        /// </summary>
+        /// <param name="pause"></param>
         public void ChangePause(bool pause)
         {
             if (pause) Pause();
@@ -49,11 +58,11 @@ namespace Game.Services
             onPauseStateChanged.Invoke(false);
         }
 
-        private void PauseHandle(InputAction.CallbackContext ctx)
-        {
-            var pauseEvent = ctx.ReadValueAsButton();
+        #endregion
 
-            if (pauseEvent) TogglePause();
+        private void PauseHandle(CallbackContext ctx)
+        {
+            if (ctx.ReadValueAsButton()) TogglePause();
         }
         
         private void OnEnable()

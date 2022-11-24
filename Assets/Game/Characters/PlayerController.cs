@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Game.Characters
 {
-    public class PlayerController : CharacterController
+    public class PlayerController : CharacterControllerBase
     {
         public string AttackMeleeName => "attack_meleeSimple";
         

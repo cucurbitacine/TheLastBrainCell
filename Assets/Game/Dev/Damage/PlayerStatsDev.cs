@@ -3,13 +3,12 @@ using Game.Levels;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using CharacterController = Game.Characters.CharacterController;
 
 namespace Game.Dev.Damage
 {
     public class PlayerStatsDev : MonoBehaviour
     {
-        public CharacterController character;
+        public CharacterControllerBase character;
         public GameSceneController gameSceneController;
         
         [Space]
@@ -56,7 +55,7 @@ namespace Game.Dev.Damage
             StaminaUpdate();
         }
 
-        private void EnablePlayer(CharacterController player)
+        private void EnablePlayer(CharacterControllerBase player)
         {
             character = player;
             
@@ -66,7 +65,7 @@ namespace Game.Dev.Damage
             StatsUpdate();
         }
         
-        private void DisablePlayer(CharacterController player)
+        private void DisablePlayer(CharacterControllerBase player)
         {
             if (character != player) return;
             
@@ -83,8 +82,8 @@ namespace Game.Dev.Damage
                 gameSceneController = FindObjectOfType<GameSceneController>();
                 if (gameSceneController != null)
                 {
-                    gameSceneController.OnPlayerInitialized.AddListener(EnablePlayer);
-                    gameSceneController.OnPlayerDeinitialized.AddListener(DisablePlayer);
+                    gameSceneController.onPlayerSpawned.AddListener(EnablePlayer);
+                    gameSceneController.onPlayerDespawned.AddListener(DisablePlayer);
                 }
             }
             else
@@ -108,8 +107,8 @@ namespace Game.Dev.Damage
         {
             if (gameSceneController != null)
             {
-                gameSceneController.OnPlayerInitialized.RemoveListener(EnablePlayer);
-                gameSceneController.OnPlayerDeinitialized.RemoveListener(DisablePlayer);
+                gameSceneController.onPlayerSpawned.RemoveListener(EnablePlayer);
+                gameSceneController.onPlayerDespawned.RemoveListener(DisablePlayer);
             }
             else
             {

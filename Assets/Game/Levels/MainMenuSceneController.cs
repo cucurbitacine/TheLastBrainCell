@@ -10,6 +10,8 @@ namespace Game.Levels
         [CucuScene]
         public string gameScene;
 
+        #region Public API
+
         [CucuButton("Start Game")]
         public void StartGame()
         {
@@ -27,6 +29,8 @@ namespace Game.Levels
         {
             Application.Quit();
         }
+
+        #endregion
 
         private void OnEnable()
         {

@@ -22,13 +22,20 @@ namespace Game.Levels
         public Transform playerSpawnPosition;
 
         [Space]
-        public PlayerInputController playerInput;
         public CinemachineVirtualCamera cameraFollower;
 
         [Space]
-        public UnityEvent<PlayerController> OnPlayerInitialized;
-        public UnityEvent<PlayerController> OnPlayerDeinitialized;
+        public UnityEvent<PlayerController> onPlayerSpawned;
+        public UnityEvent<PlayerController> onPlayerDespawned;
 
+        #region Public API
+
+        [CucuButton("StartGame")]
+        public void StartGame()
+        {
+            SpawnPlayer();
+        }
+        
         [CucuButton("Play Again")]
         public void PlayAgain()
         {
@@ -45,30 +52,26 @@ namespace Game.Levels
             CucuSceneManager.LoadSingleScene<LoadingSceneController>(loadingArg);
         }
 
-        [CucuButton()]
-        private void InitializePlayer()
+        #endregion
+
+        #region Private API
+
+        private void SpawnPlayer()
         {
             player = Instantiate(playerPrefab, playerSpawnPosition.position, playerSpawnPosition.rotation);
 
-            playerInput.Character = player;
-            playerInput.enabled = true;
-
             cameraFollower.Follow = player.transform;
             
-            OnPlayerInitialized.Invoke(player);
+            onPlayerSpawned.Invoke(player);
             
             player.Health.Events.OnValueIsEmpty.AddListener(OnPlayerDead);
         }
         
-        [CucuButton()]
-        private void DeinitializePlayer()
+        private void DespawnPlayer()
         {
-            playerInput.enabled = false;
-            playerInput.Character = null;
-            
             cameraFollower.Follow = null;
             
-            OnPlayerDeinitialized.Invoke(player);
+            onPlayerDespawned.Invoke(player);
             
             Destroy(player.gameObject);
 
@@ -79,16 +82,18 @@ namespace Game.Levels
         {
             player.Health.Events.OnValueIsEmpty.RemoveListener(OnPlayerDead);
             
-            DeinitializePlayer();
+            DespawnPlayer();
 
             await Task.Delay(1000);
             
-            InitializePlayer();
+            SpawnPlayer();
         }
+
+        #endregion
 
         private void Start()
         {
-            InitializePlayer();
+            StartGame();
         }
         
         private void OnDrawGizmos()

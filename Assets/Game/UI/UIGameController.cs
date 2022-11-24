@@ -7,7 +7,7 @@ namespace Game.UI
     public class UIGameController : MonoBehaviour
     {
         public GameSceneController gameScene;
-        public PauseController pauser;
+        public GamePauseController gamePause;
         
         [Space]
         public GameObject gameplayPanel;
@@ -25,22 +25,22 @@ namespace Game.UI
         public void Awake()
         {
             if (gameScene == null) gameScene = FindObjectOfType<GameSceneController>();
-            if (pauser == null) pauser = FindObjectOfType<PauseController>();
+            if (gamePause == null) gamePause = FindObjectOfType<GamePauseController>();
         }
 
         private void Start()
         {
-            PauseStateChanged(pauser.paused);
+            PauseStateChanged(gamePause.paused);
         }
 
         private void OnEnable()
         {
-            pauser.onPauseStateChanged.AddListener(PauseStateChanged);
+            gamePause.onPauseStateChanged.AddListener(PauseStateChanged);
         }
 
         private void OnDisable()
         {
-            pauser.onPauseStateChanged.RemoveListener(PauseStateChanged);
+            gamePause.onPauseStateChanged.RemoveListener(PauseStateChanged);
         }
     }
 }

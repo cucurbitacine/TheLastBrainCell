@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
+using Game.Characters;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using CallbackContext = UnityEngine.InputSystem.InputAction.CallbackContext;
-using CharacterController = Game.Characters.CharacterController;
 
 namespace Game.Inputs
 {
@@ -31,7 +31,7 @@ namespace Game.Inputs
         }
     }
     
-    public abstract class InputController<T> : InputController where T : CharacterController
+    public abstract class InputController<T> : InputController where T : CharacterControllerBase
     {
         [SerializeField] private T character = null;
 
