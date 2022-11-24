@@ -206,6 +206,7 @@ namespace Game.Characters
 
         private void Awake()
         {
+            ViewSetting.direction = direction;
             CharacterInfo.rotationView = Self.rotation;
 
             if (Enable && Rigidbody == null) Enable = false;

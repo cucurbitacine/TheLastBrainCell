@@ -172,5 +172,10 @@ namespace CucuTools.Scenes
             
             return true;
         }
+        
+        public static string GetSceneName<TController>() where TController : CucuSceneController
+        {
+            return TryGetSceneName<TController>(out var sceneName, out _) ? sceneName : null;
+        }
     }
 }

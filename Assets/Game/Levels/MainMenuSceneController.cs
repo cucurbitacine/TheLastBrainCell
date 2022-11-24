@@ -1,5 +1,4 @@
 using CucuTools.Attributes;
-using CucuTools.Injects;
 using CucuTools.Scenes;
 using UnityEngine;
 
@@ -14,12 +13,11 @@ namespace Game.Levels
         [CucuButton("Start Game")]
         public void StartGame()
         {
-            var gameArg =  new GameArg() { menuSceneName = CucuSceneManager.GetActiveScene().name };
+            var menuSceneName = CucuSceneManager.GetActiveScene().name;
 
-            var loadingArg = new LoadingArg();
-            loadingArg.previousSceneName = CucuSceneManager.GetActiveScene().name;
-            loadingArg.nextSceneName = gameScene;
-            loadingArg.args = new CucuArg[] { gameArg };
+            var gameArg = new GameArg() { menuSceneName = menuSceneName };
+
+            var loadingArg = new LoadingSceneArg(gameScene, gameArg);
             
             CucuSceneManager.LoadSingleScene<LoadingSceneController>(loadingArg);
         }
@@ -28,6 +26,18 @@ namespace Game.Levels
         public void ExitGame()
         {
             Application.Quit();
+        }
+
+        private void OnEnable()
+        {
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.Confined;
+        }
+        
+        private void OnDisable()
+        {
+            Cursor.visible = false;
+            Cursor.lockState = CursorLockMode.Locked;
         }
     }
 }

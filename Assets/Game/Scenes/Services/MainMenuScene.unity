@@ -523,6 +523,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameScene: Dev_Base
+  loadingMinDuration: 1
 --- !u!1 &888478021
 GameObject:
   m_ObjectHideFlags: 0

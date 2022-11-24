@@ -10,7 +10,8 @@ namespace Game.Dev.Damage
         public float intensityDefault = 1f;
         public float durationDefault = 0.2f;
 
-        [Space] public CinemachineVirtualCamera virtualCamera;
+        [Space]
+        public CinemachineVirtualCamera virtualCamera;
 
         private Coroutine _shaking;
 

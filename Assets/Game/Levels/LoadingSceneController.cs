@@ -1,31 +1,56 @@
 ﻿using System;
-using System.Threading.Tasks;
+using System.Collections;
+using CucuTools.Async;
 using CucuTools.Injects;
 using CucuTools.Scenes;
 using UnityEngine;
-using Random = UnityEngine.Random;
+using UnityEngine.UI;
 
 namespace Game.Levels
 {
     [CucuSceneController("LoadingScene")]
     public class LoadingSceneController : CucuSceneController
     {
-        [CucuArg] public LoadingArg loadingArg;
+        [CucuArg]
+        public LoadingSceneArg loadingArg;
 
+        [Space]
+        [Min(0f)]
+        public float minLoadingDuration = 1f;
+        public Slider loadingSlider;
+        
         public async void LoadScene()
         {
-            Debug.Log($"Start Load [{loadingArg.nextSceneName}]");
+            Debug.Log($"Start Load [{loadingArg.sceneName}]");
 
-            await Task.Delay(Random.Range(0, 2000) + 500);
+            await LoadingSimulation(minLoadingDuration).ToTask();
             
-            var loadingOperation = CucuSceneManager.LoadSingleSceneAsync(loadingArg.nextSceneName, loadingArg.args);
+            var loadingOperation = CucuSceneManager.LoadSingleSceneAsync(loadingArg.sceneName, loadingArg.sceneArgs);
 
             loadingOperation.completed += loading =>
             {
-                Debug.Log($"[{loadingArg.nextSceneName}] Was Loaded");
+                Debug.Log($"[{loadingArg.sceneName}] Was Loaded");
             };
         }
 
+        private IEnumerator LoadingSimulation(float duration)
+        {
+            loadingSlider.value = loadingSlider.minValue;
+            
+            var timer = 0f;
+            while (timer < duration)
+            {
+                var t = timer / duration;
+
+                loadingSlider.value = Mathf.Lerp(loadingSlider.minValue, loadingSlider.maxValue, t);
+                
+                timer += Time.deltaTime;
+                yield return null;
+            }
+
+            loadingSlider.value = loadingSlider.maxValue;
+        }
+        
         private void Start()
         {
             if (loadingArg.IsDefault)
@@ -40,11 +65,15 @@ namespace Game.Levels
     }
     
     [Serializable]
-    public class LoadingArg : CucuArg
+    public class LoadingSceneArg : CucuArg
     {
-        public string previousSceneName;
-        public string nextSceneName;
-
-        public CucuArg[] args;
+        public string sceneName;
+        public CucuArg[] sceneArgs;
+        
+        public LoadingSceneArg(string sceneName, params CucuArg[] sceneArgs)
+        {
+            this.sceneName = sceneName;
+            this.sceneArgs = sceneArgs;
+        }
     }
 }
