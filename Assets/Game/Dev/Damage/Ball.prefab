@@ -228,7 +228,7 @@ MonoBehaviour:
   mode: 0
   hitMask:
     serializedVersion: 2
-    m_Bits: 192
+    m_Bits: 1536
   _onDamageReceived:
     m_PersistentCalls:
       m_Calls: []

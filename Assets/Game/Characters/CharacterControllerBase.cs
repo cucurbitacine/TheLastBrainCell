@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Game.Characters
 {
-    public abstract class CharacterController : MonoBehaviour
+    public abstract class CharacterControllerBase : MonoBehaviour
     {
         #region SerializeField
         
@@ -206,6 +206,7 @@ namespace Game.Characters
 
         private void Awake()
         {
+            ViewSetting.direction = direction;
             CharacterInfo.rotationView = Self.rotation;
 
             if (Enable && Rigidbody == null) Enable = false;

@@ -1,14 +1,15 @@
 using Game.Characters;
+using Game.Levels;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using CharacterController = Game.Characters.CharacterController;
 
-namespace Game.Dev.UI
+namespace Game.Dev.Damage
 {
     public class PlayerStatsDev : MonoBehaviour
     {
-        public CharacterController character;
+        public CharacterControllerBase character;
+        public GameSceneController gameSceneController;
         
         [Space]
         public Image healthBar;
@@ -21,6 +22,15 @@ namespace Game.Dev.UI
         private float _healthFillAmount = 0f;
         private float _staminaFillAmount = 0f;
 
+        public void StatsUpdate()
+        {
+            if (character != null)
+            {
+                HealthUpdate();
+                StaminaUpdate();
+            }
+        }
+        
         private void HealthUpdate()
         {
             _healthFillAmount = (float)character.Health.Value / character.Health.MaxValue;
@@ -45,21 +55,46 @@ namespace Game.Dev.UI
             StaminaUpdate();
         }
 
-        private void Awake()
+        private void EnablePlayer(CharacterControllerBase player)
         {
-            if (character == null) character = FindObjectOfType<PlayerController>();
+            character = player;
+            
+            character.Health.Events.OnValueChanged.AddListener(HealthChanged);
+            character.Stamina.Events.OnValueChanged.AddListener(StaminaChanged);
+
+            StatsUpdate();
+        }
+        
+        private void DisablePlayer(CharacterControllerBase player)
+        {
+            if (character != player) return;
+            
+            character.Health.Events.OnValueChanged.RemoveListener(HealthChanged);
+            character.Stamina.Events.OnValueChanged.RemoveListener(StaminaChanged);
+            
+            character = null; 
         }
 
         private void OnEnable()
         {
-            character.Health.Events.OnValueChanged.AddListener(HealthChanged);
-            character.Stamina.Events.OnValueChanged.AddListener(StaminaChanged);
+            if (character == null)
+            {
+                gameSceneController = FindObjectOfType<GameSceneController>();
+                if (gameSceneController != null)
+                {
+                    gameSceneController.onPlayerSpawned.AddListener(EnablePlayer);
+                    gameSceneController.onPlayerDespawned.AddListener(DisablePlayer);
+                }
+            }
+            else
+            {
+                EnablePlayer(character);
+            }
         }
 
         private void Start()
         {
-            HealthUpdate();
-            StaminaUpdate();
+            StatsUpdate();
         }
 
         private void Update()
@@ -70,8 +105,15 @@ namespace Game.Dev.UI
 
         private void OnDisable()
         {
-            character.Health.Events.OnValueChanged.RemoveListener(HealthChanged);
-            character.Stamina.Events.OnValueChanged.RemoveListener(StaminaChanged);
+            if (gameSceneController != null)
+            {
+                gameSceneController.onPlayerSpawned.RemoveListener(EnablePlayer);
+                gameSceneController.onPlayerDespawned.RemoveListener(DisablePlayer);
+            }
+            else
+            {
+                if (character != null) DisablePlayer(character);
+            }
         }
     }
 }

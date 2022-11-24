@@ -119,9 +119,13 @@ namespace CucuTools.Scenes
             where TController : CucuSceneController
         {
             if (TryGetSceneName<TController>(out var name, out var msg))
+            {
                 LoadScene(name, mode, args);
-            
-            throw new Exception($"Load scene of \"{nameof(TController)}\" was failed :: {msg}");
+            }
+            else
+            {
+                throw new Exception($"Load scene of \"{nameof(TController)}\" was failed :: {msg}");
+            }
         }
         
         public static void LoadSingleScene<TController>(params CucuArg[] args)
@@ -167,6 +171,11 @@ namespace CucuTools.Scenes
             }
             
             return true;
+        }
+        
+        public static string GetSceneName<TController>() where TController : CucuSceneController
+        {
+            return TryGetSceneName<TController>(out var sceneName, out _) ? sceneName : null;
         }
     }
 }

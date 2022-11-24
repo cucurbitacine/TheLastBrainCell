@@ -2,8 +2,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Game.Characters;
 using UnityEngine;
-using CharacterController = Game.Characters.CharacterController;
 
 namespace Game.Navigations
 {
@@ -19,7 +19,7 @@ namespace Game.Navigations
         [SerializeField] private float timeLimit = 20f;
         
         [Space]
-        [SerializeField] private CharacterController character;
+        [SerializeField] private CharacterControllerBase character;
         [SerializeField] private NavigationController navigation;
 
         #region Public API
@@ -45,7 +45,7 @@ namespace Game.Navigations
         /// <summary>
         /// Movable character
         /// </summary>
-        public CharacterController Character => character ??= GetComponent<CharacterController>();
+        public CharacterControllerBase Character => character ??= GetComponent<CharacterControllerBase>();
 
         /// <summary>
         /// Using navigation
@@ -59,7 +59,7 @@ namespace Game.Navigations
         /// </summary>
         /// <param name="character"></param>
         /// <param name="navigation"></param>
-        public void Initialize(CharacterController character, NavigationController navigation)
+        public void Initialize(CharacterControllerBase character, NavigationController navigation)
         {
             this.character = character;
             this.navigation = navigation;
@@ -69,7 +69,7 @@ namespace Game.Navigations
         /// Setup movement controller
         /// </summary>
         /// <param name="character"></param>
-        public void Initialize(CharacterController character)
+        public void Initialize(CharacterControllerBase character)
         {
             Initialize(character, NavigationController.Instance);
         }
