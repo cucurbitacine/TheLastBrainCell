@@ -1,35 +1,22 @@
-using Game.AI;
-using Game.Characters;
+
 using UnityEngine;
 
 namespace Game.Dev.AI
 {
     public class IdleStateAI : BaseStateAI
     {
-        public void OnDetectionChanged(DetectionSample sample)
-        {
-            var player = sample.collider.GetComponent<PlayerController>();
-
-            if (player == null) return;
-
-            if (sample.status == DetectionStatus.Detected)
-            {
-                Enemy.Animator.SetBool(PlayerDetected, true);
-            }
-        }
-        
         public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
             base.OnStateEnter(animator, stateInfo, layerIndex);
 
-            Detection.OnStatusChanged.AddListener(OnDetectionChanged);
+            ai.movement.TryFollowToPoint(ai.initPosition, () => ai.enemy.View(ai.initDirection));
         }
 
-        public override void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+        public override void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
-            base.OnStateExit(animator, stateInfo, layerIndex);
+            base.OnStateUpdate(animator, stateInfo, layerIndex);
             
-            Detection.OnStatusChanged.RemoveListener(OnDetectionChanged);
+            ai.enemy.View(ai.enemy.MoveSetting.velocity);
         }
     }
 }

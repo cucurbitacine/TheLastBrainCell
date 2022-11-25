@@ -1,4 +1,3 @@
-using System;
 using Game.Characters;
 using UnityEngine;
 using UnityEngine.InputSystem;

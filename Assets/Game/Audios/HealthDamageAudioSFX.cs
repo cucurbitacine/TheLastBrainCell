@@ -10,7 +10,7 @@ namespace Game.Audios
 
         private void OnHealthDamaged(int damage)
         {
-            sfx.PlayOneShot();
+            if (damage < 0) sfx.PlayOneShot();
         }
         
         private void Awake()

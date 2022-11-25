@@ -14,7 +14,7 @@ namespace Game.Dev.Damage
 
         private void Shake(int damage)
         {
-            if(damage < 0) cameraShaker.Shake();
+            if (damage < 0) cameraShaker.Shake();
         }
 
         private void PlayerEnabled(PlayerController player)

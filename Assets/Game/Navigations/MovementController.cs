@@ -156,7 +156,6 @@ namespace Game.Navigations
                     }
 
                     Character.Move(vector);
-                    Character.View(vector);
 
                     yield return new WaitForFixedUpdate();
                     timer += Time.fixedDeltaTime;
@@ -164,7 +163,6 @@ namespace Game.Navigations
             }
 
             Character.Stop();
-            Character.View(Character.direction);
             
             action?.Invoke();
         }
