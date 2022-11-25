@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace Game.Characters
 {
@@ -60,6 +61,9 @@ namespace Game.Characters
         public bool useStamina = true;
         public int staminaCost = 1;
         
+        [Space]
+        public UnityEvent onJumped = new UnityEvent();
+        
         public float duration => distance / speed;
     }
     
@@ -72,8 +76,8 @@ namespace Game.Characters
         [Space]
         public bool useStamina = true;
         public int staminaCost = 1;
-        
+
         [Space]
-        public float duration = 0f;
+        public UnityEvent onAttacked = new UnityEvent();
     }
 }

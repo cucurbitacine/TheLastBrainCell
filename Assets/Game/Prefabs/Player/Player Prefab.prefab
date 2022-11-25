@@ -26,7 +26,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1158887304008183951}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0.35, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -157,7 +157,7 @@ Transform:
   m_Children:
   - {fileID: 4482802163269949918}
   m_Father: {fileID: 2247001977207932868}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 180}
 --- !u!114 &7344413773706207854
 MonoBehaviour:
@@ -183,6 +183,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 8679327127655989, guid: bf4255e447255a9499e5a662f073ee9c, type: 3}
+      propertyPath: m_RootOrder
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 150169929188559289, guid: bf4255e447255a9499e5a662f073ee9c, type: 3}
       propertyPath: m_Layer
       value: 6
@@ -243,10 +247,18 @@ PrefabInstance:
       propertyPath: hitMask.m_Bits
       value: 3073
       objectReference: {fileID: 0}
+    - target: {fileID: 2616549380572315666, guid: bf4255e447255a9499e5a662f073ee9c, type: 3}
+      propertyPath: character
+      value: 
+      objectReference: {fileID: 3432943639883148343}
     - target: {fileID: 3075034219536333867, guid: bf4255e447255a9499e5a662f073ee9c, type: 3}
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: ce58413a71a28411cbd5d4863eb5753e, type: 2}
+    - target: {fileID: 3139979966734386716, guid: bf4255e447255a9499e5a662f073ee9c, type: 3}
+      propertyPath: m_Radius
+      value: 0.45
+      objectReference: {fileID: 0}
     - target: {fileID: 3771624728864629764, guid: bf4255e447255a9499e5a662f073ee9c, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -339,7 +351,7 @@ MonoBehaviour:
   moveSetting:
     enabled: 1
     speedMax: 6
-    ableWhileAttack: 0
+    ableWhileAttack: 1
     damp: 32
     direction: {x: 0, y: 0}
   viewSetting:
@@ -353,12 +365,17 @@ MonoBehaviour:
     distance: 4
     useStamina: 1
     staminaCost: 10
+    onJumped:
+      m_PersistentCalls:
+        m_Calls: []
   attackSetting:
     enabled: 1
     ableWhileAttack: 0
     useStamina: 1
     staminaCost: 10
-    duration: 0
+    onAttacked:
+      m_PersistentCalls:
+        m_Calls: []
   health: {fileID: 7994525907964481141}
   stamina: {fileID: 4143547220338662614}
 --- !u!114 &4143547220338662614 stripped
@@ -455,6 +472,14 @@ MonoBehaviour:
       m_Groups: 
       m_Action: Jump
       m_Flags: 0
+    - m_Name: 
+      m_Id: 2c3e956e-84a4-4203-a774-4d7e7f72104e
+      m_Path: <Mouse>/rightButton
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Jump
+      m_Flags: 0
     m_Flags: 0
   attackAction:
     m_Name: Attack
@@ -471,6 +496,31 @@ MonoBehaviour:
       m_Processors: 
       m_Groups: 
       m_Action: Attack
+      m_Flags: 0
+    - m_Name: 
+      m_Id: 9ab3b33c-be0e-44d9-a42d-4434adaa84e0
+      m_Path: <Mouse>/leftButton
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Attack
+      m_Flags: 0
+    m_Flags: 0
+  mouseAction:
+    m_Name: Mouse
+    m_Type: 0
+    m_ExpectedControlType: Vector2
+    m_Id: 3690008a-c1f7-4728-bb8a-b08564d7744d
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: 
+      m_Id: 9e2a0a9c-4828-417c-830b-13258b58919a
+      m_Path: <Mouse>/position
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Mouse
       m_Flags: 0
     m_Flags: 0
 --- !u!114 &7994525907964481141 stripped

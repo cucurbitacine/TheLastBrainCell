@@ -106,6 +106,8 @@ namespace Game.Characters
 
             if (JumpSetting.useStamina) Stamina.Value -= JumpSetting.staminaCost;
             
+            JumpSetting.onJumped.Invoke();
+            
             if (_jumpProcess != null) StopCoroutine(_jumpProcess);
             _jumpProcess = StartCoroutine(JumpProcess());
         }
@@ -115,6 +117,8 @@ namespace Game.Characters
             if (!CanAttack()) return;
 
             if (AttackSetting.useStamina) Stamina.Value -= AttackSetting.staminaCost;
+            
+            AttackSetting.onAttacked.Invoke();
             
             if (_attackProcess != null) StopCoroutine(_attackProcess);
             _attackProcess = StartCoroutine(AttackProcess(attackName));

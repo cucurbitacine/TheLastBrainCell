@@ -14,8 +14,8 @@ namespace Game.Characters
             yield return new WaitForEndOfFrame();
             CharacterInfo.isAttacking = true;
             
-            AttackSetting.duration = Animator.GetCurrentAnimatorStateInfo(0).length;
-            yield return new WaitForSeconds(AttackSetting.duration);
+            var duration = Animator.GetCurrentAnimatorStateInfo(0).length;
+            yield return new WaitForSeconds(duration);
             
             yield return new WaitForEndOfFrame();
             CharacterInfo.isAttacking = false;
