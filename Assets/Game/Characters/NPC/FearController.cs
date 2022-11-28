@@ -1,9 +1,9 @@
-using System.Collections;
+﻿using System.Collections;
 using UnityEngine;
 
-namespace Game.Characters
+namespace Game.Characters.Npc
 {
-    public class EnemyController : CharacterControllerBase
+    public class FearController : NpcController
     {
         protected override IEnumerator AttackProcess(string attackStateName)
         {

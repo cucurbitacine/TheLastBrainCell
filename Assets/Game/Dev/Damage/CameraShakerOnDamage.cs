@@ -1,4 +1,5 @@
 ﻿using Game.Characters;
+using Game.Characters.Player;
 using Game.Levels;
 using UnityEngine;
 

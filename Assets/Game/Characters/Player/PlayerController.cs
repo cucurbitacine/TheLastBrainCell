@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-namespace Game.Characters
+namespace Game.Characters.Player
 {
     public class PlayerController : CharacterControllerBase
     {
@@ -11,6 +11,13 @@ namespace Game.Characters
         protected override IEnumerator AttackProcess(string attackStateName)
         {
             Animator.Play(attackStateName);
+
+            var needChange = MoveSetting.ableWhileAttack && string.Equals(attackStateName, AttackMeleeNameDelay);
+            
+            if (needChange)
+            {
+                MoveSetting.ableWhileAttack = false;
+            }
             
             yield return new WaitForEndOfFrame();
             CharacterInfo.isAttacking = true;
@@ -20,6 +27,11 @@ namespace Game.Characters
             
             yield return new WaitForEndOfFrame();
             CharacterInfo.isAttacking = false;
+            
+            if (needChange)
+            {
+                MoveSetting.ableWhileAttack = true;
+            }
         }
     }
 }

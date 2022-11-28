@@ -4,31 +4,31 @@ namespace Game.AI.Fear
 {
     public class FearFollowStateAI : FearStateAI
     {
-        public float timer = 0f;
+        private float _timer = 0f;
         
         private Vector2 GetFollowPoint()
         {
             var playerPosition = ai.detectedPlayer.position;
 
-            var directionToPlayer = (playerPosition - ai.enemy.position).normalized;
+            var directionToPlayer = (playerPosition - ai.npc.position).normalized;
 
-            var attackDistance = ai.enemy.JumpSetting.distance;
+            var attackDistance = ai.npc.JumpSetting.distance;
 
             return playerPosition - directionToPlayer * attackDistance;
         }
         
         private void UpdateFollowing()
         {
-            if (timer <= 0)
+            if (_timer <= 0)
             {
                 ai.movement.TryFollowToPoint(ai.followPlayerPoint);
             }
             
-            timer += Time.deltaTime;
+            _timer += Time.deltaTime;
 
-            if (timer >= ai.periodUpdatePath)
+            if (_timer >= ai.periodUpdatePath)
             {
-                timer = 0f;
+                _timer = 0f;
             }
         }
 
@@ -36,7 +36,7 @@ namespace Game.AI.Fear
         {
             base.OnStateEnter(animator, stateInfo, layerIndex);
             
-            timer = 0f;
+            _timer = 0f;
         }
 
         public override void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
@@ -49,9 +49,9 @@ namespace Game.AI.Fear
 
             ai.followPlayerPoint = GetFollowPoint();
 
-            var vectorToPlayer = ai.detectedPlayer.position - ai.enemy.position;
+            var vectorToPlayer = ai.detectedPlayer.position - ai.npc.position;
                 
-            ai.enemy.View(vectorToPlayer);
+            ai.npc.View(vectorToPlayer);
                 
             UpdateFollowing();
         }
@@ -60,7 +60,7 @@ namespace Game.AI.Fear
         {
             base.OnStateExit(animator, stateInfo, layerIndex);
             
-            timer = 0f;
+            _timer = 0f;
             
             ai.movement.StopCharacter();
         }

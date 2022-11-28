@@ -10,10 +10,10 @@ namespace Game.AI.Fear
 
             if (ai.detectedPlayer == null) return;
             
-            var directionToPlayer = ai.detectedPlayer.position - ai.enemy.position;
+            var directionToPlayer = ai.detectedPlayer.position - ai.npc.position;
             
-            ai.enemy.Move(-directionToPlayer);
-            ai.enemy.View(ai.enemy.MoveSetting.velocity);
+            ai.npc.Move(-directionToPlayer);
+            ai.npc.View(ai.npc.MoveSetting.velocity);
         }
 
         public override void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)

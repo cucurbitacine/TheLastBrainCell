@@ -10,13 +10,13 @@ namespace Game.AI.Fear
 
             if (ai.detectedPlayer == null) return;
 
-            var vector = ai.detectedPlayer.position - ai.enemy.position;
+            var vector = ai.detectedPlayer.position - ai.npc.position;
             
-            ai.enemy.SetView(vector);
+            ai.npc.SetView(vector);
 
-            ai.enemy.Jump();
+            ai.npc.Jump();
             
-            ai.enemy.Attack("attack");
+            ai.npc.Attack("attack");
         }
     }
 }

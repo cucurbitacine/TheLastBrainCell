@@ -5,9 +5,6 @@ namespace Game.AI.Fear
 {
     public class FearPrepareAttackStateAI : FearStateAI
     {
-        [Min(0f)]
-        public float attackDelay = 0.5f;
-
         private Coroutine _attacking;
         
         private void Attack()
@@ -18,7 +15,7 @@ namespace Game.AI.Fear
         
         private IEnumerator Attacking()
         {
-            yield return new WaitForSeconds(attackDelay);
+            yield return new WaitForSeconds(ai.attackDelay);
 
             ai.Attack();
         }
@@ -36,9 +33,9 @@ namespace Game.AI.Fear
 
             if (ai.detectedPlayer == null) return;
             
-            var vectorToPlayer = ai.detectedPlayer.position - ai.enemy.position;
+            var vectorToPlayer = ai.detectedPlayer.position - ai.npc.position;
             
-            ai.enemy.View(vectorToPlayer);
+            ai.npc.View(vectorToPlayer);
         }
 
         public override void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)

@@ -3,15 +3,14 @@ using System.Collections.Generic;
 using Game.Characters;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using CallbackContext = UnityEngine.InputSystem.InputAction.CallbackContext;
 
 namespace Game.Inputs
 {
     public abstract class InputController : MonoBehaviour
     {
-        private readonly Dictionary<InputAction, Action<CallbackContext>> _performedBinds = new Dictionary<InputAction, Action<CallbackContext>>();
-
-        protected void EnableAction(InputAction inputAction, Action<CallbackContext> methodAction)
+        private readonly Dictionary<InputAction, Action<InputAction.CallbackContext>> _performedBinds = new Dictionary<InputAction, Action<InputAction.CallbackContext>>();
+        
+        protected void EnableAction(InputAction inputAction, Action<InputAction.CallbackContext> methodAction)
         {
             if (_performedBinds.ContainsKey(inputAction)) return;
             _performedBinds.Add(inputAction, methodAction);

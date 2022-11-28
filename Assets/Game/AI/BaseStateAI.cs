@@ -5,12 +5,13 @@ using UnityEngine.Animations;
 namespace Game.AI
 {
     /// <summary>
-    /// Base state behaviour for enemy AI 
+    /// Base state behaviour for npc AI 
     /// </summary>
-    /// <typeparam name="TEnemyAI"></typeparam>
-    public class BaseStateAI<TEnemyAI> : StateMachineBehaviour where TEnemyAI : EnemyAIController
+    /// <typeparam name="TNpcAI"></typeparam>
+    public class BaseStateAI<TNpcAI> : StateMachineBehaviour
+        where TNpcAI : NpcAIController
     {
-        public TEnemyAI ai;
+        public TNpcAI ai;
 
         private static readonly Dictionary<Animator, string> PreviousStates = new Dictionary<Animator, string>();
         
@@ -35,7 +36,7 @@ namespace Game.AI
 
         private void InitState(Component component)
         {
-            if (ai == null) ai = component.GetComponentInChildren<TEnemyAI>();
+            if (ai == null) ai = component.GetComponentInChildren<TNpcAI>();
         }
 
         private void DebugLogOnStateEnter(Animator animator)

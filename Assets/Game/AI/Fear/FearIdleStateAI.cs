@@ -5,9 +5,6 @@ namespace Game.AI.Fear
 {
     public class FearIdleStateAI : FearStateAI
     {
-        public float stayDuration = 5f;
-        public int index;
-
         private Coroutine _goingToNextPoint;
         
         private void GoToNextPoint(float delay)
@@ -20,25 +17,23 @@ namespace Game.AI.Fear
         {
             if (ai.patrolPath == null || ai.patrolPath.Length == 0)
             {
-                ai.movement.TryFollowToPoint(ai.initPosition, () => ai.enemy.View(ai.initDirection));
+                ai.movement.TryFollowToPoint(ai.initPosition, () => ai.npc.View(ai.initDirection));
             }
             else
             {
-                Debug.LogWarning($"Going to [{index}] {ai.patrolPath[index].name}");
-                
-                var pos = ai.patrolPath[index].position;
-                var dir = ai.patrolPath[index].up;
+                var pos = ai.patrolPath[ai.indexPatrol].position;
+                var dir = ai.patrolPath[ai.indexPatrol].up;
                 
                 yield return new WaitForSeconds(delay);
                 
                 ai.movement.TryFollowToPoint(pos, () =>
                 {
-                    ai.enemy.View(dir);
+                    ai.npc.View(dir);
                     
-                    GoToNextPoint(stayDuration);
+                    GoToNextPoint(ai.patrolStayDuration);
                 });
                 
-                index = (index + 1) % ai.patrolPath.Length;
+                ai.indexPatrol = (ai.indexPatrol + 1) % ai.patrolPath.Length;
             }
         }
         
@@ -53,9 +48,9 @@ namespace Game.AI.Fear
         {
             base.OnStateUpdate(animator, stateInfo, layerIndex);
 
-            if (ai.enemy.CharacterInfo.isMoving)
+            if (ai.npc.CharacterInfo.isMoving)
             {
-                ai.enemy.View(ai.enemy.MoveSetting.velocity);
+                ai.npc.View(ai.npc.MoveSetting.velocity);
             }
         }
 

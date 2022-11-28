@@ -5,7 +5,7 @@ using CucuTools.Attributes;
 using CucuTools.Injects;
 using CucuTools.Scenes;
 using Game.Characters;
-using Game.Inputs;
+using Game.Characters.Player;
 using UnityEngine;
 using UnityEngine.Events;
 

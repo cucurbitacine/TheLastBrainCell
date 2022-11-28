@@ -15,7 +15,7 @@ namespace Game.AI.Fear
         {
             base.OnStateUpdate(animator, stateInfo, layerIndex);
             
-            ai.enemy.View(ai.enemy.MoveSetting.velocity);
+            ai.npc.View(ai.npc.MoveSetting.velocity);
         }
     }
 }

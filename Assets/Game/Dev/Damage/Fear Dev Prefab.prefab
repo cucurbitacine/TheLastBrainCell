@@ -99,7 +99,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sprite: {fileID: 928041638}
   detection: {fileID: 583593073367322240}
-  character: {fileID: 4925418661528466943}
+  character: {fileID: 4481894700614850737}
   undefined: {r: 0, g: 0, b: 0, a: 0}
   detecting: {r: 0, g: 1, b: 1, a: 0.3764706}
   detected: {r: 1, g: 0, b: 0, a: 0.3764706}
@@ -180,15 +180,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 242845ee27904349bad2ee47cfc7477d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &4925418661528466943 stripped
+--- !u!114 &4481894700614850737 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7115840622821953457, guid: a5c7bfc32580d98408d1ef41aae40783, type: 3}
+  m_CorrespondingSourceObject: {fileID: 1776936197310489343, guid: a5c7bfc32580d98408d1ef41aae40783, type: 3}
   m_PrefabInstance: {fileID: 2781554915739384398}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1baff3a531084a3399c1c43b87fb8e1e, type: 3}
+  m_Script: {fileID: 11500000, guid: 6b231fb984684a29a1a383b8ead23b46, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!4 &5196198447088497860 stripped

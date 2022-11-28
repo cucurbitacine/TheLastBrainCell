@@ -9,6 +9,11 @@ namespace Game.AI.Fear
             base.OnStateEnter(animator, stateInfo, layerIndex);
             
             ai.movement.StopCharacter();
+
+            foreach (var characterAI in FindObjectsOfType<NpcAIController>())
+            {
+               
+            }
         }
     }
 }

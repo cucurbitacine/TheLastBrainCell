@@ -1,17 +1,23 @@
 using System;
-using Game.Characters;
+using Game.Characters.Npc;
+using Game.Characters.Player;
 using Game.Navigations;
 using UnityEngine;
 
 namespace Game.AI.Fear
 {
-    public class FearAIController : EnemyAIController
+    public class FearAIController : NpcAIController
     {
         [Header("Settings")]
         [Min(0f)]
         public float periodUpdatePath = 0.1f;
-
+        [Min(0f)]
+        public float attackDelay = 0.5f;
+        
         [Space]
+        [Min(0f)]
+        public float patrolStayDuration = 5f;
+        public int indexPatrol;
         public Transform[] patrolPath;
         
         [Header("Information")]
@@ -25,7 +31,6 @@ namespace Game.AI.Fear
         public PlayerController detectedPlayer;
 
         [Header("References")]
-        public EnemyController enemy;
         public MovementController movement;
         public DetectionController detection;
 
@@ -39,7 +44,7 @@ namespace Game.AI.Fear
 
         public void Attack()
         {
-            enemy.Animator.SetTrigger(AttackTrigger);
+            npc.Animator.SetTrigger(AttackTrigger);
         }
         
         private void OnDetectionChanged(DetectionSample sample)
@@ -61,28 +66,28 @@ namespace Game.AI.Fear
             {
                 case DetectionStatus.Undefined:
                     visiblePlayer = false;
-                    enemy.Animator.SetBool(VisiblePlayer, false);
-                    enemy.Animator.SetBool(PlayerDetected, false);
+                    npc.Animator.SetBool(VisiblePlayer, false);
+                    npc.Animator.SetBool(PlayerDetected, false);
                     detectedPlayer = null;
                     break;
                 
                 case DetectionStatus.Detecting:
                     visiblePlayer = true;
-                    enemy.Animator.SetBool(VisiblePlayer, true);
-                    enemy.Animator.SetBool(PlayerDetected, false);
+                    npc.Animator.SetBool(VisiblePlayer, true);
+                    npc.Animator.SetBool(PlayerDetected, false);
                     break;
                 
                 case DetectionStatus.Detected:
                     visiblePlayer = true;
-                    enemy.Animator.SetBool(VisiblePlayer, true);
-                    enemy.Animator.SetBool(PlayerDetected, true);
+                    npc.Animator.SetBool(VisiblePlayer, true);
+                    npc.Animator.SetBool(PlayerDetected, true);
                     break;
                 
                 case DetectionStatus.Losing:
                     visiblePlayer = false;
                     lastPlayerPoint = detectedPlayer.position;
-                    enemy.Animator.SetBool(VisiblePlayer, false);
-                    enemy.Animator.SetBool(PlayerDetected, true);
+                    npc.Animator.SetBool(VisiblePlayer, false);
+                    npc.Animator.SetBool(PlayerDetected, true);
                     break;
                 
                 default:
@@ -97,54 +102,59 @@ namespace Game.AI.Fear
 
         private void UpdateHealth()
         {
-            enemy.Animator.SetInteger(HealthValue, enemy.Health.Value);
+            npc.Animator.SetInteger(HealthValue, npc.Health.Value);
 
-            if (enemy.Health.Value == 0) enemy.Animator.SetTrigger(DeadTrigger);
+            if (npc.Health.Value == 0) npc.Animator.SetTrigger(DeadTrigger);
         }
         
         private void UpdateAvoiding()
         {
             var needStamina = 0f;
-            needStamina += enemy.JumpSetting.useStamina ? enemy.JumpSetting.staminaCost : 0f;
-            needStamina += enemy.AttackSetting.useStamina ? enemy.AttackSetting.staminaCost : 0f;
+            needStamina += npc.JumpSetting.useStamina ? npc.JumpSetting.staminaCost : 0f;
+            needStamina += npc.AttackSetting.useStamina ? npc.AttackSetting.staminaCost : 0f;
 
-            var totalStamina = enemy.Stamina.Value;
+            var totalStamina = npc.Stamina.Value;
 
             var needAvoid = needStamina > totalStamina;
             
-            enemy.Animator.SetBool(NeedAvoid, needAvoid);
+            npc.Animator.SetBool(NeedAvoid, needAvoid);
         }
         
         private void UpdateAttacking()
         {
-            if (!enemy.Animator.GetBool(VisiblePlayer)) return;
+            if (!npc.Animator.GetBool(VisiblePlayer))
+            {
+                npc.Animator.SetBool(ReadyAttack, false);
+                
+                return;
+            }
             
-            var distanceToPlayer = Vector2.Distance(enemy.position, detectedPlayer.position);
+            var distanceToPlayer = Vector2.Distance(npc.position, detectedPlayer.position);
             
-            var needStamina = enemy.JumpSetting.staminaCost + enemy.AttackSetting.staminaCost;
-            var totalStamina = enemy.Stamina.Value;
+            var needStamina = npc.JumpSetting.staminaCost + npc.AttackSetting.staminaCost;
+            var totalStamina = npc.Stamina.Value;
             
-            var readyAttack = distanceToPlayer <= enemy.JumpSetting.distance &&
+            var readyAttack = distanceToPlayer <= npc.JumpSetting.distance &&
                               needStamina <= totalStamina;
 
-            enemy.Animator.SetBool(ReadyAttack, readyAttack);
+            npc.Animator.SetBool(ReadyAttack, readyAttack);
         }
         
         private void Awake()
         {
-            if (enemy == null) enemy = GetComponentInParent<EnemyController>();
-            if (movement == null) movement = enemy.GetComponentInChildren<MovementController>();
-            if (detection == null) detection = enemy.GetComponentInChildren<DetectionController>();
+            if (npc == null) npc = GetComponentInParent<FearController>();
+            if (movement == null) movement = npc.GetComponentInChildren<MovementController>();
+            if (detection == null) detection = npc.GetComponentInChildren<DetectionController>();
 
-            initPosition = enemy.position;
-            initDirection = enemy.direction;
+            initPosition = npc.position;
+            initDirection = npc.direction;
         }
 
         private void OnEnable()
         {
             detection.OnStatusChanged.AddListener(OnDetectionChanged);
             
-            enemy.Health.Events.OnValueChanged.AddListener(OnHealthChanged);
+            npc.Health.Events.OnValueChanged.AddListener(OnHealthChanged);
             
             UpdateHealth();
         }
@@ -160,7 +170,7 @@ namespace Game.AI.Fear
         {
             detection.OnStatusChanged.RemoveListener(OnDetectionChanged);
             
-            enemy.Health.Events.OnValueChanged.RemoveListener(OnHealthChanged);
+            npc.Health.Events.OnValueChanged.RemoveListener(OnHealthChanged);
         }
 
         private void OnDrawGizmos()

@@ -1,4 +1,7 @@
+using System;
+using System.Collections.Generic;
 using Game.Characters;
+using Game.Characters.Player;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using CallbackContext = UnityEngine.InputSystem.InputAction.CallbackContext;
@@ -13,27 +16,24 @@ namespace Game.Inputs
         public InputAction attackAction;
         public InputAction mouseAction;
 
-        private Vector2 _mousePosition;
+        public Camera MainCamera => Camera.main;
+        public Vector2 MouseWorldPosition => MainCamera.ScreenToWorldPoint(_mouseScreenPosition);
         
+        private Vector2 _mouseScreenPosition;
+
         private void MoveHandle(CallbackContext ctx)
         {
-            var direction = ctx.ReadValue<Vector2>();
-            
-            Character.Move(direction);
+            Character.Move(ctx.ReadValue<Vector2>());
         }
         
         private void JumpHandle(CallbackContext ctx)
         {
-            var jump = ctx.ReadValueAsButton();
-
-            if (jump) Character.Jump();
+            if (ctx.ReadValueAsButton()) Character.Jump();
         }
         
         private void AttackHandle(CallbackContext ctx)
         {
-            var attack = ctx.ReadValueAsButton();
-
-            if (attack)
+            if (ctx.ReadValueAsButton())
             {
                 var attackName = Character.CharacterInfo.isJumping
                     ? Character.AttackMeleeNameDelay
@@ -45,9 +45,9 @@ namespace Game.Inputs
 
         private void MouseHandle(CallbackContext ctx)
         {
-            _mousePosition = ctx.ReadValue<Vector2>();
+            _mouseScreenPosition = ctx.ReadValue<Vector2>();
         }
-        
+
         private void OnEnable()
         {
             EnableAction(moveAction, MoveHandle);
@@ -68,14 +68,14 @@ namespace Game.Inputs
 
         private void Update()
         {
-           var view =  (Vector2)Camera.main.ScreenToWorldPoint(_mousePosition) - Character.position;
+           var view = MouseWorldPosition - Character.position;
            
            Character.View(view);
         }
 
         private void OnDrawGizmos()
         {
-            Gizmos.DrawWireSphere(Camera.main.ScreenToWorldPoint(_mousePosition), 0.5f);
+            Gizmos.DrawWireSphere(MouseWorldPosition, 0.5f);
         }
     }
 }

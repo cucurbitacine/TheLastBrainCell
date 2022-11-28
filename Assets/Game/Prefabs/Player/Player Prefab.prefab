@@ -355,7 +355,7 @@ MonoBehaviour:
   moveSetting:
     enabled: 1
     speedMax: 6
-    ableWhileAttack: 0
+    ableWhileAttack: 1
     damp: 32
     direction: {x: 0, y: 0}
   viewSetting:
