@@ -33,7 +33,14 @@ namespace Game.Inputs
         {
             var attack = ctx.ReadValueAsButton();
 
-            if (attack) Character.Attack(Character.AttackMeleeName);
+            if (attack)
+            {
+                var attackName = Character.CharacterInfo.isJumping
+                    ? Character.AttackMeleeNameDelay
+                    : Character.AttackMeleeName;
+                
+                Character.Attack(attackName);
+            }
         }
 
         private void MouseHandle(CallbackContext ctx)

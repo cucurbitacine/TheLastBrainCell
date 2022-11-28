@@ -6,6 +6,7 @@ namespace Game.Characters
     public class PlayerController : CharacterControllerBase
     {
         public string AttackMeleeName => "attack_meleeSimple";
+        public string AttackMeleeNameDelay => "attack_meleeSimpleDelay";
         
         protected override IEnumerator AttackProcess(string attackStateName)
         {

@@ -461,8 +461,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 010613c2872ee6a4c9b005df21af615d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  debugMode: 0
   periodUpdatePath: 0.1
-  minDistance: 0.1
+  patrolPath: []
   initPosition: {x: 0, y: 0}
   initDirection: {x: 0, y: 0}
   visiblePlayer: 0
@@ -472,7 +473,6 @@ MonoBehaviour:
   enemy: {fileID: 0}
   movement: {fileID: 0}
   detection: {fileID: 0}
-  debugMode: 0
 --- !u!114 &3877088560672774931 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 9188880266458620370, guid: bf4255e447255a9499e5a662f073ee9c, type: 3}

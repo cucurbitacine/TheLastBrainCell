@@ -7,9 +7,14 @@ namespace Game.AI.Fear
 {
     public class FearAIController : EnemyAIController
     {
-        [Space]
+        [Header("Settings")]
         [Min(0f)]
         public float periodUpdatePath = 0.1f;
+
+        [Space]
+        public Transform[] patrolPath;
+        
+        [Header("Information")]
         public Vector2 initPosition;
         public Vector2 initDirection;
         
@@ -19,7 +24,7 @@ namespace Game.AI.Fear
         public Vector2 lastPlayerPoint;
         public PlayerController detectedPlayer;
 
-        [Space]
+        [Header("References")]
         public EnemyController enemy;
         public MovementController movement;
         public DetectionController detection;
@@ -30,7 +35,13 @@ namespace Game.AI.Fear
         private static readonly int NeedAvoid = Animator.StringToHash("NeedAvoid");
         private static readonly int HealthValue = Animator.StringToHash("HealthValue");
         private static readonly int DeadTrigger = Animator.StringToHash("Dead");
+        private static readonly int AttackTrigger = Animator.StringToHash("Attack");
 
+        public void Attack()
+        {
+            enemy.Animator.SetTrigger(AttackTrigger);
+        }
+        
         private void OnDetectionChanged(DetectionSample sample)
         {
             if (sample == null || sample.collider == null) return;
@@ -156,6 +167,17 @@ namespace Game.AI.Fear
         {
             Gizmos.color = visiblePlayer ? Color.green : Color.yellow;
             Gizmos.DrawWireSphere(visiblePlayer ? followPlayerPoint : lastPlayerPoint, 0.2f);
+
+            if (patrolPath != null && patrolPath.Length > 1)
+            {
+                for (int i = 0; i < patrolPath.Length - 1; i++)
+                {
+                    if (patrolPath[i] != null && patrolPath[i + 1] != null)
+                    {
+                        Gizmos.DrawLine(patrolPath[i].position, patrolPath[i + 1].position);
+                    } 
+                }
+            }
         }
     }
 }
