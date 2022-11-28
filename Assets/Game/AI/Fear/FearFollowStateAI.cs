@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
 
-namespace Game.Dev.AI
+namespace Game.AI.Fear
 {
-    public class FollowStateAI : BaseStateAI
+    public class FearFollowStateAI : FearStateAI
     {
         public float timer = 0f;
         

@@ -9,7 +9,14 @@ namespace Game.Characters
 
         public CharacterControllerBase character;
 
-        public virtual void Kill()
+        public void Kill()
+        {
+            KillInternal();
+            
+            onKilled.Invoke(character);
+        }
+
+        protected virtual void KillInternal()
         {
             character.Stop();
 
@@ -19,8 +26,6 @@ namespace Game.Characters
             }
 
             character.GetComponent<SpriteRenderer>().color = Color.red;
-            
-            onKilled.Invoke(character);
         }
         
         protected virtual void Awake()

@@ -1,16 +1,15 @@
 using System;
-using Game.AI;
 using Game.Characters;
 using Game.Navigations;
 using UnityEngine;
 
-namespace Game.Dev.AI
+namespace Game.AI.Fear
 {
-    public class EnemyAIController : MonoBehaviour
+    public class FearAIController : EnemyAIController
     {
+        [Space]
         [Min(0f)]
         public float periodUpdatePath = 0.1f;
-        public float minDistance = 0.1f;
         public Vector2 initPosition;
         public Vector2 initDirection;
         
@@ -25,9 +24,6 @@ namespace Game.Dev.AI
         public MovementController movement;
         public DetectionController detection;
 
-        [Space]
-        public bool debugMode = false;
-        
         private static readonly int VisiblePlayer = Animator.StringToHash("VisiblePlayer");
         private static readonly int PlayerDetected = Animator.StringToHash("PlayerDetected");
         private static readonly int ReadyAttack = Animator.StringToHash("ReadyAttack");
@@ -138,6 +134,7 @@ namespace Game.Dev.AI
             detection.OnStatusChanged.AddListener(OnDetectionChanged);
             
             enemy.Health.Events.OnValueChanged.AddListener(OnHealthChanged);
+            
             UpdateHealth();
         }
 

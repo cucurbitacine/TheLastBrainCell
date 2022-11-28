@@ -2,11 +2,15 @@
 using UnityEngine;
 using UnityEngine.Animations;
 
-namespace Game.Dev.AI
+namespace Game.AI
 {
-    public class BaseStateAI : StateMachineBehaviour
+    /// <summary>
+    /// Base state behaviour for enemy AI 
+    /// </summary>
+    /// <typeparam name="TEnemyAI"></typeparam>
+    public class BaseStateAI<TEnemyAI> : StateMachineBehaviour where TEnemyAI : EnemyAIController
     {
-        public EnemyAIController ai;
+        public TEnemyAI ai;
 
         private static readonly Dictionary<Animator, string> PreviousStates = new Dictionary<Animator, string>();
         
@@ -15,7 +19,27 @@ namespace Game.Dev.AI
             base.OnStateEnter(animator, stateInfo, layerIndex);
 
             InitState(animator);
+
+            DebugLogOnStateEnter(animator);
+        }
+
+        public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex,
+            AnimatorControllerPlayable controller)
+        {
+            base.OnStateEnter(animator, stateInfo, layerIndex, controller);
+
+            InitState(animator);
             
+            DebugLogOnStateEnter(animator);
+        }
+
+        private void InitState(Component component)
+        {
+            if (ai == null) ai = component.GetComponentInChildren<TEnemyAI>();
+        }
+
+        private void DebugLogOnStateEnter(Animator animator)
+        {
             if (ai.debugMode)
             {
                 var currentState = GetType().Name;
@@ -30,19 +54,6 @@ namespace Game.Dev.AI
             
                 PreviousStates[animator] = currentState;
             }
-        }
-
-        public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex,
-            AnimatorControllerPlayable controller)
-        {
-            base.OnStateEnter(animator, stateInfo, layerIndex, controller);
-
-            InitState(animator);
-        }
-
-        private void InitState(Component component)
-        {
-            if (ai == null) ai = component.GetComponentInChildren<EnemyAIController>();
         }
     }
 }

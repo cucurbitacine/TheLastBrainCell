@@ -1,18 +1,20 @@
 ﻿using UnityEngine;
 
-namespace Game.Dev.AI
+namespace Game.AI.Fear
 {
-    public class AvoidStateAI : BaseStateAI
+    public class FearSearchStateAI : FearStateAI
     {
+        public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+        {
+            base.OnStateEnter(animator, stateInfo, layerIndex);
+            
+            ai.movement.TryFollowToPoint(ai.lastPlayerPoint);
+        }
+
         public override void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
             base.OnStateUpdate(animator, stateInfo, layerIndex);
-
-            if (ai.detectedPlayer == null) return;
             
-            var directionToPlayer = ai.detectedPlayer.position - ai.enemy.position;
-            
-            ai.enemy.Move(-directionToPlayer);
             ai.enemy.View(ai.enemy.MoveSetting.velocity);
         }
 

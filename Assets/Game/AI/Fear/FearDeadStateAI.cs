@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
 
-namespace Game.Dev.AI
+namespace Game.AI.Fear
 {
-    public class DeadStateAI : BaseStateAI
+    public class FearDeadStateAI : FearStateAI
     {
         public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
