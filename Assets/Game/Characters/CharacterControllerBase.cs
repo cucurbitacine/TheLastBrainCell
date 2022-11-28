@@ -66,6 +66,9 @@ namespace Game.Characters
             get => Self.up;
             set => Self.up = value;
         }
+
+        public bool alive => Health.Value > 0;
+        public bool dead => !alive;
         
         public CharacterInfo CharacterInfo => characterInfo??= new CharacterInfo();
 
@@ -106,6 +109,8 @@ namespace Game.Characters
 
             if (JumpSetting.useStamina) Stamina.Value -= JumpSetting.staminaCost;
             
+            JumpSetting.onJumped.Invoke();
+            
             if (_jumpProcess != null) StopCoroutine(_jumpProcess);
             _jumpProcess = StartCoroutine(JumpProcess());
         }
@@ -116,10 +121,26 @@ namespace Game.Characters
 
             if (AttackSetting.useStamina) Stamina.Value -= AttackSetting.staminaCost;
             
+            AttackSetting.onAttacked.Invoke();
+            
             if (_attackProcess != null) StopCoroutine(_attackProcess);
             _attackProcess = StartCoroutine(AttackProcess(attackName));
         }
 
+        public void SetView(Vector2 directionView)
+        {
+            directionView.Normalize();
+            
+            if (directionView.sqrMagnitude <= 0.001f) return;
+
+            ViewSetting.direction = directionView;
+            
+            CharacterInfo.rotationView = Quaternion.LookRotation(Vector3.forward, ViewSetting.direction);
+            
+            Rigidbody.SetRotation(CharacterInfo.rotationView);
+            
+        }
+        
         public virtual bool CanMove()
         {
             return MoveSetting.enabled && !CharacterInfo.isJumping &&

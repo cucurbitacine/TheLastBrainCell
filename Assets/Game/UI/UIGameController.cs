@@ -18,8 +18,8 @@ namespace Game.UI
             gameplayPanel.SetActive(!paused);
             pausePanel.SetActive(paused);
 
-            Cursor.lockState = paused ? CursorLockMode.Confined : CursorLockMode.Locked;
-            Cursor.visible = paused;
+            Cursor.lockState = CursorLockMode.Confined;
+            Cursor.visible = true;
         }
 
         public void Awake()

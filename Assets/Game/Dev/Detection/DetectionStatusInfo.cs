@@ -1,4 +1,5 @@
 using Game.AI;
+using Game.Characters;
 using UnityEngine;
 
 namespace Game.Dev.Detection
@@ -7,7 +8,8 @@ namespace Game.Dev.Detection
     {
         public SpriteRenderer sprite;
         public DetectionController detection;
-        
+        public CharacterControllerBase character;  
+            
         public Color undefined = Color.black;
         public Color detecting = Color.cyan;
         public Color detected = Color.red;
@@ -20,10 +22,18 @@ namespace Game.Dev.Detection
             if (sample.status == DetectionStatus.Detected) sprite.color = detected;
             if (sample.status == DetectionStatus.Losing) sprite.color = losing;
         }
+
+        private void OnCharacterDead()
+        {
+            detection.OnStatusChanged.RemoveListener(OnDetectionChanged);
+            
+            sprite.color = undefined;
+        }
         
         private void OnEnable()
         {
             detection.OnStatusChanged.AddListener(OnDetectionChanged);
+            character.Health.Events.OnValueIsEmpty.AddListener(OnCharacterDead);
         }
 
         private void Start()
@@ -34,6 +44,7 @@ namespace Game.Dev.Detection
         private void OnDisable()
         {
             detection.OnStatusChanged.RemoveListener(OnDetectionChanged);
+            character.Health.Events.OnValueIsEmpty.RemoveListener(OnCharacterDead);
         }
     }
 }

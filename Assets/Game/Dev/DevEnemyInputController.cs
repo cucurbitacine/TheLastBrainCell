@@ -2,13 +2,15 @@ using System;
 using System.Collections.Generic;
 using Game.AI;
 using Game.Characters;
+using Game.Characters.Npc;
+using Game.Characters.Player;
 using Game.Inputs;
 using Game.Navigations;
 using UnityEngine;
 
 namespace Game.Dev
 {
-    public class DevEnemyInputController : InputController<EnemyController>
+    public class DevEnemyInputController : InputController<NpcController>
     {
         [Space]
         [Min(0f)]
