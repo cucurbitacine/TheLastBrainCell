@@ -259,6 +259,10 @@ PrefabInstance:
       propertyPath: m_Radius
       value: 0.45
       objectReference: {fileID: 0}
+    - target: {fileID: 3548813630170235150, guid: bf4255e447255a9499e5a662f073ee9c, type: 3}
+      propertyPath: character
+      value: 
+      objectReference: {fileID: 3432943639883148343}
     - target: {fileID: 3771624728864629764, guid: bf4255e447255a9499e5a662f073ee9c, type: 3}
       propertyPath: m_Sprite
       value: 

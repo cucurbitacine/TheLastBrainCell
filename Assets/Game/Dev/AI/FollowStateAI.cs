@@ -16,17 +16,6 @@ namespace Game.Dev.AI
 
             return playerPosition - directionToPlayer * attackDistance;
         }
-
-        private bool IsReadyAttack()
-        {
-            var distanceToPlayer = Vector2.Distance(ai.enemy.position, ai.detectedPlayer.position);
-            
-            var needStamina = ai.enemy.JumpSetting.staminaCost + ai.enemy.AttackSetting.staminaCost;
-            var totalStamina = ai.enemy.Stamina.Value;
-            
-            return distanceToPlayer <= ai.enemy.JumpSetting.distance &&
-                   needStamina <= totalStamina;
-        }
         
         private void UpdateFollowing()
         {
@@ -55,21 +44,16 @@ namespace Game.Dev.AI
             base.OnStateUpdate(animator, stateInfo, layerIndex);
 
             if (ai.detectedPlayer == null) return;
-            
+
+            if (!ai.visiblePlayer) return;
+
             ai.followPlayerPoint = GetFollowPoint();
 
             var vectorToPlayer = ai.detectedPlayer.position - ai.enemy.position;
                 
             ai.enemy.View(vectorToPlayer);
                 
-            if (IsReadyAttack())
-            {
-                ai.enemy.Animator.SetTrigger(ReadyAttack);
-            }
-            else
-            {
-                UpdateFollowing();
-            }
+            UpdateFollowing();
         }
         
         public override void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
@@ -77,6 +61,8 @@ namespace Game.Dev.AI
             base.OnStateExit(animator, stateInfo, layerIndex);
             
             timer = 0f;
+            
+            ai.movement.StopCharacter();
         }
     }
 }

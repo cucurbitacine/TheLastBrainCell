@@ -66,6 +66,9 @@ namespace Game.Characters
             get => Self.up;
             set => Self.up = value;
         }
+
+        public bool alive => Health.Value > 0;
+        public bool dead => !alive;
         
         public CharacterInfo CharacterInfo => characterInfo??= new CharacterInfo();
 
@@ -124,6 +127,20 @@ namespace Game.Characters
             _attackProcess = StartCoroutine(AttackProcess(attackName));
         }
 
+        public void SetView(Vector2 directionView)
+        {
+            directionView.Normalize();
+            
+            if (directionView.sqrMagnitude <= 0.001f) return;
+
+            ViewSetting.direction = directionView;
+            
+            CharacterInfo.rotationView = Quaternion.LookRotation(Vector3.forward, ViewSetting.direction);
+            
+            Rigidbody.SetRotation(CharacterInfo.rotationView);
+            
+        }
+        
         public virtual bool CanMove()
         {
             return MoveSetting.enabled && !CharacterInfo.isJumping &&

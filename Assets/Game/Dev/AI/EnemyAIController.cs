@@ -25,7 +25,17 @@ namespace Game.Dev.AI
         public MovementController movement;
         public DetectionController detection;
 
-        public void OnDetectionChanged(DetectionSample sample)
+        [Space]
+        public bool debugMode = false;
+        
+        private static readonly int VisiblePlayer = Animator.StringToHash("VisiblePlayer");
+        private static readonly int PlayerDetected = Animator.StringToHash("PlayerDetected");
+        private static readonly int ReadyAttack = Animator.StringToHash("ReadyAttack");
+        private static readonly int NeedAvoid = Animator.StringToHash("NeedAvoid");
+        private static readonly int HealthValue = Animator.StringToHash("HealthValue");
+        private static readonly int DeadTrigger = Animator.StringToHash("Dead");
+
+        private void OnDetectionChanged(DetectionSample sample)
         {
             if (sample == null || sample.collider == null) return;
             
@@ -44,33 +54,73 @@ namespace Game.Dev.AI
             {
                 case DetectionStatus.Undefined:
                     visiblePlayer = false;
-                    enemy.Animator.SetBool(BaseStateAI.VisiblePlayer, false);
-                    enemy.Animator.SetBool(BaseStateAI.PlayerDetected, false);
+                    enemy.Animator.SetBool(VisiblePlayer, false);
+                    enemy.Animator.SetBool(PlayerDetected, false);
                     detectedPlayer = null;
                     break;
                 
                 case DetectionStatus.Detecting:
                     visiblePlayer = true;
-                    enemy.Animator.SetBool(BaseStateAI.VisiblePlayer, true);
-                    enemy.Animator.SetBool(BaseStateAI.PlayerDetected, false);
+                    enemy.Animator.SetBool(VisiblePlayer, true);
+                    enemy.Animator.SetBool(PlayerDetected, false);
                     break;
                 
                 case DetectionStatus.Detected:
                     visiblePlayer = true;
-                    enemy.Animator.SetBool(BaseStateAI.VisiblePlayer, true);
-                    enemy.Animator.SetBool(BaseStateAI.PlayerDetected, true);
+                    enemy.Animator.SetBool(VisiblePlayer, true);
+                    enemy.Animator.SetBool(PlayerDetected, true);
                     break;
                 
                 case DetectionStatus.Losing:
                     visiblePlayer = false;
                     lastPlayerPoint = detectedPlayer.position;
-                    enemy.Animator.SetBool(BaseStateAI.VisiblePlayer, false);
-                    enemy.Animator.SetBool(BaseStateAI.PlayerDetected, true);
+                    enemy.Animator.SetBool(VisiblePlayer, false);
+                    enemy.Animator.SetBool(PlayerDetected, true);
                     break;
                 
                 default:
                     throw new ArgumentOutOfRangeException();
             }
+        }
+
+        private void OnHealthChanged(int diff)
+        {
+            UpdateHealth();
+        }
+
+        private void UpdateHealth()
+        {
+            enemy.Animator.SetInteger(HealthValue, enemy.Health.Value);
+
+            if (enemy.Health.Value == 0) enemy.Animator.SetTrigger(DeadTrigger);
+        }
+        
+        private void UpdateAvoiding()
+        {
+            var needStamina = 0f;
+            needStamina += enemy.JumpSetting.useStamina ? enemy.JumpSetting.staminaCost : 0f;
+            needStamina += enemy.AttackSetting.useStamina ? enemy.AttackSetting.staminaCost : 0f;
+
+            var totalStamina = enemy.Stamina.Value;
+
+            var needAvoid = needStamina > totalStamina;
+            
+            enemy.Animator.SetBool(NeedAvoid, needAvoid);
+        }
+        
+        private void UpdateAttacking()
+        {
+            if (!enemy.Animator.GetBool(VisiblePlayer)) return;
+            
+            var distanceToPlayer = Vector2.Distance(enemy.position, detectedPlayer.position);
+            
+            var needStamina = enemy.JumpSetting.staminaCost + enemy.AttackSetting.staminaCost;
+            var totalStamina = enemy.Stamina.Value;
+            
+            var readyAttack = distanceToPlayer <= enemy.JumpSetting.distance &&
+                              needStamina <= totalStamina;
+
+            enemy.Animator.SetBool(ReadyAttack, readyAttack);
         }
         
         private void Awake()
@@ -86,24 +136,23 @@ namespace Game.Dev.AI
         private void OnEnable()
         {
             detection.OnStatusChanged.AddListener(OnDetectionChanged);
+            
+            enemy.Health.Events.OnValueChanged.AddListener(OnHealthChanged);
+            UpdateHealth();
         }
 
         private void Update()
         {
-            var needStamina = 0f;
-            needStamina += enemy.JumpSetting.useStamina ? enemy.JumpSetting.staminaCost : 0f;
-            needStamina += enemy.AttackSetting.useStamina ? enemy.AttackSetting.staminaCost : 0f;
+            UpdateAvoiding();
 
-            var totalStamina = enemy.Stamina.Value;
-
-            var needAvoid = needStamina > totalStamina;
-            
-            enemy.Animator.SetBool(BaseStateAI.NeedAvoid, needAvoid);
+            UpdateAttacking();
         }
 
         private void OnDisable()
         {
             detection.OnStatusChanged.RemoveListener(OnDetectionChanged);
+            
+            enemy.Health.Events.OnValueChanged.RemoveListener(OnHealthChanged);
         }
 
         private void OnDrawGizmos()

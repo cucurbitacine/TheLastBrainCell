@@ -410,6 +410,10 @@ PrefabInstance:
       propertyPath: m_Radius
       value: 0.55
       objectReference: {fileID: 0}
+    - target: {fileID: 3548813630170235150, guid: bf4255e447255a9499e5a662f073ee9c, type: 3}
+      propertyPath: character
+      value: 
+      objectReference: {fileID: 5211959755933356953}
     - target: {fileID: 3771624728864629764, guid: bf4255e447255a9499e5a662f073ee9c, type: 3}
       propertyPath: m_SortingLayer
       value: 1
@@ -459,6 +463,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   periodUpdatePath: 0.1
   minDistance: 0.1
+  initPosition: {x: 0, y: 0}
+  initDirection: {x: 0, y: 0}
   visiblePlayer: 0
   followPlayerPoint: {x: 0, y: 0}
   lastPlayerPoint: {x: 0, y: 0}
@@ -466,6 +472,7 @@ MonoBehaviour:
   enemy: {fileID: 0}
   movement: {fileID: 0}
   detection: {fileID: 0}
+  debugMode: 0
 --- !u!114 &3877088560672774931 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 9188880266458620370, guid: bf4255e447255a9499e5a662f073ee9c, type: 3}

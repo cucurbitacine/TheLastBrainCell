@@ -301,6 +301,10 @@ PrefabInstance:
       propertyPath: maxValue
       value: 100
       objectReference: {fileID: 0}
+    - target: {fileID: 4925418661528466943, guid: dc4f3371c13b5134dad0e3ea5446a825, type: 3}
+      propertyPath: moveSetting.ableWhileAttack
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5196198447088497860, guid: dc4f3371c13b5134dad0e3ea5446a825, type: 3}
       propertyPath: m_RootOrder
       value: 3

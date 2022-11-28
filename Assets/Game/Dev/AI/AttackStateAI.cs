@@ -9,9 +9,11 @@ namespace Game.Dev.AI
             base.OnStateEnter(animator, stateInfo, layerIndex);
 
             if (ai.detectedPlayer == null) return;
+
+            var vector = ai.detectedPlayer.position - ai.enemy.position;
             
-            ai.enemy.direction = (ai.detectedPlayer.position - ai.enemy.position).normalized;
-            
+            ai.enemy.SetView(vector);
+
             ai.enemy.Jump();
             
             ai.enemy.Attack("attack");
