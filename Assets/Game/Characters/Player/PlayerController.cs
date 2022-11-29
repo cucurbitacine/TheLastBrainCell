@@ -5,20 +5,10 @@ namespace Game.Characters.Player
 {
     public class PlayerController : CharacterControllerBase
     {
-        public string AttackMeleeName => "attack_meleeSimple";
-        public string AttackMeleeNameDelay => "attack_meleeSimpleDelay";
-        
         protected override IEnumerator AttackProcess(string attackStateName)
         {
             Animator.Play(attackStateName);
 
-            var needChange = MoveSetting.ableWhileAttack && string.Equals(attackStateName, AttackMeleeNameDelay);
-            
-            if (needChange)
-            {
-                MoveSetting.ableWhileAttack = false;
-            }
-            
             yield return new WaitForEndOfFrame();
             CharacterInfo.isAttacking = true;
             
@@ -27,11 +17,6 @@ namespace Game.Characters.Player
             
             yield return new WaitForEndOfFrame();
             CharacterInfo.isAttacking = false;
-            
-            if (needChange)
-            {
-                MoveSetting.ableWhileAttack = true;
-            }
         }
     }
 }

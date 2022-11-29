@@ -1,7 +1,5 @@
-using System;
-using System.Collections.Generic;
-using Game.Characters;
 using Game.Characters.Player;
+using Game.Inputs.Combos;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using CallbackContext = UnityEngine.InputSystem.InputAction.CallbackContext;
@@ -10,6 +8,8 @@ namespace Game.Inputs
 {
     public class PlayerInputController : InputController<PlayerController>
     {
+        public ComboController comboController;
+        
         [Space]
         public InputAction moveAction;
         public InputAction jumpAction;
@@ -35,11 +35,10 @@ namespace Game.Inputs
         {
             if (ctx.ReadValueAsButton())
             {
-                var attackName = Character.CharacterInfo.isJumping
-                    ? Character.AttackMeleeNameDelay
-                    : Character.AttackMeleeName;
-                
-                Character.Attack(attackName);
+                if (comboController.Attack(out var attackName))
+                {
+                    Character.Attack(attackName); 
+                }
             }
         }
 

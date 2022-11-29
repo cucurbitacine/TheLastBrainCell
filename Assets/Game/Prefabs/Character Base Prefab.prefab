@@ -948,8 +948,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 261ea6562b784fc29a81228454ad56fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  value: 30
-  maxValue: 30
+  value: 3
+  maxValue: 3
   valueEvents:
     onValueChanged:
       m_PersistentCalls:
@@ -974,7 +974,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   recoveryActive: 1
   recoveryAmount: 1
-  recoveryPeriod: 0.2
+  recoveryPeriod: 2
   intBehaviour: {fileID: 2952075610138768241}
 --- !u!1 &6822606845226993604
 GameObject:

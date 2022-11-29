@@ -35,14 +35,14 @@ namespace Game.Dev.Damage
         {
             _healthFillAmount = (float)character.Health.Value / character.Health.MaxValue;
 
-            healthText.text = $"{character.Health.Value} / {character.Health.MaxValue}";
+            healthText.text = $"{character.Health.Value}";
         }
 
         private void StaminaUpdate()
         {
             _staminaFillAmount = (float)character.Stamina.Value / character.Stamina.MaxValue;
             
-            staminaText.text = $"{character.Stamina.Value / 10} / {character.Stamina.MaxValue / 10}";
+            staminaText.text = $"{character.Stamina.Value}";
         }
 
         private void HealthChanged(int value)
