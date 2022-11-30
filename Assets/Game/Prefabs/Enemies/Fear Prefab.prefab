@@ -59,6 +59,10 @@ PrefabInstance:
       propertyPath: character
       value: 
       objectReference: {fileID: 1776936197310489343}
+    - target: {fileID: 8895930165278931919, guid: c7a273c04e136f74eb6706eadf0f2b8b, type: 3}
+      propertyPath: character
+      value: 
+      objectReference: {fileID: 1776936197310489343}
     - target: {fileID: 9087378798608080581, guid: c7a273c04e136f74eb6706eadf0f2b8b, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -93,9 +97,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 010613c2872ee6a4c9b005df21af615d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  character: {fileID: 1776936197310489343}
   debugMode: 0
+  npc: {fileID: 0}
   periodUpdatePath: 0.1
+  attackDelay: 0.5
+  patrolStayDuration: 5
+  indexPatrol: 0
   patrolPath: []
   initPosition: {x: 0, y: 0}
   initDirection: {x: 0, y: 0}
@@ -157,7 +164,7 @@ MonoBehaviour:
     speed: 12
     distance: 4
     useStamina: 1
-    staminaCost: 10
+    staminaCost: 1
     onJumped:
       m_PersistentCalls:
         m_Calls: []
@@ -165,7 +172,7 @@ MonoBehaviour:
     enabled: 1
     ableWhileAttack: 0
     useStamina: 1
-    staminaCost: 10
+    staminaCost: 1
     onAttacked:
       m_PersistentCalls:
         m_Calls: []

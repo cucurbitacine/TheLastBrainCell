@@ -1,3 +1,4 @@
+using Game.AI;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -26,6 +27,10 @@ namespace Game.Characters
             }
 
             character.GetComponent<SpriteRenderer>().color = Color.red;
+
+            var ai = character.GetComponentInChildren<NpcAIController>();
+
+            if (ai != null) ai.enabled = false;
         }
         
         protected virtual void Awake()

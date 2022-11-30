@@ -11,7 +11,9 @@ namespace Game.Dev.Damage
         public float durationDefault = 0.2f;
 
         [Space]
-        public CinemachineVirtualCamera virtualCamera;
+        public CinemachineBrain brainCamera;
+
+        public CinemachineVirtualCamera virtualCamera => (CinemachineVirtualCamera)brainCamera.ActiveVirtualCamera;
 
         private Coroutine _shaking;
 
@@ -30,17 +32,6 @@ namespace Game.Dev.Damage
 
         private IEnumerator Shaking(float intensity, float duration)
         {
-            if (virtualCamera == null)
-            {
-                var activeVirtualCamera = FindObjectOfType<CinemachineBrain>().ActiveVirtualCamera;
-                if (activeVirtualCamera is CinemachineVirtualCamera cam)
-                {
-                    virtualCamera = cam;
-                }
-
-                if (virtualCamera == null) yield break;
-            }
-
             var noise = virtualCamera.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
 
             noise.m_AmplitudeGain = intensity;
