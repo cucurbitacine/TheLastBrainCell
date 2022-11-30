@@ -2,7 +2,7 @@
 
 namespace Game.AI.Fear
 {
-    public class FearFollowStateAI : FearStateAI
+    public class FearFollowState : FearAIState
     {
         private float _timer = 0f;
         

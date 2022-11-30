@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Game.AI.Fear
 {
-    public class FearPrepareAttackStateAI : FearStateAI
+    public class FearPrepareAttackState : FearAIState
     {
         private Coroutine _attacking;
         

@@ -5,7 +5,7 @@ namespace Game.Characters.Npc
 {
     public class FearController : NpcController
     {
-        protected override IEnumerator AttackProcess(string attackStateName)
+        protected override IEnumerator AttackProcess(string attackName)
         {
             CharacterInfo.isAttacking = true;
             

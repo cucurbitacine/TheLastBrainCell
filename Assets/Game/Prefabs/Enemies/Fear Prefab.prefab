@@ -99,6 +99,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   debugMode: 0
   npc: {fileID: 0}
+  movement: {fileID: 0}
+  detection: {fileID: 0}
+  visiblePlayer: 0
+  followPlayerPoint: {x: 0, y: 0}
+  lastPlayerPoint: {x: 0, y: 0}
+  detectedPlayer: {fileID: 0}
   periodUpdatePath: 0.1
   attackDelay: 0.5
   patrolStayDuration: 5
@@ -106,12 +112,6 @@ MonoBehaviour:
   patrolPath: []
   initPosition: {x: 0, y: 0}
   initDirection: {x: 0, y: 0}
-  visiblePlayer: 0
-  followPlayerPoint: {x: 0, y: 0}
-  lastPlayerPoint: {x: 0, y: 0}
-  detectedPlayer: {fileID: 0}
-  movement: {fileID: 0}
-  detection: {fileID: 0}
 --- !u!114 &5199592529632548248 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7114767444754237872, guid: c7a273c04e136f74eb6706eadf0f2b8b, type: 3}

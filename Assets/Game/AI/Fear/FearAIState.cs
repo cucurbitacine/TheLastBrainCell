@@ -3,7 +3,7 @@
     /// <summary>
     /// Base fear AI state behaviour  
     /// </summary>
-    public abstract class FearStateAI : BaseStateAI<FearAIController>
+    public abstract class FearAIState : NpcAIState<FearAIController>
     {
         
     }

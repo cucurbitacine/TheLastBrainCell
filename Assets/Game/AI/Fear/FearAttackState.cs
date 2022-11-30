@@ -2,7 +2,7 @@
 
 namespace Game.AI.Fear
 {
-    public class FearAttackStateAI : FearStateAI
+    public class FearAttackState : FearAIState
     {
         public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
@@ -16,7 +16,7 @@ namespace Game.AI.Fear
 
             ai.npc.Jump();
             
-            ai.npc.Attack("attack");
+            ai.npc.Attack("fear_meleeAttack");
         }
     }
 }

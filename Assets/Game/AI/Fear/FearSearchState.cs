@@ -2,7 +2,7 @@
 
 namespace Game.AI.Fear
 {
-    public class FearSearchStateAI : FearStateAI
+    public class FearSearchState : FearAIState
     {
         public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {

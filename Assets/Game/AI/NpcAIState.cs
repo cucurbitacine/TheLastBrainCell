@@ -8,7 +8,7 @@ namespace Game.AI
     /// Base state behaviour for npc AI 
     /// </summary>
     /// <typeparam name="TNpcAI"></typeparam>
-    public class BaseStateAI<TNpcAI> : StateMachineBehaviour
+    public class NpcAIState<TNpcAI> : StateMachineBehaviour
         where TNpcAI : NpcAIController
     {
         public TNpcAI ai;

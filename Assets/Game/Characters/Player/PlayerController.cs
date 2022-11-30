@@ -5,9 +5,9 @@ namespace Game.Characters.Player
 {
     public class PlayerController : CharacterControllerBase
     {
-        protected override IEnumerator AttackProcess(string attackStateName)
+        protected override IEnumerator AttackProcess(string attackName)
         {
-            Animator.Play(attackStateName);
+            Animator.Play(attackName);
 
             yield return new WaitForEndOfFrame();
             CharacterInfo.isAttacking = true;

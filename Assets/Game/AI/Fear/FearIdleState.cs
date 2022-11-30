@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Game.AI.Fear
 {
-    public class FearIdleStateAI : FearStateAI
+    public class FearIdleState : FearAIState
     {
         private Coroutine _goingToNextPoint;
         
