@@ -18,7 +18,11 @@ namespace Game.UI
             gameplayPanel.SetActive(!paused);
             pausePanel.SetActive(paused);
 
+#if !UNITY_EDITOR
             Cursor.lockState = CursorLockMode.Confined;
+#else
+            Cursor.lockState = CursorLockMode.None;
+#endif
             Cursor.visible = true;
         }
 

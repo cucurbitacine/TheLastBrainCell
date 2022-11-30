@@ -2,7 +2,7 @@ using Cinemachine;
 using Game.Characters.Player;
 using UnityEngine;
 
-namespace Game.Dev
+namespace Game.Services
 {
     public class CameraZone : MonoBehaviour
     {
@@ -12,13 +12,12 @@ namespace Game.Dev
         public CinemachineBrain brain;
         public CinemachineVirtualCamera virtualCamera;
 
-        private ICinemachineCamera _previousCamera;
-        private int _previousPriority;
-
         private void Awake()
         {
             if (brain == null) brain = FindObjectOfType<CinemachineBrain>();
             if (virtualCamera == null) virtualCamera = GetComponent<CinemachineVirtualCamera>();
+
+            virtualCamera.enabled = false;
         }
 
         private void OnTriggerEnter2D(Collider2D other)
@@ -29,11 +28,7 @@ namespace Game.Dev
 
             if (player == null) return;
 
-            _previousCamera = brain.ActiveVirtualCamera;
-            _previousPriority = _previousCamera.Priority;
-
-            _previousCamera.Priority = 0;
-            virtualCamera.Priority = _previousPriority;
+            virtualCamera.enabled = true;
         }
 
         private void OnTriggerExit2D(Collider2D other)
@@ -44,9 +39,7 @@ namespace Game.Dev
 
             player = null;
 
-            virtualCamera.Priority = 0;
-
-            _previousCamera.Priority = _previousPriority;
+            virtualCamera.enabled = false;
         }
     }
 }
