@@ -4,7 +4,7 @@ using UnityEngine.Events;
 
 namespace Game.Characters
 {
-    public class CharacterKiller : MonoBehaviour
+    public class DeathController : MonoBehaviour
     {
         public UnityEvent<CharacterControllerBase> onKilled;
 

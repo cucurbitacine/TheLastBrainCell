@@ -4,7 +4,7 @@ using Random = UnityEngine.Random;
 
 namespace Game.Audios
 {
-    public class AudioSFX : MonoBehaviour
+    public class AudioSfx : MonoBehaviour
     {
         [Min(0)]
         public int indexClip = 0;

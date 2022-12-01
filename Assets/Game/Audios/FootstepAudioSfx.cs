@@ -3,11 +3,12 @@ using UnityEngine;
 
 namespace Game.Audios
 {
-    public class FootstepAudioSFX : MonoBehaviour
+    public class FootstepAudioSfx : MonoBehaviour
     {
-        public AudioSFX sfx;
+        public AudioSfx sfx;
         public CharacterControllerBase character;
 
+        [Space]
         public float timer = 0f;
         public float period = 1f;
         
@@ -36,7 +37,7 @@ namespace Game.Audios
         
         private void Awake()
         {
-            if (sfx == null) sfx = GetComponentInParent<AudioSFX>();
+            if (sfx == null) sfx = GetComponentInParent<AudioSfx>();
             if (character == null) character = GetComponentInParent<CharacterControllerBase>();
         }
 

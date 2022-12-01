@@ -56,16 +56,12 @@ namespace Game.Characters.Npc
         {
             if (!settings.layers.Contains(col.gameObject.layer)) return;
             
-            Debug.Log($"{name} collision with {col.gameObject.name}");
-
             Stop();
         }
         
         private void OnTriggerEnter2D(Collider2D col)
         {
             if (!settings.layers.Contains(col.gameObject.layer)) return;
-            
-            Debug.Log($"{name} trigger with {col.gameObject.name}");
             
             Stop();
         }

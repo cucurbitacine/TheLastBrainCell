@@ -36,7 +36,9 @@ namespace Game.Characters
         [Space]
         public Vector2 direction = Vector2.zero;
 
-        public Vector2 velocity => direction * speedMax;
+        public float speedScale = 1f;
+        
+        public Vector2 velocity => direction * speedMax * speedScale;
     }
     
     [Serializable]

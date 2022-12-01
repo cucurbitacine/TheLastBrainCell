@@ -15,6 +15,10 @@ PrefabInstance:
       propertyPath: recoveryPeriod
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3632539774205642111, guid: c7a273c04e136f74eb6706eadf0f2b8b, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4026702346889682775, guid: c7a273c04e136f74eb6706eadf0f2b8b, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -67,10 +71,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6210822770699566202, guid: c7a273c04e136f74eb6706eadf0f2b8b, type: 3}
+      propertyPath: character
+      value: 
+      objectReference: {fileID: 3017264861502605538}
     - target: {fileID: 6982810603842651882, guid: c7a273c04e136f74eb6706eadf0f2b8b, type: 3}
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: 6096112b8d83aac469618984af26b4a1, type: 2}
+    - target: {fileID: 7331281263182043454, guid: c7a273c04e136f74eb6706eadf0f2b8b, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7927606000015997651, guid: c7a273c04e136f74eb6706eadf0f2b8b, type: 3}
       propertyPath: character
       value: 
@@ -83,7 +95,9 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: af6a9973e3b564cefa23fe2aeda8a60c, type: 3}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 520362120142259012, guid: c7a273c04e136f74eb6706eadf0f2b8b, type: 3}
+    - {fileID: 8482690407118296186, guid: c7a273c04e136f74eb6706eadf0f2b8b, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: c7a273c04e136f74eb6706eadf0f2b8b, type: 3}
 --- !u!114 &500220880954949505 stripped
 MonoBehaviour:
@@ -186,6 +200,7 @@ MonoBehaviour:
     ableWhileAttack: 0
     damp: 32
     direction: {x: 0, y: 0}
+    speedScale: 1
   viewSetting:
     enabled: 1
     ableWhileAttack: 0
@@ -210,5 +225,10 @@ MonoBehaviour:
         m_Calls: []
   health: {fileID: 500220880954949505}
   stamina: {fileID: 5873732914582908194}
-  missilePrefab: {fileID: 803816568801794106, guid: 690d7932bc4a8064285b3f8b2faa2cc4, type: 3}
+  missileSettings:
+    speed: 8
+    layers:
+      serializedVersion: 2
+      m_Bits: 1
   missileSpawnLocalPoint: {x: 0, y: 0.8}
+  missilePrefab: {fileID: 803816568801794106, guid: 690d7932bc4a8064285b3f8b2faa2cc4, type: 3}

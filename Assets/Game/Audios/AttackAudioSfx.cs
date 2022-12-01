@@ -1,11 +1,11 @@
-using Game.Characters;
+﻿using Game.Characters;
 using UnityEngine;
 
 namespace Game.Audios
 {
-    public class AttackAudioSFX : MonoBehaviour
+    public class AttackAudioSfx : MonoBehaviour
     {
-        public AudioSFX sfx;
+        public AudioSfx sfx;
         public CharacterControllerBase character;
 
         private void OnAttacked()
@@ -15,7 +15,7 @@ namespace Game.Audios
         
         private void Awake()
         {
-            if (sfx == null) sfx = GetComponentInParent<AudioSFX>();
+            if (sfx == null) sfx = GetComponentInParent<AudioSfx>();
             if (character == null) character = GetComponentInParent<CharacterControllerBase>();
         }
 

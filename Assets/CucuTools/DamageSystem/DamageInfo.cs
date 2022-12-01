@@ -10,9 +10,25 @@ namespace CucuTools.DamageSystem
     {
         public int amount;
         public DamageType type;
-        public bool isCritical;
+        public CritInfo crit;
+        public StunInfo stun;
     }
 
+    [Serializable]
+    public struct CritInfo
+    {
+        public bool isOn;
+        public int amount;
+    }
+    
+    [Serializable]
+    public struct StunInfo
+    {
+        public bool isOn;
+        public float duration;
+        public float speedScale;
+    }
+    
     public enum DamageType
     {
         Physical,

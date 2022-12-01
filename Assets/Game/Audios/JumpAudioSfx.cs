@@ -3,9 +3,9 @@ using UnityEngine;
 
 namespace Game.Audios
 {
-    public class JumpAudioSFX : MonoBehaviour
+    public class JumpAudioSfx : MonoBehaviour
     {
-        public AudioSFX sfx;
+        public AudioSfx sfx;
         public CharacterControllerBase character;
 
         private void OnJumped()
@@ -15,7 +15,7 @@ namespace Game.Audios
         
         private void Awake()
         {
-            if (sfx == null) sfx = GetComponentInParent<AudioSFX>();
+            if (sfx == null) sfx = GetComponentInParent<AudioSfx>();
             if (character == null) character = GetComponentInParent<CharacterControllerBase>();
         }
 

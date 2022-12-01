@@ -24,7 +24,7 @@ namespace CucuTools.DamageSystem.Impl
 
         private string DamageMessage(DamageInfo damage)
         {
-            return $"{damage.amount} {damage.type}{(damage.isCritical ? " CRITICAL" : "")}";
+            return $"{damage.amount} {damage.type}{(damage.crit.isOn ? " CRITICAL" : "")}";
         }
 
         private string DamageEventMessage(DamageEvent e)
