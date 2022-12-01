@@ -257,6 +257,54 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sfx: {fileID: 8505634112443044318}
   character: {fileID: 0}
+--- !u!1 &418388872384533128
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4045586566249875430}
+  - component: {fileID: 3785851975658766376}
+  m_Layer: 0
+  m_Name: Damage Vfx
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4045586566249875430
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 418388872384533128}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6911344997440426659}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3785851975658766376
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 418388872384533128}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b3d3dc292dc44341b2a2e4a9bc58a483, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bloodVfx: {fileID: 11400000, guid: 9d6a2af8dd4a3384b906bbccf3ef9e27, type: 2}
+  stunVfx: {fileID: 11400000, guid: fde2d9ed3faf3bf4883a789ac8d1aeb4, type: 2}
+  vfxController: {fileID: 303195432520706986}
+  receiver: {fileID: 4301445266302807718}
 --- !u!1 &591572629578203229
 GameObject:
   m_ObjectHideFlags: 0
@@ -677,6 +725,7 @@ GameObject:
   - component: {fileID: 6911344997440426659}
   - component: {fileID: 2051983420804368059}
   - component: {fileID: 7325263586269227666}
+  - component: {fileID: 303195432520706986}
   m_Layer: 0
   m_Name: Controllers
   m_TagString: Untagged
@@ -697,6 +746,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4610015055367841658}
+  - {fileID: 4045586566249875430}
   m_Father: {fileID: 1034072520814880867}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -732,6 +782,18 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   character: {fileID: 0}
+--- !u!114 &303195432520706986
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3093219986362777762}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1bee020e6224761abea16895cd439b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3734598573196584207
 GameObject:
   m_ObjectHideFlags: 0
