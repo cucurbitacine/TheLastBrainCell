@@ -196,7 +196,7 @@ namespace Game.Characters
             CharacterInfo.isJumping = false;
         }
 
-        protected abstract IEnumerator AttackProcess(string attackStateName);
+        protected abstract IEnumerator AttackProcess(string attackName);
         
         private void UpdateVelocity(float deltaTime)
         {

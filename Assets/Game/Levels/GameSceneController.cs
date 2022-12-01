@@ -4,7 +4,6 @@ using Cinemachine;
 using CucuTools.Attributes;
 using CucuTools.Injects;
 using CucuTools.Scenes;
-using Game.Characters;
 using Game.Characters.Player;
 using UnityEngine;
 using UnityEngine.Events;
@@ -58,8 +57,11 @@ namespace Game.Levels
 
         private void SpawnPlayer()
         {
-            player = Instantiate(playerPrefab, playerSpawnPosition.position, playerSpawnPosition.rotation);
-
+            if (player == null)
+            {
+                player = Instantiate(playerPrefab, playerSpawnPosition.position, playerSpawnPosition.rotation);
+            }
+            
             cameraFollower.Follow = player.transform;
             
             onPlayerSpawned.Invoke(player);
@@ -69,6 +71,8 @@ namespace Game.Levels
         
         private void DespawnPlayer()
         {
+            if (player == null) return;
+            
             cameraFollower.Follow = null;
             
             onPlayerDespawned.Invoke(player);

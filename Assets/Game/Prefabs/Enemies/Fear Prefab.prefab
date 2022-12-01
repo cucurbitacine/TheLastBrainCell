@@ -59,6 +59,14 @@ PrefabInstance:
       propertyPath: character
       value: 
       objectReference: {fileID: 1776936197310489343}
+    - target: {fileID: 6210822770699566202, guid: c7a273c04e136f74eb6706eadf0f2b8b, type: 3}
+      propertyPath: character
+      value: 
+      objectReference: {fileID: 1776936197310489343}
+    - target: {fileID: 6982810603842651882, guid: c7a273c04e136f74eb6706eadf0f2b8b, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 38cf8eea057282243bf989851be897c7, type: 2}
     - target: {fileID: 8895930165278931919, guid: c7a273c04e136f74eb6706eadf0f2b8b, type: 3}
       propertyPath: character
       value: 
@@ -98,7 +106,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   debugMode: 0
-  npc: {fileID: 0}
+  npc: {fileID: 1776936197310489343}
+  movement: {fileID: 8865432572660219729}
+  detection: {fileID: 3351601418402477262}
+  visiblePlayer: 0
+  followPlayerPoint: {x: 0, y: 0}
+  lastPlayerPoint: {x: 0, y: 0}
+  detectedPlayer: {fileID: 0}
   periodUpdatePath: 0.1
   attackDelay: 0.5
   patrolStayDuration: 5
@@ -106,12 +120,17 @@ MonoBehaviour:
   patrolPath: []
   initPosition: {x: 0, y: 0}
   initDirection: {x: 0, y: 0}
-  visiblePlayer: 0
-  followPlayerPoint: {x: 0, y: 0}
-  lastPlayerPoint: {x: 0, y: 0}
-  detectedPlayer: {fileID: 0}
-  movement: {fileID: 0}
-  detection: {fileID: 0}
+--- !u!114 &3351601418402477262 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 294797945683962086, guid: c7a273c04e136f74eb6706eadf0f2b8b, type: 3}
+  m_PrefabInstance: {fileID: 3068097659950783528}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 242845ee27904349bad2ee47cfc7477d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &5199592529632548248 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7114767444754237872, guid: c7a273c04e136f74eb6706eadf0f2b8b, type: 3}
@@ -154,6 +173,7 @@ MonoBehaviour:
     ableWhileAttack: 0
     damp: 32
     direction: {x: 0, y: 0}
+    speedScale: 1
   viewSetting:
     enabled: 1
     ableWhileAttack: 0
@@ -178,3 +198,14 @@ MonoBehaviour:
         m_Calls: []
   health: {fileID: 2259185310064920379}
   stamina: {fileID: 5199592529632548248}
+--- !u!114 &8865432572660219729 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5880651512929330041, guid: c7a273c04e136f74eb6706eadf0f2b8b, type: 3}
+  m_PrefabInstance: {fileID: 3068097659950783528}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b852006b55d34287aa6e6d3f14cb1e3e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

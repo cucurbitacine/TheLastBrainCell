@@ -1,13 +1,23 @@
 using System.Collections;
+using Game.Audios;
 using UnityEngine;
 
 namespace Game.Characters.Player
 {
     public class PlayerController : CharacterControllerBase
     {
-        protected override IEnumerator AttackProcess(string attackStateName)
+        [SerializeField] private PlayerAudioController audioSfx = null;
+
+        public PlayerAudioController Audio => audioSfx ??= GetComponentInChildren<PlayerAudioController>();
+
+        public void PlayWeaponSfx() // for animation call
         {
-            Animator.Play(attackStateName);
+            Audio.weaponSfx.PlayOneShot();
+        }
+        
+        protected override IEnumerator AttackProcess(string attackName)
+        {
+            Animator.Play(attackName);
 
             yield return new WaitForEndOfFrame();
             CharacterInfo.isAttacking = true;

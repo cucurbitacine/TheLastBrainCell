@@ -35,9 +35,9 @@ namespace Game.Inputs
         {
             if (ctx.ReadValueAsButton())
             {
-                if (comboController.Attack(out var attackName))
+                if (Character.CanAttack() && comboController.Attack(out var attackName))
                 {
-                    Character.Attack(attackName); 
+                    Character.Attack(attackName);
                 }
             }
         }
