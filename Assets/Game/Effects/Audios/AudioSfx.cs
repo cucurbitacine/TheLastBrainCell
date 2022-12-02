@@ -2,9 +2,9 @@
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-namespace Game.Audios
+namespace Game.Effects.Audios
 {
-    public class AudioSfx : MonoBehaviour
+    public class AudioSfx : SoundFX
     {
         [Min(0)]
         public int indexClip = 0;
@@ -17,14 +17,11 @@ namespace Game.Audios
         [Space]
         public AudioSource source;
 
-        public void PlayOneShot(AudioClip clip)
-        {
-            if (source == null || clip == null) return;
-            
-            source.PlayOneShot(clip);
-        }
+        #region BaseFx
+
+        public override bool isPlaying => source.isPlaying;
         
-        public void PlayOneShot()
+        public override void Play()
         {
             if (clips == null) return;
 
@@ -36,22 +33,36 @@ namespace Game.Audios
             switch (mode)
             {
                 case AudioSFXMode.Current:
-                    PlayOneShot(clips[indexClip]);
+                    Play(clips[indexClip]);
                     break;
                 case AudioSFXMode.Queue:
-                    PlayOneShot(clips[indexClip]);
+                    Play(clips[indexClip]);
                     indexClip++;
                     if (indexClip >= clips.Length) indexClip = 0;
                     break;
                 case AudioSFXMode.Random:
                     indexClip = Random.Range(0, clips.Length);
-                    PlayOneShot(clips[indexClip]);
+                    Play(clips[indexClip]);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
             }
         }
 
+        public override void Stop()
+        {
+            source.Stop();
+        }
+
+        #endregion
+        
+        public void Play(AudioClip clip)
+        {
+            if (source == null || clip == null) return;
+            
+            source.PlayOneShot(clip);
+        }
+        
         private void OnValidate()
         {
             if (clips != null) indexClip = Mathf.Clamp(indexClip, 0, clips.Length);

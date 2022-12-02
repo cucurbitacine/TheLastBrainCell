@@ -1,6 +1,7 @@
+using Game.Effects.Audios;
 using UnityEngine;
 
-namespace Game.Audios
+namespace Game.Characters.Player
 {
     public class PlayerAudioController : MonoBehaviour
     {

@@ -1,38 +1,38 @@
-﻿using System;
-using CucuTools.DamageSystem;
+﻿using CucuTools.DamageSystem;
+using Game.Effects;
 using UnityEngine;
 
-namespace Game.Dev.VisualEffects
+namespace Game.Characters.Tools
 {
     public class DamageVfx : MonoBehaviour
     {
-        public VfxTemplate bloodVfx;
-        public VfxTemplate stunVfx;
+        public FxTemplate bloodFx;
+        public FxTemplate stunFx;
         
         [Space]
-        public VfxController vfxController;
+        public FxController fxController;
         public DamageReceiver receiver;
 
         private void OnDamageReceived(DamageEvent e)
         {
-            if (bloodVfx == null) return;
+            if (bloodFx == null) return;
             
             if (e.receiver != receiver) return;
 
             if (e.damage.type == DamageType.Physical && e.damage.amount > 0)
             {
-                vfxController.Play(bloodVfx, transform.position, transform.rotation);
+                fxController.Play(bloodFx, transform.position, transform.rotation);
             }
 
             if (e.damage.stun.isOn)
             {
-                vfxController.Play(stunVfx);
+                fxController.Play(stunFx);
             }
         }
 
         private void Awake()
         {
-            if (vfxController == null) vfxController = GetComponentInParent<VfxController>();
+            if (fxController == null) fxController = GetComponentInParent<FxController>();
             if (receiver == null) receiver = GetComponentInParent<DamageReceiver>();
         }
 

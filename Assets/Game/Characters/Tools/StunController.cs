@@ -1,9 +1,8 @@
 ﻿using System.Collections;
-using Game.Characters;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace Game.PowerUps
+namespace Game.Characters.Tools
 {
     public class StunController : MonoBehaviour
     {

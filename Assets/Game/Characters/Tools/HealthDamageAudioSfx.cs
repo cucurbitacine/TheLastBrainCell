@@ -1,16 +1,16 @@
-﻿using Game.Characters;
+﻿using Game.Effects.Audios;
 using UnityEngine;
 
-namespace Game.Audios
+namespace Game.Characters.Tools
 {
-    public class AttackAudioSfx : MonoBehaviour
+    public class HealthDamageAudioSfx : MonoBehaviour
     {
         public AudioSfx sfx;
         public CharacterControllerBase character;
 
-        private void OnAttacked()
+        private void OnHealthDamaged(int damage)
         {
-            sfx.PlayOneShot();
+            if (damage < 0) sfx.Play();
         }
         
         private void Awake()
@@ -21,12 +21,12 @@ namespace Game.Audios
 
         private void OnEnable()
         {
-            character.AttackSetting.onAttacked.AddListener(OnAttacked);
+            character.Health.Events.OnValueChanged.AddListener(OnHealthDamaged);
         }
 
         private void OnDisable()
         {
-            character.AttackSetting.onAttacked.RemoveListener(OnAttacked);
+            character.Health.Events.OnValueChanged.RemoveListener(OnHealthDamaged);
         }
     }
 }

@@ -1,7 +1,7 @@
 using CucuTools.DamageSystem;
 using UnityEngine;
 
-namespace Game.PowerUps
+namespace Game.Characters.Tools
 {
     public class DamageStunReceiver : MonoBehaviour
     {

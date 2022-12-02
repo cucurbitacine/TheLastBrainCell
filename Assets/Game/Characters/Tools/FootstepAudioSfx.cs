@@ -1,7 +1,7 @@
-﻿using Game.Characters;
+﻿using Game.Effects.Audios;
 using UnityEngine;
 
-namespace Game.Audios
+namespace Game.Characters.Tools
 {
     public class FootstepAudioSfx : MonoBehaviour
     {
@@ -14,7 +14,7 @@ namespace Game.Audios
         
         private void OnStep()
         {
-            sfx.PlayOneShot();
+            sfx.Play();
         }
 
         private void UpdateStep(float deltaTime)

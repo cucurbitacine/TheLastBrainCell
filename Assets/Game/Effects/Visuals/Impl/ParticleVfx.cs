@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
 
-namespace Game.Dev.VisualEffects
+namespace Game.Effects.Visuals.Impl
 {
-    public class ParticleVfx : BaseVfx
+    public class ParticleVfx : VisualFX
     {
         public ParticleSystem particle;
 

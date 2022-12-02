@@ -1,7 +1,7 @@
-﻿using Game.Characters;
+﻿using Game.Effects.Audios;
 using UnityEngine;
 
-namespace Game.Audios
+namespace Game.Characters.Tools
 {
     public class JumpAudioSfx : MonoBehaviour
     {
@@ -10,7 +10,7 @@ namespace Game.Audios
 
         private void OnJumped()
         {
-            sfx.PlayOneShot();
+            sfx.Play();
         }
         
         private void Awake()

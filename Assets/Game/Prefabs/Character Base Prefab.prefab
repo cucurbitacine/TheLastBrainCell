@@ -301,9 +301,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3d3dc292dc44341b2a2e4a9bc58a483, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bloodVfx: {fileID: 11400000, guid: 9d6a2af8dd4a3384b906bbccf3ef9e27, type: 2}
-  stunVfx: {fileID: 11400000, guid: fde2d9ed3faf3bf4883a789ac8d1aeb4, type: 2}
-  vfxController: {fileID: 303195432520706986}
+  bloodFx: {fileID: 11400000, guid: 9d6a2af8dd4a3384b906bbccf3ef9e27, type: 2}
+  stunFx: {fileID: 11400000, guid: fde2d9ed3faf3bf4883a789ac8d1aeb4, type: 2}
+  fxController: {fileID: 303195432520706986}
   receiver: {fileID: 4301445266302807718}
 --- !u!1 &591572629578203229
 GameObject:
@@ -794,6 +794,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1bee020e6224761abea16895cd439b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isSingleton: 0
 --- !u!1 &3734598573196584207
 GameObject:
   m_ObjectHideFlags: 0
@@ -1297,7 +1298,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6822606845226993604}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a97c5055d8c94f64a6eba117cd4d508b, type: 3}
   m_Name: 

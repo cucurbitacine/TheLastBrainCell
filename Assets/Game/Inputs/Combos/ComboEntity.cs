@@ -3,9 +3,13 @@ using UnityEngine;
 
 namespace Game.Inputs.Combos
 {
-    [CreateAssetMenu(menuName = "Create ComboController", fileName = "ComboController", order = 0)]
+    [CreateAssetMenu(menuName = menuName, fileName = fileName, order = 0)]
     public class ComboEntity : ScriptableObject
     {
+        public const string title = "Combo system";
+        public const string menuName = GameManager.title + "/" + title + "/Create " + fileName;
+        public const string fileName = nameof(ComboEntity);
+        
         [CucuReadOnly]
         public int max;
         
