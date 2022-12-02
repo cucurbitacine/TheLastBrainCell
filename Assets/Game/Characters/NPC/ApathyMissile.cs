@@ -1,6 +1,7 @@
 using System;
 using CucuTools;
 using CucuTools.Attributes;
+using Game.Effects;
 using UnityEngine;
 
 namespace Game.Characters.Npc
@@ -10,6 +11,10 @@ namespace Game.Characters.Npc
     {
         public bool active = false;
         public ApathyMissileSettings settings = new ApathyMissileSettings();
+
+        [Space]
+        public FxTemplate hitFx;
+        public FxController fxController;
         
         public Vector2 direction => transform.TransformDirection(localDirection);
         public Vector2 localDirection => Vector2.up;
@@ -19,6 +24,8 @@ namespace Game.Characters.Npc
         [CucuButton()]
         public void Fire()
         {
+            gameObject.SetActive(true);
+            
             active = true;
         }
 
@@ -30,13 +37,15 @@ namespace Game.Characters.Npc
         }
         
         [CucuButton()]
-        public void Stop()
+        public void Hit()
         {
             active = false;
             
             _rigidbody.velocity = Vector2.zero;
             
             gameObject.SetActive(false);
+            
+            fxController.Play(hitFx, transform.position, transform.rotation);
         }
         
         private void Awake()
@@ -56,14 +65,14 @@ namespace Game.Characters.Npc
         {
             if (!settings.layers.Contains(col.gameObject.layer)) return;
             
-            Stop();
+            Hit();
         }
         
         private void OnTriggerEnter2D(Collider2D col)
         {
             if (!settings.layers.Contains(col.gameObject.layer)) return;
             
-            Stop();
+            Hit();
         }
     }
 

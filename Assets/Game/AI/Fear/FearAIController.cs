@@ -46,6 +46,8 @@ namespace Game.AI.Fear
                 
                 return;
             }
+
+            if (detectedPlayer == null) return;
             
             var distanceToPlayer = Vector2.Distance(npc.position, detectedPlayer.position);
             

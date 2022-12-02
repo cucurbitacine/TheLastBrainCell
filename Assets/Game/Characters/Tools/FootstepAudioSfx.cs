@@ -19,7 +19,7 @@ namespace Game.Characters.Tools
 
         private void UpdateStep(float deltaTime)
         {
-            if (character.CharacterInfo.isMoving && !character.CharacterInfo.isJumping)
+            if (character.Info.isMoving && !character.Info.isJumping)
             {
                 if (timer <= 0f)
                 {

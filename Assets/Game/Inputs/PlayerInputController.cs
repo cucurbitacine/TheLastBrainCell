@@ -30,14 +30,26 @@ namespace Game.Inputs
         {
             if (ctx.ReadValueAsButton()) Character.Jump();
         }
+
+        public string jumpAttack = "player_jumpAttack";
         
         private void AttackHandle(CallbackContext ctx)
         {
             if (ctx.ReadValueAsButton())
             {
-                if (Character.CanAttack() && comboController.Attack(out var attackName))
+                if (Character.Info.isJumping)
                 {
-                    Character.Attack(attackName);
+                    Character.Attack(jumpAttack);
+                }
+                else
+                {
+                    if (Character.CanAttack())
+                    {
+                        if (comboController.Attack(out var attackName))
+                        {
+                            Character.Attack(attackName);
+                        }
+                    }
                 }
             }
         }

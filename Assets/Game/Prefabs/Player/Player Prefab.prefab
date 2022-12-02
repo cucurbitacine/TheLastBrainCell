@@ -157,7 +157,7 @@ Transform:
   m_Children:
   - {fileID: 4482802163269949918}
   m_Father: {fileID: 2247001977207932868}
-  m_RootOrder: 5
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 180}
 --- !u!114 &7344413773706207854
 MonoBehaviour:
@@ -189,10 +189,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 8679327127655989, guid: bf4255e447255a9499e5a662f073ee9c, type: 3}
-      propertyPath: m_RootOrder
-      value: 4
-      objectReference: {fileID: 0}
     - target: {fileID: 150169929188559289, guid: bf4255e447255a9499e5a662f073ee9c, type: 3}
       propertyPath: m_Layer
       value: 6
@@ -309,10 +305,6 @@ PrefabInstance:
       propertyPath: m_SortingLayerID
       value: -1421313785
       objectReference: {fileID: 0}
-    - target: {fileID: 4323853552589672934, guid: bf4255e447255a9499e5a662f073ee9c, type: 3}
-      propertyPath: m_RootOrder
-      value: 3
-      objectReference: {fileID: 0}
     - target: {fileID: 4659911590851635895, guid: bf4255e447255a9499e5a662f073ee9c, type: 3}
       propertyPath: panLevelCustomCurve.m_Curve.Array.data[0].value
       value: 0
@@ -337,17 +329,13 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 6
       objectReference: {fileID: 0}
-    - target: {fileID: 5681970845096666136, guid: bf4255e447255a9499e5a662f073ee9c, type: 3}
-      propertyPath: m_RootOrder
+    - target: {fileID: 5755231109525172267, guid: bf4255e447255a9499e5a662f073ee9c, type: 3}
+      propertyPath: m_Layer
       value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 6228928991305562455, guid: bf4255e447255a9499e5a662f073ee9c, type: 3}
       propertyPath: panLevelCustomCurve.m_Curve.Array.data[0].value
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6801510835980121304, guid: bf4255e447255a9499e5a662f073ee9c, type: 3}
-      propertyPath: m_RootOrder
-      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7325263586269227666, guid: bf4255e447255a9499e5a662f073ee9c, type: 3}
       propertyPath: character
@@ -361,13 +349,21 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8800247487476523569, guid: bf4255e447255a9499e5a662f073ee9c, type: 3}
+      propertyPath: m_SortingLayer
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8800247487476523569, guid: bf4255e447255a9499e5a662f073ee9c, type: 3}
+      propertyPath: m_SortingLayerID
+      value: -1421313785
+      objectReference: {fileID: 0}
     - target: {fileID: 9188880266458620370, guid: bf4255e447255a9499e5a662f073ee9c, type: 3}
       propertyPath: value
-      value: 6
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 9188880266458620370, guid: bf4255e447255a9499e5a662f073ee9c, type: 3}
       propertyPath: maxValue
-      value: 6
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 4608250665609408187, guid: bf4255e447255a9499e5a662f073ee9c, type: 3}
@@ -394,7 +390,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   recoveryActive: 1
   recoveryAmount: 1
-  recoveryPeriod: 3
+  recoveryPeriod: 10
+  resetOnChange: 1
   intBehaviour: {fileID: 7994525907964481141}
 --- !u!4 &2247001977207932868 stripped
 Transform:
@@ -419,7 +416,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enable: 1
-  characterInfo:
+  info:
     isMoving: 0
     isJumping: 0
     isAttacking: 0
@@ -622,6 +619,7 @@ MonoBehaviour:
       m_Action: Mouse
       m_Flags: 0
     m_Flags: 0
+  jumpAttack: player_jumpAttack
 --- !u!114 &5299125088107017767
 MonoBehaviour:
   m_ObjectHideFlags: 0
