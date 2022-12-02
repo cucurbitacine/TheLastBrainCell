@@ -7,12 +7,12 @@ namespace Game.Characters.Npc
     {
         protected override IEnumerator AttackProcess(string attackName)
         {
-            CharacterInfo.isAttacking = true;
+            Info.isAttacking = true;
             
             var duration = Animator.GetCurrentAnimatorStateInfo(0).length;
             yield return new WaitForSeconds(duration);
             
-            CharacterInfo.isAttacking = false;
+            Info.isAttacking = false;
         }
     }
 }

@@ -10,7 +10,7 @@ namespace Game.Characters
         
         [SerializeField] private bool enable = true;
         [Space]
-        [SerializeField] private CharacterInfo characterInfo = null;
+        [SerializeField] private CharacterInfo info = null;
         
         [Header("Settings")]
         
@@ -69,8 +69,8 @@ namespace Game.Characters
 
         public bool alive => Health.Value > 0;
         public bool dead => !alive;
-        
-        public CharacterInfo CharacterInfo => characterInfo??= new CharacterInfo();
+
+        public CharacterInfo Info => info ??= new CharacterInfo();
 
         public MoveSetting MoveSetting => moveSetting ??= new MoveSetting();
         public ViewSetting ViewSetting => viewSetting ??= new ViewSetting();
@@ -135,36 +135,36 @@ namespace Game.Characters
 
             ViewSetting.direction = directionView;
             
-            CharacterInfo.rotationView = Quaternion.LookRotation(Vector3.forward, ViewSetting.direction);
+            Info.rotationView = Quaternion.LookRotation(Vector3.forward, ViewSetting.direction);
             
-            Rigidbody.SetRotation(CharacterInfo.rotationView);
+            Rigidbody.SetRotation(Info.rotationView);
             
         }
         
         public virtual bool CanMove()
         {
-            return MoveSetting.enabled && !CharacterInfo.isJumping &&
-                   (MoveSetting.ableWhileAttack || !CharacterInfo.isAttacking);
+            return MoveSetting.enabled && !Info.isJumping &&
+                   (MoveSetting.ableWhileAttack || !Info.isAttacking);
         }
 
         public virtual bool CanView()
         {
-            return ViewSetting.enabled && !CharacterInfo.isJumping &&
-                   (ViewSetting.ableWhileAttack || !CharacterInfo.isAttacking);
+            return ViewSetting.enabled && !Info.isJumping &&
+                   (ViewSetting.ableWhileAttack || !Info.isAttacking);
         }
         
         public virtual bool CanJump()
         {
             return JumpSetting.enabled &&
                    JumpSetting.useStamina && Stamina.Value >= JumpSetting.staminaCost &&
-                   !CharacterInfo.isJumping && !CharacterInfo.isAttacking;
+                   !Info.isJumping && !Info.isAttacking;
         }
 
         public virtual bool CanAttack()
         {
             return AttackSetting.enabled &&
                    AttackSetting.useStamina && Stamina.Value >= AttackSetting.staminaCost &&
-                   (AttackSetting.ableWhileAttack || !CharacterInfo.isAttacking);
+                   (AttackSetting.ableWhileAttack || !Info.isAttacking);
         }
 
         #endregion
@@ -173,27 +173,27 @@ namespace Game.Characters
 
         private IEnumerator JumpProcess()
         {
-            CharacterInfo.isJumping = true;
+            Info.isJumping = true;
 
             var durationJump = Time.fixedDeltaTime * Mathf.FloorToInt(JumpSetting.duration / Time.fixedDeltaTime);
             var speedJump = JumpSetting.distance / durationJump;
             
-            CharacterInfo.velocityJump = direction * (1.75f * speedJump);
+            Info.velocityJump = direction * (1.75f * speedJump);
 
             var timer = durationJump;
             while (timer > 0f)
             {
                 var t = timer / durationJump;
 
-                CharacterInfo.velocityJump = direction * Mathf.Lerp(0.25f * speedJump, 1.75f * speedJump, t);
+                Info.velocityJump = direction * Mathf.Lerp(0.25f * speedJump, 1.75f * speedJump, t);
                 
                 timer -= Time.deltaTime;
                 yield return null;
             }
             
-            CharacterInfo.velocityJump = Vector2.zero;
+            Info.velocityJump = Vector2.zero;
             
-            CharacterInfo.isJumping = false;
+            Info.isJumping = false;
         }
 
         protected abstract IEnumerator AttackProcess(string attackName);
@@ -202,23 +202,23 @@ namespace Game.Characters
         {
             var velocityMoveTarget = CanMove() ? MoveSetting.velocity : Vector2.zero;
             
-            CharacterInfo.velocityMove = Vector2.Lerp(CharacterInfo.velocityMove, velocityMoveTarget, MoveSetting.damp * deltaTime);
+            Info.velocityMove = Vector2.Lerp(Info.velocityMove, velocityMoveTarget, MoveSetting.damp * deltaTime);
 
-            CharacterInfo.isMoving = CharacterInfo.velocityTotal.sqrMagnitude > 0.001f;
+            Info.isMoving = Info.velocityTotal.sqrMagnitude > 0.001f;
         }
 
         private void UpdateView(float deltaTime)
         {
-            var rotationViewTarget = CanView() ? Quaternion.LookRotation(Vector3.forward, ViewSetting.direction) : CharacterInfo.rotationView;
+            var rotationViewTarget = CanView() ? Quaternion.LookRotation(Vector3.forward, ViewSetting.direction) : Info.rotationView;
 
-            CharacterInfo.rotationView = Quaternion.Lerp(CharacterInfo.rotationView, rotationViewTarget, ViewSetting.damp * deltaTime);
+            Info.rotationView = Quaternion.Lerp(Info.rotationView, rotationViewTarget, ViewSetting.damp * deltaTime);
         }
         
         private void UpdateRigidbody()
         {
-            Rigidbody.velocity = CharacterInfo.velocityTotal;
+            Rigidbody.velocity = Info.velocityTotal;
             
-            Rigidbody.SetRotation(CharacterInfo.rotationView);
+            Rigidbody.SetRotation(Info.rotationView);
         }
 
         #endregion
@@ -228,7 +228,7 @@ namespace Game.Characters
         private void Awake()
         {
             ViewSetting.direction = direction;
-            CharacterInfo.rotationView = Self.rotation;
+            Info.rotationView = Self.rotation;
 
             if (Enable && Rigidbody == null) Enable = false;
         }

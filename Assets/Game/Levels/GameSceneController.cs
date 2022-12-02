@@ -13,6 +13,9 @@ namespace Game.Levels
     [CucuSceneController("Dev_Base")]
     public class GameSceneController : CucuSceneController
     {
+        public bool playAgainAfterDeath = true;
+        
+        [Space]
         [CucuArg] public GameArg gameArg;
 
         [Space]
@@ -68,6 +71,8 @@ namespace Game.Levels
             
             player.Health.Events.OnValueIsEmpty.AddListener(OnPlayerDead);
         }
+
+        
         
         private void DespawnPlayer()
         {
@@ -90,7 +95,8 @@ namespace Game.Levels
 
             await Task.Delay(1000);
             
-            SpawnPlayer();
+            if (playAgainAfterDeath) PlayAgain();
+            else SpawnPlayer();
         }
 
         #endregion

@@ -2,9 +2,12 @@
 
 namespace Game.Inputs.Combos
 {
-    [CreateAssetMenu(menuName = "Create ComboUnit", fileName = "ComboUnit", order = 0)]
+    [CreateAssetMenu(menuName = menuName, fileName = fileName, order = 0)]
     public class AttackEntity : ScriptableObject
     {
+        public const string menuName = GameManager.title + "/" + ComboEntity.title + "/Create " + fileName;
+        public const string fileName = nameof(AttackEntity);
+        
         public string attackName = string.Empty;
         
         [Space]

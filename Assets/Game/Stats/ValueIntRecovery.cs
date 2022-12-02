@@ -9,18 +9,19 @@ namespace Game.Stats
     {
         [Space]
         [SerializeField] private bool recoveryActive = true;
-        
+
         [Space]
         [Min(0)]
         [SerializeField] private int recoveryAmount = 1;
         [Min(0)]
         [SerializeField] private float recoveryPeriod = 1f;
+        [SerializeField] private bool resetOnChange = true;
         
         [Space]
         [SerializeField] private ValueIntBehaviour intBehaviour;
-        
-        private float _timer = 0f;
 
+        private float _timer = 0f;
+        
         #region Public API
 
         /// <summary>
@@ -61,6 +62,15 @@ namespace Game.Stats
             set => recoveryPeriod = Mathf.Max(0f, value);
         }
 
+        /// <summary>
+        /// Reset recovery time when value was changed
+        /// </summary>
+        public bool ResetOnChange
+        {
+            get => resetOnChange;
+            set => resetOnChange = value;
+        }
+
         #endregion
 
         private void RecoveryUpdate(float deltaTime)
@@ -76,10 +86,28 @@ namespace Game.Stats
                 
             _timer += deltaTime;
         }
+
+        private void OnValueChanged(int value)
+        {
+            if (ResetOnChange)
+            {
+                _timer = 0f;
+            }
+        }
+        
+        private void OnEnable()
+        {
+            IntBehaviour.Events.OnValueChanged.AddListener(OnValueChanged);
+        }
         
         private void Update()
         {
             if (IntBehaviour != null && RecoveryActive) RecoveryUpdate(Time.deltaTime);
+        }
+
+        private void OnDisable()
+        {
+            IntBehaviour.Events.OnValueChanged.RemoveListener(OnValueChanged);
         }
     }
 }

@@ -44,9 +44,15 @@ TagManager:
   - name: Obstacles
     uniqueID: 2365215795
     locked: 0
+  - name: Vfx
+    uniqueID: 1141140207
+    locked: 0
   - name: Enemy
     uniqueID: 2720164913
     locked: 0
   - name: Player
     uniqueID: 2873653511
+    locked: 0
+  - name: UI
+    uniqueID: 1548999815
     locked: 0

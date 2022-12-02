@@ -48,7 +48,7 @@ namespace Game.AI.Fear
         {
             base.OnStateUpdate(animator, stateInfo, layerIndex);
 
-            if (ai.npc.CharacterInfo.isMoving)
+            if (ai.npc.Info.isMoving)
             {
                 ai.npc.View(ai.npc.MoveSetting.velocity);
             }

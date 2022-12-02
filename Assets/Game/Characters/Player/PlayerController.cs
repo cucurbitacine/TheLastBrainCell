@@ -1,5 +1,5 @@
 using System.Collections;
-using Game.Audios;
+using Game.Effects.Audios;
 using UnityEngine;
 
 namespace Game.Characters.Player
@@ -12,7 +12,7 @@ namespace Game.Characters.Player
 
         public void PlayWeaponSfx() // for animation call
         {
-            Audio.weaponSfx.PlayOneShot();
+            Audio.weaponSfx.Play();
         }
         
         protected override IEnumerator AttackProcess(string attackName)
@@ -20,13 +20,13 @@ namespace Game.Characters.Player
             Animator.Play(attackName);
 
             yield return new WaitForEndOfFrame();
-            CharacterInfo.isAttacking = true;
+            Info.isAttacking = true;
             
             var duration = Animator.GetCurrentAnimatorStateInfo(0).length;
             yield return new WaitForSeconds(duration);
             
             yield return new WaitForEndOfFrame();
-            CharacterInfo.isAttacking = false;
+            Info.isAttacking = false;
         }
     }
 }

@@ -73,7 +73,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1421313785
-  m_SortingLayer: 3
+  m_SortingLayer: 4
   m_SortingOrder: -1
   m_Sprite: {fileID: 21300000, guid: ba78ab534e83e1e4abb4a46847e00fcf, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -157,7 +157,7 @@ Transform:
   m_Children:
   - {fileID: 4482802163269949918}
   m_Father: {fileID: 2247001977207932868}
-  m_RootOrder: 5
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 180}
 --- !u!114 &7344413773706207854
 MonoBehaviour:
@@ -189,13 +189,13 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 8679327127655989, guid: bf4255e447255a9499e5a662f073ee9c, type: 3}
-      propertyPath: m_RootOrder
-      value: 4
-      objectReference: {fileID: 0}
     - target: {fileID: 150169929188559289, guid: bf4255e447255a9499e5a662f073ee9c, type: 3}
       propertyPath: m_Layer
       value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 289782799247618053, guid: bf4255e447255a9499e5a662f073ee9c, type: 3}
+      propertyPath: m_RootOrder
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 1015856328764546983, guid: bf4255e447255a9499e5a662f073ee9c, type: 3}
       propertyPath: m_Enabled
@@ -299,7 +299,7 @@ PrefabInstance:
       objectReference: {fileID: 21300000, guid: affe1a944c5be4185b21359183c863d0, type: 3}
     - target: {fileID: 3771624728864629764, guid: bf4255e447255a9499e5a662f073ee9c, type: 3}
       propertyPath: m_SortingLayer
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 3771624728864629764, guid: bf4255e447255a9499e5a662f073ee9c, type: 3}
       propertyPath: m_SortingLayerID
@@ -314,6 +314,10 @@ PrefabInstance:
       value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 4927207177855080590, guid: bf4255e447255a9499e5a662f073ee9c, type: 3}
+      propertyPath: MinDistance
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4927207177855080590, guid: bf4255e447255a9499e5a662f073ee9c, type: 3}
       propertyPath: panLevelCustomCurve.m_Curve.Array.data[0].value
       value: 0
       objectReference: {fileID: 0}
@@ -325,8 +329,8 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 6
       objectReference: {fileID: 0}
-    - target: {fileID: 5681970845096666136, guid: bf4255e447255a9499e5a662f073ee9c, type: 3}
-      propertyPath: m_RootOrder
+    - target: {fileID: 5755231109525172267, guid: bf4255e447255a9499e5a662f073ee9c, type: 3}
+      propertyPath: m_Layer
       value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 6228928991305562455, guid: bf4255e447255a9499e5a662f073ee9c, type: 3}
@@ -344,6 +348,14 @@ PrefabInstance:
     - target: {fileID: 8656487782970834878, guid: bf4255e447255a9499e5a662f073ee9c, type: 3}
       propertyPath: m_Enabled
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8800247487476523569, guid: bf4255e447255a9499e5a662f073ee9c, type: 3}
+      propertyPath: m_SortingLayer
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8800247487476523569, guid: bf4255e447255a9499e5a662f073ee9c, type: 3}
+      propertyPath: m_SortingLayerID
+      value: -1421313785
       objectReference: {fileID: 0}
     - target: {fileID: 9188880266458620370, guid: bf4255e447255a9499e5a662f073ee9c, type: 3}
       propertyPath: value
@@ -378,7 +390,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   recoveryActive: 1
   recoveryAmount: 1
-  recoveryPeriod: 3
+  recoveryPeriod: 10
+  resetOnChange: 1
   intBehaviour: {fileID: 7994525907964481141}
 --- !u!4 &2247001977207932868 stripped
 Transform:
@@ -403,7 +416,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enable: 1
-  characterInfo:
+  info:
     isMoving: 0
     isJumping: 0
     isAttacking: 0
@@ -606,6 +619,7 @@ MonoBehaviour:
       m_Action: Mouse
       m_Flags: 0
     m_Flags: 0
+  jumpAttack: player_jumpAttack
 --- !u!114 &5299125088107017767
 MonoBehaviour:
   m_ObjectHideFlags: 0
