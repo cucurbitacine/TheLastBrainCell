@@ -47,12 +47,12 @@ namespace Game.Effects
                 fxList = new List<BaseFx>();
                 _vfxStorage.Add(template.fxPrefab, fxList);
             }
-            
-            var fx = fxList.FirstOrDefault(v=>!v.isPlaying);
+
+            var fx = fxList.FirstOrDefault(v => !v.isPlaying);
 
             if (fx == null)
             {
-                if (template.needParent)
+                if (template.needParent || isSingleton)
                 {
                     fx = Instantiate(template.fxPrefab, transform);
                 }

@@ -1,32 +1,36 @@
+using CucuTools.Colors;
 using Game.AI;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace Game.Characters
+namespace Game.Characters.Tools
 {
     public class DeathController : MonoBehaviour
     {
-        public UnityEvent<CharacterControllerBase> onKilled;
+        public UnityEvent<CharacterControllerBase> onDied;
 
         public CharacterControllerBase character;
 
-        public void Kill()
+        public void Die()
         {
-            KillInternal();
+            DieInternal();
             
-            onKilled.Invoke(character);
+            onDied.Invoke(character);
         }
 
-        protected virtual void KillInternal()
+        protected virtual void DieInternal()
         {
             character.Stop();
 
-            foreach (var cld in character.GetComponents<Collider2D>())
+            foreach (var cld in character.GetComponentsInChildren<Collider2D>())
             {
                 cld.enabled = false;
             }
 
-            character.GetComponent<SpriteRenderer>().color = Color.red;
+            foreach (var sr in character.GetComponentsInChildren<SpriteRenderer>())
+            {
+                sr.color = Color.red.AlphaTo(0.5f);
+            }
 
             var ai = character.GetComponentInChildren<NpcAIController>();
 
@@ -40,12 +44,12 @@ namespace Game.Characters
 
         protected virtual void OnEnable()
         {
-            character.Health.Events.OnValueIsEmpty.AddListener(Kill);
+            character.Health.Events.OnValueIsEmpty.AddListener(Die);
         }
 
         protected virtual void OnDisable()
         {
-            character.Health.Events.OnValueIsEmpty.RemoveListener(Kill);
+            character.Health.Events.OnValueIsEmpty.RemoveListener(Die);
         }
     }
 }

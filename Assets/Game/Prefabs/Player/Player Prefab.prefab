@@ -73,7 +73,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1421313785
-  m_SortingLayer: 3
+  m_SortingLayer: 4
   m_SortingOrder: -1
   m_Sprite: {fileID: 21300000, guid: ba78ab534e83e1e4abb4a46847e00fcf, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -303,7 +303,7 @@ PrefabInstance:
       objectReference: {fileID: 21300000, guid: affe1a944c5be4185b21359183c863d0, type: 3}
     - target: {fileID: 3771624728864629764, guid: bf4255e447255a9499e5a662f073ee9c, type: 3}
       propertyPath: m_SortingLayer
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 3771624728864629764, guid: bf4255e447255a9499e5a662f073ee9c, type: 3}
       propertyPath: m_SortingLayerID
@@ -320,6 +320,10 @@ PrefabInstance:
     - target: {fileID: 4828998729731695826, guid: bf4255e447255a9499e5a662f073ee9c, type: 3}
       propertyPath: m_Layer
       value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 4927207177855080590, guid: bf4255e447255a9499e5a662f073ee9c, type: 3}
+      propertyPath: MinDistance
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 4927207177855080590, guid: bf4255e447255a9499e5a662f073ee9c, type: 3}
       propertyPath: panLevelCustomCurve.m_Curve.Array.data[0].value
@@ -359,11 +363,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9188880266458620370, guid: bf4255e447255a9499e5a662f073ee9c, type: 3}
       propertyPath: value
-      value: 3
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 9188880266458620370, guid: bf4255e447255a9499e5a662f073ee9c, type: 3}
       propertyPath: maxValue
-      value: 3
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 4608250665609408187, guid: bf4255e447255a9499e5a662f073ee9c, type: 3}
@@ -392,17 +396,6 @@ MonoBehaviour:
   recoveryAmount: 1
   recoveryPeriod: 3
   intBehaviour: {fileID: 7994525907964481141}
---- !u!114 &1531819523174777869 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 303195432520706986, guid: bf4255e447255a9499e5a662f073ee9c, type: 3}
-  m_PrefabInstance: {fileID: 1258535223906119591}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4294855344950570757}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1bee020e6224761abea16895cd439b4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &2247001977207932868 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1034072520814880867, guid: bf4255e447255a9499e5a662f073ee9c, type: 3}
@@ -644,26 +637,6 @@ MonoBehaviour:
   numberAttack: -1
   timer: 0
   combo: {fileID: 11400000, guid: 9442dc67570a006428be22ba1e76b7ab, type: 2}
---- !u!1 &7359851153987206242 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8598575376305378245, guid: bf4255e447255a9499e5a662f073ee9c, type: 3}
-  m_PrefabInstance: {fileID: 1258535223906119591}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &8429435302687035062
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7359851153987206242}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b3d3dc292dc44341b2a2e4a9bc58a483, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  vfxController: {fileID: 1531819523174777869}
-  vfxTemplate: {fileID: 0}
-  receiver: {fileID: 0}
 --- !u!114 &7457154178345959033 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8505634112443044318, guid: bf4255e447255a9499e5a662f073ee9c, type: 3}

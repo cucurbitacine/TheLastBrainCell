@@ -7,6 +7,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3877088560672774931, guid: c7a273c04e136f74eb6706eadf0f2b8b, type: 3}
+      propertyPath: value
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3877088560672774931, guid: c7a273c04e136f74eb6706eadf0f2b8b, type: 3}
+      propertyPath: maxValue
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 4905151244254089889, guid: c7a273c04e136f74eb6706eadf0f2b8b, type: 3}
       propertyPath: m_Name
       value: Fear Prefab

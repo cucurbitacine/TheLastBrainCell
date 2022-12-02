@@ -155,7 +155,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1574802383
-  m_SortingLayer: 2
+  m_SortingLayer: 3
   m_SortingOrder: -1
   m_Sprite: {fileID: 21300000, guid: ba78ab534e83e1e4abb4a46847e00fcf, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -432,13 +432,17 @@ PrefabInstance:
       propertyPath: character
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 3673339297225004940, guid: bf4255e447255a9499e5a662f073ee9c, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3734598573196584207, guid: bf4255e447255a9499e5a662f073ee9c, type: 3}
       propertyPath: m_Layer
       value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 3771624728864629764, guid: bf4255e447255a9499e5a662f073ee9c, type: 3}
       propertyPath: m_SortingLayer
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 3771624728864629764, guid: bf4255e447255a9499e5a662f073ee9c, type: 3}
       propertyPath: m_SortingOrder
@@ -464,6 +468,34 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 7
       objectReference: {fileID: 0}
+    - target: {fileID: 5361056413234690952, guid: bf4255e447255a9499e5a662f073ee9c, type: 3}
+      propertyPath: clips.Array.size
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 5361056413234690952, guid: bf4255e447255a9499e5a662f073ee9c, type: 3}
+      propertyPath: clips.Array.data[0]
+      value: 
+      objectReference: {fileID: 8300000, guid: 1afdd900c2978c94fab7aef6ef71bb41, type: 3}
+    - target: {fileID: 5361056413234690952, guid: bf4255e447255a9499e5a662f073ee9c, type: 3}
+      propertyPath: clips.Array.data[1]
+      value: 
+      objectReference: {fileID: 8300000, guid: 5b94570b777c3974890d1ae622435d57, type: 3}
+    - target: {fileID: 5361056413234690952, guid: bf4255e447255a9499e5a662f073ee9c, type: 3}
+      propertyPath: clips.Array.data[2]
+      value: 
+      objectReference: {fileID: 8300000, guid: 2db01bba9a3b53e4ead42eca0fd02ea4, type: 3}
+    - target: {fileID: 5361056413234690952, guid: bf4255e447255a9499e5a662f073ee9c, type: 3}
+      propertyPath: clips.Array.data[3]
+      value: 
+      objectReference: {fileID: 8300000, guid: bda623dc3bd7e984ebfca69a61101e70, type: 3}
+    - target: {fileID: 5361056413234690952, guid: bf4255e447255a9499e5a662f073ee9c, type: 3}
+      propertyPath: clips.Array.data[4]
+      value: 
+      objectReference: {fileID: 8300000, guid: fd074dfac20842344b1311403e3925b3, type: 3}
+    - target: {fileID: 5361056413234690952, guid: bf4255e447255a9499e5a662f073ee9c, type: 3}
+      propertyPath: clips.Array.data[5]
+      value: 
+      objectReference: {fileID: 8300000, guid: 45a1587c400ca1e4988f4542fc149544, type: 3}
     - target: {fileID: 5616490222855256449, guid: bf4255e447255a9499e5a662f073ee9c, type: 3}
       propertyPath: m_Layer
       value: 7
