@@ -5542,6 +5542,7 @@ GameObject:
   m_Component:
   - component: {fileID: 764601896}
   - component: {fileID: 764601897}
+  - component: {fileID: 764601898}
   m_Layer: 0
   m_Name: Color (giga-far)
   m_TagString: Untagged
@@ -5616,6 +5617,19 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &764601898
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 764601895}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc416961ed649f743877fceaae244833, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  parallaxEffectMultiplier: 1
 --- !u!1 &766252027
 GameObject:
   m_ObjectHideFlags: 0
@@ -16601,6 +16615,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1497102355}
   - component: {fileID: 1497102356}
+  - component: {fileID: 1497102357}
   m_Layer: 0
   m_Name: Neurons_Background (mid)
   m_TagString: Untagged
@@ -16675,6 +16690,19 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1497102357
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1497102354}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc416961ed649f743877fceaae244833, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  parallaxEffectMultiplier: 0.3
 --- !u!1001 &1527047248
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -18086,6 +18114,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1860352883}
   - component: {fileID: 1860352884}
+  - component: {fileID: 1860352885}
   m_Layer: 0
   m_Name: Neurons_Background (far)
   m_TagString: Untagged
@@ -18160,6 +18189,19 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1860352885
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1860352882}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc416961ed649f743877fceaae244833, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  parallaxEffectMultiplier: 0.6
 --- !u!1 &1876041735
 GameObject:
   m_ObjectHideFlags: 0
