@@ -1,4 +1,5 @@
 ﻿using Game.Characters;
+using Game.Characters.Player;
 using Game.Levels;
 using UnityEngine;
 
@@ -14,7 +15,7 @@ namespace Game.Dev.Damage
 
         private void Shake(int damage)
         {
-            cameraShaker.Shake();
+            if (damage < 0) cameraShaker.Shake();
         }
 
         private void PlayerEnabled(PlayerController player)

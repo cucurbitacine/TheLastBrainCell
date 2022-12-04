@@ -4,8 +4,7 @@ using Cinemachine;
 using CucuTools.Attributes;
 using CucuTools.Injects;
 using CucuTools.Scenes;
-using Game.Characters;
-using Game.Inputs;
+using Game.Characters.Player;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -14,6 +13,9 @@ namespace Game.Levels
     [CucuSceneController("Dev_Base")]
     public class GameSceneController : CucuSceneController
     {
+        public bool playAgainAfterDeath = true;
+        
+        [Space]
         [CucuArg] public GameArg gameArg;
 
         [Space]
@@ -58,17 +60,24 @@ namespace Game.Levels
 
         private void SpawnPlayer()
         {
-            player = Instantiate(playerPrefab, playerSpawnPosition.position, playerSpawnPosition.rotation);
-
+            if (player == null)
+            {
+                player = Instantiate(playerPrefab, playerSpawnPosition.position, playerSpawnPosition.rotation);
+            }
+            
             cameraFollower.Follow = player.transform;
             
             onPlayerSpawned.Invoke(player);
             
             player.Health.Events.OnValueIsEmpty.AddListener(OnPlayerDead);
         }
+
+        
         
         private void DespawnPlayer()
         {
+            if (player == null) return;
+            
             cameraFollower.Follow = null;
             
             onPlayerDespawned.Invoke(player);
@@ -86,7 +95,8 @@ namespace Game.Levels
 
             await Task.Delay(1000);
             
-            SpawnPlayer();
+            if (playAgainAfterDeath) PlayAgain();
+            else SpawnPlayer();
         }
 
         #endregion

@@ -44,9 +44,11 @@ namespace Game.Stats
             
             if (value == newValue) return;
 
+            var dif = newValue - value;
+            
             value = newValue;
             
-            Events.OnValueChanged.Invoke(value);
+            Events.OnValueChanged.Invoke(dif);
 
             if (value == 0) Events.OnValueIsEmpty.Invoke();
             else if (value == maxValue) Events.OnValueIsFull.Invoke();

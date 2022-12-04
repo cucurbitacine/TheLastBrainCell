@@ -35,13 +35,23 @@ namespace Game.Levels
         private void OnEnable()
         {
             Cursor.visible = true;
+#if !UNITY_EDITOR
             Cursor.lockState = CursorLockMode.Confined;
+#else
+            Cursor.lockState = CursorLockMode.None;
+#endif
         }
         
         private void OnDisable()
         {
+            
+#if !UNITY_EDITOR
             Cursor.visible = false;
             Cursor.lockState = CursorLockMode.Locked;
+#else
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
+#endif
         }
     }
 }
