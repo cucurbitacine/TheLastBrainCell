@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: TouchInputTemplate
   m_EditorClassIdentifier: 
   player: {fileID: 0}
+  comboController: {fileID: 0}
+  touchUi: {fileID: 0}
   touchAction:
     m_Name: Touch
     m_Type: 0
@@ -32,5 +34,6 @@ MonoBehaviour:
     m_Flags: 0
   lastTouchId: 1
   moved: 0
-  touchBeganPosition: {x: 1659.9999, y: 299.0001}
-  touchPosition: {x: 1290.9999, y: 302.00006}
+  touchBeganPosition: {x: 564, y: 383.0001}
+  touchPosition: {x: 105.999985, y: 401.99997}
+  touchUiPrefab: {fileID: 1877672325507075762, guid: e0e21ddf6b5600c4695056d04b8baf9e, type: 3}
