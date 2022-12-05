@@ -4,7 +4,7 @@ using Game.Inputs.Templates;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Game.Dev.Input
+namespace Game.Dev.Inputs
 {
     [RequireComponent(typeof(Button))]
     public class SwitchInputButton : MonoBehaviour

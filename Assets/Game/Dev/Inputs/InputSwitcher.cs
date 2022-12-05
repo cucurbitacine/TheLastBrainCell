@@ -3,7 +3,7 @@ using Game.Inputs.Templates;
 using Game.UI;
 using UnityEngine;
 
-namespace Game.Dev.Input
+namespace Game.Dev.Inputs
 {
     public class InputSwitcher : MonoBehaviour
     {
@@ -26,17 +26,17 @@ namespace Game.Dev.Input
 
         private void Update()
         {
-            if (UnityEngine.Input.GetKeyDown(KeyCode.Alpha1))
+            if (Input.GetKeyDown(KeyCode.Alpha1))
             {
                 playerInput.SwitchInputTemplate(template1);
             }
             
-            if (UnityEngine.Input.GetKeyDown(KeyCode.Alpha2))
+            if (Input.GetKeyDown(KeyCode.Alpha2))
             {
                 playerInput.SwitchInputTemplate(template2);
             }
             
-            if (UnityEngine.Input.GetKeyDown(KeyCode.Alpha3))
+            if (Input.GetKeyDown(KeyCode.Alpha3))
             {
                 playerInput.SwitchInputTemplate(template3);
             }

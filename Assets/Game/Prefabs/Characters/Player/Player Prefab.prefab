@@ -501,9 +501,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 321002b2fddd4117a87016e32ee31b34, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isActive: 1
   character: {fileID: 3432943639883148343}
-  input: {fileID: 11400000, guid: 5b24456c7612b254c8555e788c1d3a0d, type: 2}
+  input: {fileID: 11400000, guid: 7a146a8c54df2274dacb2faed252ca48, type: 2}
 --- !u!114 &5299125088107017767
 MonoBehaviour:
   m_ObjectHideFlags: 0
