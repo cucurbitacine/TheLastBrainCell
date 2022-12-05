@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa83288ecc6e4611a2917726dddad3c5, type: 3}
+  m_Name: TouchInputTemplate
+  m_EditorClassIdentifier: 
+  player: {fileID: 0}
+  touchAction:
+    m_Name: Touch
+    m_Type: 0
+    m_ExpectedControlType: Touch
+    m_Id: efc0d811-8c6c-4972-bd72-21c740b702e9
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: 
+      m_Id: 68f9343a-7f3f-4805-9c3c-4adad84eacd3
+      m_Path: <Touchscreen>/primaryTouch
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Touch
+      m_Flags: 0
+    m_Flags: 0
+  lastTouchId: 1
+  moved: 0
+  touchBeganPosition: {x: 1659.9999, y: 299.0001}
+  touchPosition: {x: 1290.9999, y: 302.00006}

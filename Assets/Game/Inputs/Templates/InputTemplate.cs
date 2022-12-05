@@ -4,7 +4,7 @@ using Game.Characters;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace Game.Inputs
+namespace Game.Inputs.Templates
 {
     public abstract class InputTemplate<TCharacter> : ScriptableObject
         where TCharacter : CharacterControllerBase

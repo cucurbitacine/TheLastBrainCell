@@ -1,7 +1,8 @@
-using Game.Characters.Player;
+using Game.Inputs;
+using Game.Inputs.Templates;
 using UnityEngine;
 
-namespace Game.Inputs
+namespace Game.Characters.Player
 {
     public class PlayerInputController : InputController<PlayerController>
     {

@@ -1,4 +1,5 @@
 ﻿using Game.Characters.Player;
+using Game.Inputs.Templates;
 using UnityEngine;
 
 namespace Game.Inputs
@@ -10,6 +11,7 @@ namespace Game.Inputs
         [Space]
         public InputTemplate<PlayerController> template1;
         public InputTemplate<PlayerController> template2;
+        public InputTemplate<PlayerController> template3;
 
         private void Update()
         {
@@ -21,6 +23,11 @@ namespace Game.Inputs
             if (Input.GetKeyDown(KeyCode.Alpha2))
             {
                 playerInput.SwitchInputTemplate(template2);
+            }
+            
+            if (Input.GetKeyDown(KeyCode.Alpha3))
+            {
+                playerInput.SwitchInputTemplate(template3);
             }
         }
     }
