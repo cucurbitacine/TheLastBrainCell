@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using Game.Characters;
 using UnityEngine;
@@ -6,7 +6,8 @@ using UnityEngine.InputSystem;
 
 namespace Game.Inputs
 {
-    public abstract class InputController : MonoBehaviour
+    public abstract class InputTemplate<TCharacter> : ScriptableObject
+        where TCharacter : CharacterControllerBase
     {
         private readonly Dictionary<InputAction, Action<InputAction.CallbackContext>> _performedBinds = new Dictionary<InputAction, Action<InputAction.CallbackContext>>();
         
@@ -28,17 +29,10 @@ namespace Game.Inputs
             
             _performedBinds.Remove(inputAction);
         }
-    }
-    
-    public abstract class InputController<TCharacter> : InputController
-        where TCharacter : CharacterControllerBase
-    {
-        [SerializeField] private TCharacter character = null;
-
-        public TCharacter Character
-        {
-            get => character;
-            set => character = value;
-        }
+        
+        public abstract void EnableCharacter(TCharacter character);
+        public abstract void DisableCharacter(TCharacter character);
+        
+        public abstract void UpdateInput(float deltaTime);
     }
 }

@@ -1,5 +1,4 @@
 using System.Collections;
-using Game.Effects.Audios;
 using UnityEngine;
 
 namespace Game.Characters.Player
@@ -10,6 +9,8 @@ namespace Game.Characters.Player
 
         public PlayerAudioController Audio => audioSfx ??= GetComponentInChildren<PlayerAudioController>();
 
+        public string JumpAttackName => "player_jumpAttack";
+        
         public void PlayWeaponSfx() // for animation call
         {
             Audio.weaponSfx.Play();

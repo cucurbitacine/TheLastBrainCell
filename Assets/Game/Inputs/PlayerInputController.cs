@@ -1,92 +1,38 @@
 using Game.Characters.Player;
-using Game.Inputs.Combos;
 using UnityEngine;
-using UnityEngine.InputSystem;
-using CallbackContext = UnityEngine.InputSystem.InputAction.CallbackContext;
 
 namespace Game.Inputs
 {
     public class PlayerInputController : InputController<PlayerController>
     {
-        public ComboController comboController;
-        
-        [Space]
-        public InputAction moveAction;
-        public InputAction jumpAction;
-        public InputAction attackAction;
-        public InputAction mouseAction;
+        [SerializeField] private InputTemplate<PlayerController> input = null;
 
-        public Camera MainCamera => Camera.main;
-        public Vector2 MouseWorldPosition => MainCamera.ScreenToWorldPoint(_mouseScreenPosition);
-        
-        private Vector2 _mouseScreenPosition;
-
-        private void MoveHandle(CallbackContext ctx)
+        public InputTemplate<PlayerController> Input
         {
-            Character.Move(ctx.ReadValue<Vector2>());
+            get => input;
+            protected set => input = value;
         }
         
-        private void JumpHandle(CallbackContext ctx)
+        public void SwitchInputTemplate(InputTemplate<PlayerController> inputTemplate)
         {
-            if (ctx.ReadValueAsButton()) Character.Jump();
+            Input.DisableCharacter(Character);
+            Input = inputTemplate;
+            Input.EnableCharacter(Character);
         }
-
-        public string jumpAttack = "player_jumpAttack";
         
-        private void AttackHandle(CallbackContext ctx)
-        {
-            if (ctx.ReadValueAsButton())
-            {
-                if (Character.Info.isJumping)
-                {
-                    Character.Attack(jumpAttack);
-                }
-                else
-                {
-                    if (Character.CanAttack())
-                    {
-                        if (comboController.Attack(out var attackName))
-                        {
-                            Character.Attack(attackName);
-                        }
-                    }
-                }
-            }
-        }
-
-        private void MouseHandle(CallbackContext ctx)
-        {
-            _mouseScreenPosition = ctx.ReadValue<Vector2>();
-        }
-
         private void OnEnable()
         {
-            EnableAction(moveAction, MoveHandle);
-            EnableAction(jumpAction, JumpHandle);
-            EnableAction(attackAction, AttackHandle);
-            
-            EnableAction(mouseAction, MouseHandle);
-        }
-
-        private void OnDisable()
-        {
-            DisableAction(moveAction);
-            DisableAction(jumpAction);
-            DisableAction(attackAction);
-            
-            DisableAction(mouseAction);
+            Input.EnableCharacter(Character);
         }
 
         private void Update()
         {
-           var view = MouseWorldPosition - Character.position;
-           
-           Character.View(view);
+            Input.UpdateInput(Time.deltaTime);
         }
-
-        private void OnDrawGizmos()
+        
+        private void OnDisable()
         {
-            Gizmos.DrawWireSphere(MouseWorldPosition, 0.5f);
+            Input.DisableCharacter(Character);
         }
     }
 }
