@@ -5,6 +5,9 @@ namespace Game.UI
 {
     public class TouchUIController : MonoBehaviour
     {
+        public readonly int MoveX = Animator.StringToHash("MoveX");
+        public readonly int MoveY = Animator.StringToHash("MoveY");
+        
         public Image thumbstickPanel;
         public Animator thumbstickAnimator;
         

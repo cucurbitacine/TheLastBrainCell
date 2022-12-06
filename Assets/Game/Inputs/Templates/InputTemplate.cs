@@ -9,6 +9,12 @@ namespace Game.Inputs.Templates
     public abstract class InputTemplate<TCharacter> : ScriptableObject
         where TCharacter : CharacterControllerBase
     {
+        public string inputName;
+        public bool isActive;
+        
+        [Space]
+        public TCharacter character;
+        
         private readonly Dictionary<InputAction, Action<InputAction.CallbackContext>> _performedBinds = new Dictionary<InputAction, Action<InputAction.CallbackContext>>();
         
         protected void EnableAction(InputAction inputAction, Action<InputAction.CallbackContext> methodAction)
@@ -29,10 +35,29 @@ namespace Game.Inputs.Templates
             
             _performedBinds.Remove(inputAction);
         }
-        
-        public abstract void EnableCharacter(TCharacter character);
-        public abstract void DisableCharacter(TCharacter character);
+
+        public virtual void StartInput(TCharacter character)
+        {
+            if (isActive) return;
+            
+            this.character = character;
+            isActive = true;
+            
+            StartInput();
+        }
+
+        public virtual void StopInput(TCharacter character)
+        {
+            if (!isActive || this.character != character) return;
+            
+            StopInput();
+            
+            isActive = false;
+            this.character = null;
+        }
         
         public abstract void UpdateInput(float deltaTime);
+        protected abstract void StartInput();
+        protected abstract void StopInput();
     }
 }

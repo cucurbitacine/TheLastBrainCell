@@ -9,9 +9,6 @@ namespace Game.Inputs.Templates
     public class KeyboardAndMouseInputTemplate : InputTemplate<PlayerController>
     {
         [Space]
-        public PlayerController player;
-        
-        [Space]
         public ComboController comboController;
         
         [Space]
@@ -27,29 +24,29 @@ namespace Game.Inputs.Templates
 
         private void MoveHandle(InputAction.CallbackContext ctx)
         {
-            player.Move(ctx.ReadValue<Vector2>());
+            character.Move(ctx.ReadValue<Vector2>());
         }
         
         private void JumpHandle(InputAction.CallbackContext ctx)
         {
-            if (ctx.ReadValueAsButton()) player.Jump();
+            if (ctx.ReadValueAsButton()) character.Jump();
         }
         
         private void AttackHandle(InputAction.CallbackContext ctx)
         {
             if (ctx.ReadValueAsButton())
             {
-                if (player.Info.isJumping)
+                if (character.Info.isJumping)
                 {
-                    player.Attack(player.JumpAttackName);
+                    character.Attack(character.JumpAttackName);
                 }
                 else
                 {
-                    if (player.CanAttack())
+                    if (character.CanAttack())
                     {
                         if (comboController.Attack(out var attackName))
                         {
-                            player.Attack(attackName);
+                            character.Attack(attackName);
                         }
                     }
                 }
@@ -61,13 +58,9 @@ namespace Game.Inputs.Templates
             _mouseScreenPosition = ctx.ReadValue<Vector2>();
         }
         
-        public override void EnableCharacter(PlayerController character)
+        protected override void StartInput()
         {
-            Debug.Log($"{name} enabled");
-            
-            player = character;
-
-            comboController = player.GetComponentInChildren<ComboController>();
+            comboController = character.GetComponentInChildren<ComboController>();
             
             EnableAction(moveAction, MoveHandle);
             EnableAction(jumpAction, JumpHandle);
@@ -76,11 +69,8 @@ namespace Game.Inputs.Templates
             EnableAction(mouseAction, MouseHandle);
         }
 
-        public override void DisableCharacter(PlayerController character)
+        protected override void StopInput()
         {
-            Debug.Log($"{name} disabled");
-            
-            player = null;
             comboController = null;
             
             DisableAction(moveAction);
@@ -92,11 +82,11 @@ namespace Game.Inputs.Templates
 
         public override void UpdateInput(float deltaTime)
         {
-            if (player == null) return;
+            if (character == null) return;
             
-            var view = MouseWorldPosition - player.position;
+            var view = MouseWorldPosition - character.position;
            
-            player.View(view);
+            character.View(view);
         }
     }
 }

@@ -12,7 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f763b1a84d414d579eb5b72820260292, type: 3}
   m_Name: KeyboardInputTemplate
   m_EditorClassIdentifier: 
-  player: {fileID: 0}
+  inputName: Keyboard
+  isActive: 0
+  character: {fileID: 0}
   comboController: {fileID: 0}
   moveAction:
     m_Name: Move
@@ -97,4 +99,3 @@ MonoBehaviour:
       m_Action: Attack
       m_Flags: 0
     m_Flags: 0
-  jumpAttack: player_jumpAttack

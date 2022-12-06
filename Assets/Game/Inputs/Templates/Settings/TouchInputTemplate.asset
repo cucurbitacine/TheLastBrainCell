@@ -12,7 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa83288ecc6e4611a2917726dddad3c5, type: 3}
   m_Name: TouchInputTemplate
   m_EditorClassIdentifier: 
-  player: {fileID: 0}
+  inputName: Touchscreen
+  isActive: 0
+  character: {fileID: 0}
   comboController: {fileID: 0}
   touchUi: {fileID: 0}
   touchAction:

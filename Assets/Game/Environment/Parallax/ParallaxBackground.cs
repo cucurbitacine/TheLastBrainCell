@@ -1,33 +1,38 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class ParallaxBackground : MonoBehaviour
+namespace Game.Environment.Parallax
 {
-    [SerializeField] private float parallaxEffectMultiplier = 1f;
-
-    private Transform _cameraTransform;
-    private Transform _transform;
-
-    private Vector3 _lastCameraPosition;
-
-    private void Awake()
+    public class ParallaxBackground : MonoBehaviour
     {
-        _cameraTransform = Camera.main.transform;
-        _transform = transform;
-    }
+        public float parallaxEffectMultiplier = 1f;
+        public bool followCameraMain = true;
+        
+        [Space]
+        public Transform followTransform;
+        public Transform parallaxTransform;
 
-    private void Start()
-    {
-        _lastCameraPosition = _cameraTransform.position;
-    }
+        private Vector3 _lastFollowPosition;
 
-    private void LateUpdate()
-    {
-        Vector3 currentCameraPosition = _cameraTransform.position;
-        Vector3 deltaMovement = currentCameraPosition - _lastCameraPosition;
-        _transform.position += deltaMovement * parallaxEffectMultiplier;
-        _lastCameraPosition = currentCameraPosition;
+        private Camera CameraMain => Camera.main;
+        private Transform CameraTransform => CameraMain.transform;
+        
+        private void Awake()
+        {
+            if (followCameraMain) followTransform = CameraTransform;
+            if (parallaxTransform == null) parallaxTransform = transform;
+        }
+
+        private void Start()
+        {
+            _lastFollowPosition = followTransform.position;
+        }
+
+        private void LateUpdate()
+        {
+            var followPosition = followTransform.position;
+            var deltaMovement = followPosition - _lastFollowPosition;
+            parallaxTransform.position += deltaMovement * parallaxEffectMultiplier;
+            _lastFollowPosition = followPosition;
+        }
     }
 }

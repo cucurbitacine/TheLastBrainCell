@@ -10,9 +10,6 @@ namespace Game.Inputs.Templates
     public class KeyboardInputTemplate : InputTemplate<PlayerController>
     {
         [Space]
-        public PlayerController player;
-        
-        [Space]
         public ComboController comboController;
         
         [Space]
@@ -24,54 +21,47 @@ namespace Game.Inputs.Templates
         {
             var dir = ctx.ReadValue<Vector2>();
             
-            player.Move(dir);
-            player.View(dir);
+            character.Move(dir);
+            character.View(dir);
         }
         
         private void JumpHandle(InputAction.CallbackContext ctx)
         {
-            if (ctx.ReadValueAsButton()) player.Jump();
+            if (ctx.ReadValueAsButton()) character.Jump();
         }
 
         private void AttackHandle(InputAction.CallbackContext ctx)
         {
             if (ctx.ReadValueAsButton())
             {
-                if (player.Info.isJumping)
+                if (character.Info.isJumping)
                 {
-                    player.Attack(player.JumpAttackName);
+                    character.Attack(character.JumpAttackName);
                 }
                 else
                 {
-                    if (player.CanAttack())
+                    if (character.CanAttack())
                     {
                         if (comboController.Attack(out var attackName))
                         {
-                            player.Attack(attackName);
+                            character.Attack(attackName);
                         }
                     }
                 }
             }
         }
         
-        public override void EnableCharacter(PlayerController character)
+        protected override void StartInput()
         {
-            Debug.Log($"{name} enabled");
-            
-            player = character;
-
-            comboController = player.GetComponentInChildren<ComboController>();
+            comboController = character.GetComponentInChildren<ComboController>();
             
             EnableAction(moveAction, MoveHandle);
             EnableAction(jumpAction, JumpHandle);
             EnableAction(attackAction, AttackHandle);
         }
 
-        public override void DisableCharacter(PlayerController character)
+        protected override void StopInput()
         {
-            Debug.Log($"{name} disabled");
-            
-            player = null;
             comboController = null;
             
             DisableAction(moveAction);

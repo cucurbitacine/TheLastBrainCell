@@ -1,3 +1,4 @@
+using CucuTools.Attributes;
 using Game.Inputs;
 using Game.Inputs.Templates;
 using UnityEngine;
@@ -6,34 +7,60 @@ namespace Game.Characters.Player
 {
     public class PlayerInputController : InputController<PlayerController>
     {
-        [SerializeField] private InputTemplate<PlayerController> input = null;
-
-        public InputTemplate<PlayerController> Input
+        public InputTemplate<PlayerController> input;
+        public bool syncWithEnabling = true;
+        
+        [Space]
+        public bool isActive = false;
+        
+        [CucuButton("Start", colorHex:"39a845", group:"Player input")]
+        public void StartInput()
         {
-            get => input;
-            protected set => input = value;
+            if (isActive) return;
+            isActive = true;
+
+            if (input != null) input.StartInput(Character);
+        }
+        
+        [CucuButton("Stop", colorHex:"9b1b30", group:"Player input")]
+        public void StopInput()
+        {
+            if (!isActive) return;
+
+            isActive = false;
+            if (input != null) input.StopInput(Character);
         }
         
         public void SwitchInputTemplate(InputTemplate<PlayerController> inputTemplate)
         {
-            Input.DisableCharacter(Character);
-            Input = inputTemplate;
-            Input.EnableCharacter(Character);
+            if (input != null) input.StopInput(Character);
+            input = inputTemplate;
+
+            if (isActive && input != null) input.StartInput(Character);
         }
-        
+
+        private void UpdateInput()
+        {
+            if (input != null) input.UpdateInput(Time.deltaTime);
+        }
+
+        #region MonoBehaviour
+
         private void OnEnable()
         {
-            Input.EnableCharacter(Character);
+            if (syncWithEnabling) StartInput();
         }
 
         private void Update()
         {
-            Input.UpdateInput(Time.deltaTime);
+            if (isActive) UpdateInput();
         }
         
         private void OnDisable()
         {
-            Input.DisableCharacter(Character);
+            if (syncWithEnabling) StopInput();
         }
+
+        #endregion
     }
 }

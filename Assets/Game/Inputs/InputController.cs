@@ -1,12 +1,13 @@
 using System;
 using System.Collections.Generic;
+using CucuTools;
 using Game.Characters;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 namespace Game.Inputs
 {
-    public abstract class InputController : MonoBehaviour
+    public abstract class InputController : CucuBehaviour
     {
         private readonly Dictionary<InputAction, Action<InputAction.CallbackContext>> _performedBinds = new Dictionary<InputAction, Action<InputAction.CallbackContext>>();
         
