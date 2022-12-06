@@ -1,12 +1,13 @@
 using System;
 using System.Collections.Generic;
+using CucuTools;
 using Game.Characters;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 namespace Game.Inputs
 {
-    public abstract class InputController : MonoBehaviour
+    public abstract class InputController : CucuBehaviour
     {
         private readonly Dictionary<InputAction, Action<InputAction.CallbackContext>> _performedBinds = new Dictionary<InputAction, Action<InputAction.CallbackContext>>();
         
@@ -30,11 +31,12 @@ namespace Game.Inputs
         }
     }
     
-    public abstract class InputController<T> : InputController where T : CharacterControllerBase
+    public abstract class InputController<TCharacter> : InputController
+        where TCharacter : CharacterControllerBase
     {
-        [SerializeField] private T character = null;
+        [SerializeField] private TCharacter character = null;
 
-        public T Character
+        public TCharacter Character
         {
             get => character;
             set => character = value;

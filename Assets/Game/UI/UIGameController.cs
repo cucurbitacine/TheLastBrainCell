@@ -1,3 +1,4 @@
+using Game.Characters.Player;
 using Game.Levels;
 using Game.Services;
 using UnityEngine;
@@ -18,6 +19,15 @@ namespace Game.UI
             gameplayPanel.SetActive(!paused);
             pausePanel.SetActive(paused);
 
+            if (paused)
+            {
+                gameScene.player.GetComponentInChildren<PlayerInputController>().StopInput();
+            }
+            else
+            {
+                gameScene.player.GetComponentInChildren<PlayerInputController>().StartInput();
+            }
+            
 #if !UNITY_EDITOR
             Cursor.lockState = CursorLockMode.Confined;
 #else

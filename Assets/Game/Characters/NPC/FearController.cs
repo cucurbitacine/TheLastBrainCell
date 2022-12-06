@@ -5,6 +5,10 @@ namespace Game.Characters.Npc
 {
     public class FearController : NpcController
     {
+        public void PlayWeaponSfx() // for animation call
+        {
+        }
+        
         protected override IEnumerator AttackProcess(string attackName)
         {
             Info.isAttacking = true;
