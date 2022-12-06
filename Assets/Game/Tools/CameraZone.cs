@@ -2,7 +2,7 @@ using Cinemachine;
 using Game.Characters.Player;
 using UnityEngine;
 
-namespace Game.Services
+namespace Game.Tools
 {
     public class CameraZone : MonoBehaviour
     {

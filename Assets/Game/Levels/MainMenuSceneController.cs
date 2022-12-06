@@ -1,5 +1,6 @@
 using CucuTools.Attributes;
 using CucuTools.Scenes;
+using TMPro;
 using UnityEngine;
 
 namespace Game.Levels
@@ -10,6 +11,9 @@ namespace Game.Levels
         [CucuScene]
         public string gameScene;
 
+        [Space]
+        public TextMeshProUGUI bestScoreText;
+        
         #region Public API
 
         [CucuButton("Start Game")]
@@ -32,6 +36,14 @@ namespace Game.Levels
 
         #endregion
 
+        private void UpdateBestScore()
+        {
+            var key = ScoreInfoArg.BestScoreKeyName;
+            var bestScore = PlayerPrefs.HasKey(key) ? PlayerPrefs.GetInt(key) : 0;
+
+            bestScoreText.text = $"Best score: {bestScore}";
+        }
+        
         private void OnEnable()
         {
             Cursor.visible = true;
@@ -40,6 +52,8 @@ namespace Game.Levels
 #else
             Cursor.lockState = CursorLockMode.None;
 #endif
+
+            UpdateBestScore();
         }
         
         private void OnDisable()

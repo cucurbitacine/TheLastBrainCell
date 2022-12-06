@@ -155,7 +155,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1574802383
-  m_SortingLayer: 3
+  m_SortingLayer: 2
   m_SortingOrder: -1
   m_Sprite: {fileID: 21300000, guid: ba78ab534e83e1e4abb4a46847e00fcf, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -362,7 +362,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1034072520814880864, guid: bf4255e447255a9499e5a662f073ee9c, type: 3}
       propertyPath: m_Name
-      value: Enemy Base Prefab
+      value: NPC Base Prefab
       objectReference: {fileID: 0}
     - target: {fileID: 1034072520814880864, guid: bf4255e447255a9499e5a662f073ee9c, type: 3}
       propertyPath: m_Layer
@@ -432,6 +432,14 @@ PrefabInstance:
       propertyPath: m_Radius
       value: 0.55
       objectReference: {fileID: 0}
+    - target: {fileID: 3241789226454535188, guid: bf4255e447255a9499e5a662f073ee9c, type: 3}
+      propertyPath: deathScore
+      value: 
+      objectReference: {fileID: 11400000, guid: 8b9e08bd1ad683648a12884c2b5c6e5c, type: 2}
+    - target: {fileID: 3241789226454535188, guid: bf4255e447255a9499e5a662f073ee9c, type: 3}
+      propertyPath: damageScore
+      value: 
+      objectReference: {fileID: 11400000, guid: 77b097b40b56f524e98d9e6234a9be65, type: 2}
     - target: {fileID: 3548813630170235150, guid: bf4255e447255a9499e5a662f073ee9c, type: 3}
       propertyPath: character
       value: 
@@ -446,7 +454,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3771624728864629764, guid: bf4255e447255a9499e5a662f073ee9c, type: 3}
       propertyPath: m_SortingLayer
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3771624728864629764, guid: bf4255e447255a9499e5a662f073ee9c, type: 3}
       propertyPath: m_SortingOrder
@@ -518,7 +526,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8800247487476523569, guid: bf4255e447255a9499e5a662f073ee9c, type: 3}
       propertyPath: m_SortingLayer
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8800247487476523569, guid: bf4255e447255a9499e5a662f073ee9c, type: 3}
       propertyPath: m_SortingLayerID

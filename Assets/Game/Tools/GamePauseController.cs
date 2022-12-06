@@ -4,7 +4,7 @@ using UnityEngine.Events;
 using UnityEngine.InputSystem;
 using CallbackContext = UnityEngine.InputSystem.InputAction.CallbackContext;
 
-namespace Game.Services
+namespace Game.Tools
 {
     public class GamePauseController : InputController
     {
