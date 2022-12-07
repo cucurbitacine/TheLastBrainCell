@@ -44,14 +44,14 @@ namespace Game.Dev.Damage
 
         private void OnEnable()
         {
-            gameScene.onPlayerSpawned.AddListener(PlayerEnabled);
-            gameScene.onPlayerDespawned.AddListener(PlayerDisabled);
+            gameScene.events.onPlayerSpawned.AddListener(PlayerEnabled);
+            gameScene.events.onPlayerDespawned.AddListener(PlayerDisabled);
         }
 
         private void OnDisable()
         {
-            gameScene.onPlayerSpawned.RemoveListener(PlayerEnabled);
-            gameScene.onPlayerDespawned.RemoveListener(PlayerDisabled);
+            gameScene.events.onPlayerSpawned.RemoveListener(PlayerEnabled);
+            gameScene.events.onPlayerDespawned.RemoveListener(PlayerDisabled);
         }
     }
 }

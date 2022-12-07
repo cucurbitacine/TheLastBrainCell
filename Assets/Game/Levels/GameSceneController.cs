@@ -32,28 +32,29 @@ namespace Game.Levels
         public TimerController timerController;
         public ScoreTimeHandler scoreTime;
         public ScoreManager scoreManager;
-        
-        [Space]
-        public UnityEvent<PlayerController> onPlayerSpawned;
-        public UnityEvent<PlayerController> onPlayerDespawned;
 
+        [Space]
+        public GameEvents events;
+        
         #region Public API
 
         [CucuButton("Start Game")]
         public void StartGame()
         {
-            allNpcDead.onAllDead.AddListener(OnPlayerWin);
+            allNpcDead.onAllDead.AddListener(GameWin);
             
             scoreManager.ClearScore();
             timerController.StartTimer();
             
             SpawnPlayer();
+            
+            events.onGameStart.Invoke();
         }
         
         [CucuButton("Stop Game")]
         public void StopGame()
         {
-            allNpcDead.onAllDead.RemoveListener(OnPlayerWin);
+            allNpcDead.onAllDead.RemoveListener(GameWin);
             
             timerController.StopTimer();
         }
@@ -100,9 +101,9 @@ namespace Game.Levels
             
             cameraFollower.Follow = player.transform;
             
-            onPlayerSpawned.Invoke(player);
+            events.onPlayerSpawned.Invoke(player);
             
-            player.Health.Events.OnValueIsEmpty.AddListener(OnPlayerDead);
+            player.Health.Events.OnValueIsEmpty.AddListener(GameLose);
         }
         
         private void DespawnPlayer()
@@ -111,16 +112,18 @@ namespace Game.Levels
             
             cameraFollower.Follow = null;
             
-            onPlayerDespawned.Invoke(player);
+            events.onPlayerDespawned.Invoke(player);
             
             Destroy(player.gameObject);
 
             player = null;
         }
 
-        private async void OnPlayerWin()
+        private async void GameWin()
         {
-            await Task.Delay(1000);
+            events.onGameWin.Invoke();
+            
+            await Task.Delay(2000);
             
             StopGame();
             
@@ -133,17 +136,19 @@ namespace Game.Levels
             PlayAgain();
         }
         
-        private async void OnPlayerDead()
+        private async void GameLose()
         {
+            events.onGameLose.Invoke();
+            
             StopGame();
             
             UpdateBestScore();
             
-            player.Health.Events.OnValueIsEmpty.RemoveListener(OnPlayerDead);
+            player.Health.Events.OnValueIsEmpty.RemoveListener(GameLose);
             
             DespawnPlayer();
 
-            await Task.Delay(1000);
+            await Task.Delay(3000);
             
             if (playAgainAfterDeath) PlayAgain();
             else SpawnPlayer();
@@ -194,6 +199,19 @@ namespace Game.Levels
                 Gizmos.DrawLine(spawnPosition, spawnPosition + playerSpawnPosition.up);
             }
         }
+    }
+
+    [Serializable]
+    public class GameEvents
+    {
+        [Space]
+        public UnityEvent<PlayerController> onPlayerSpawned;
+        public UnityEvent<PlayerController> onPlayerDespawned;
+
+        [Space]
+        public UnityEvent onGameStart;
+        public UnityEvent onGameWin;
+        public UnityEvent onGameLose;
     }
     
     [Serializable]

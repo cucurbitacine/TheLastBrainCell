@@ -82,8 +82,8 @@ namespace Game.Dev.Damage
                 gameSceneController = FindObjectOfType<GameSceneController>();
                 if (gameSceneController != null)
                 {
-                    gameSceneController.onPlayerSpawned.AddListener(EnablePlayer);
-                    gameSceneController.onPlayerDespawned.AddListener(DisablePlayer);
+                    gameSceneController.events.onPlayerSpawned.AddListener(EnablePlayer);
+                    gameSceneController.events.onPlayerDespawned.AddListener(DisablePlayer);
                 }
             }
             else
@@ -107,8 +107,8 @@ namespace Game.Dev.Damage
         {
             if (gameSceneController != null)
             {
-                gameSceneController.onPlayerSpawned.RemoveListener(EnablePlayer);
-                gameSceneController.onPlayerDespawned.RemoveListener(DisablePlayer);
+                gameSceneController.events.onPlayerSpawned.RemoveListener(EnablePlayer);
+                gameSceneController.events.onPlayerDespawned.RemoveListener(DisablePlayer);
             }
             else
             {
