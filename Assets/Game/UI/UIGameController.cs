@@ -1,6 +1,9 @@
+using System;
 using Game.Characters.Player;
 using Game.Levels;
-using Game.Services;
+using Game.Scores;
+using Game.Tools;
+using TMPro;
 using UnityEngine;
 
 namespace Game.UI
@@ -14,7 +17,18 @@ namespace Game.UI
         public GameObject gameplayPanel;
         public GameObject pausePanel;
 
-        private void PauseStateChanged(bool paused)
+        [Header("Score")]
+        public ScoreManager scoreManager;
+        [Space]
+        public int totalScore;
+        public TextMeshProUGUI scoreText;
+        
+        [Header("Timer")]
+        public TimerController timerController;
+        [Space]
+        public TextMeshProUGUI timerText;
+
+        private void ChangePauseState(bool paused)
         {
             gameplayPanel.SetActive(!paused);
             pausePanel.SetActive(paused);
@@ -35,26 +49,42 @@ namespace Game.UI
 #endif
             Cursor.visible = true;
         }
-
+        
+        private void ChangeScore(int score)
+        {
+            totalScore = score;
+            scoreText.text = $"{totalScore}";
+        }
+        
         public void Awake()
         {
             if (gameScene == null) gameScene = FindObjectOfType<GameSceneController>();
             if (gamePause == null) gamePause = FindObjectOfType<GamePauseController>();
+            if (scoreManager == null) scoreManager = ScoreManager.Instance;
         }
 
         private void Start()
         {
-            PauseStateChanged(gamePause.paused);
+            ChangePauseState(gamePause.paused);
+
+            ChangeScore(scoreManager.totalScore);
         }
 
         private void OnEnable()
         {
-            gamePause.onPauseStateChanged.AddListener(PauseStateChanged);
+            gamePause.onPauseStateChanged.AddListener(ChangePauseState);
+            scoreManager.events.onScoreChanged.AddListener(ChangeScore);
         }
 
         private void OnDisable()
         {
-            gamePause.onPauseStateChanged.RemoveListener(PauseStateChanged);
+            gamePause.onPauseStateChanged.RemoveListener(ChangePauseState);
+            scoreManager.events.onScoreChanged.RemoveListener(ChangeScore);
+        }
+
+        private void Update()
+        {
+            timerText.text = TimeSpan.FromSeconds(timerController.seconds).ToString("g");
         }
     }
 }

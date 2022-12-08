@@ -73,7 +73,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1421313785
-  m_SortingLayer: 4
+  m_SortingLayer: 3
   m_SortingOrder: -1
   m_Sprite: {fileID: 21300000, guid: ba78ab534e83e1e4abb4a46847e00fcf, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -285,6 +285,14 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3241789226454535188, guid: bf4255e447255a9499e5a662f073ee9c, type: 3}
+      propertyPath: deathScore
+      value: 
+      objectReference: {fileID: 11400000, guid: b731827c53e229e468424fd9d6e362ff, type: 2}
+    - target: {fileID: 3241789226454535188, guid: bf4255e447255a9499e5a662f073ee9c, type: 3}
+      propertyPath: damageScore
+      value: 
+      objectReference: {fileID: 11400000, guid: 7b9a0e53beac0fb4eb36bc5be941cb24, type: 2}
     - target: {fileID: 3456137903486018559, guid: bf4255e447255a9499e5a662f073ee9c, type: 3}
       propertyPath: m_Enabled
       value: 1
@@ -299,7 +307,7 @@ PrefabInstance:
       objectReference: {fileID: 21300000, guid: affe1a944c5be4185b21359183c863d0, type: 3}
     - target: {fileID: 3771624728864629764, guid: bf4255e447255a9499e5a662f073ee9c, type: 3}
       propertyPath: m_SortingLayer
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 3771624728864629764, guid: bf4255e447255a9499e5a662f073ee9c, type: 3}
       propertyPath: m_SortingLayerID
@@ -351,7 +359,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8800247487476523569, guid: bf4255e447255a9499e5a662f073ee9c, type: 3}
       propertyPath: m_SortingLayer
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 8800247487476523569, guid: bf4255e447255a9499e5a662f073ee9c, type: 3}
       propertyPath: m_SortingLayerID
@@ -503,6 +511,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   character: {fileID: 3432943639883148343}
   input: {fileID: 11400000, guid: 7a146a8c54df2274dacb2faed252ca48, type: 2}
+  syncWithEnabling: 1
+  isActive: 0
 --- !u!114 &5299125088107017767
 MonoBehaviour:
   m_ObjectHideFlags: 0
