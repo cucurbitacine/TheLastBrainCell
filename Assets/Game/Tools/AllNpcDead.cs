@@ -25,7 +25,7 @@ namespace Game.Tools
 
             foreach (var npc in npcs)
             {
-                npc.Health.Events.OnValueChanged.AddListener(t => Check());
+                npc.Health.Events.OnValueIsEmpty.AddListener(Check);
             }
         }
     }
