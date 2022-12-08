@@ -1157,6 +1157,7 @@ MonoBehaviour:
   recoveryAmount: 1
   recoveryPeriod: 2
   resetOnChange: 1
+  recoveryWhenZero: 1
   intBehaviour: {fileID: 2952075610138768241}
 --- !u!1 &5755231109525172267
 GameObject:

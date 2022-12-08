@@ -16,10 +16,11 @@ namespace Game.Stats
         [Min(0)]
         [SerializeField] private float recoveryPeriod = 1f;
         [SerializeField] private bool resetOnChange = true;
+        [SerializeField] private bool recoveryWhenZero = false;
         
         [Space]
         [SerializeField] private ValueIntBehaviour intBehaviour;
-
+        
         private float _timer = 0f;
         
         #region Public API
@@ -71,10 +72,18 @@ namespace Game.Stats
             set => resetOnChange = value;
         }
 
+        public bool RecoveryWhenZero
+        {
+            get => recoveryWhenZero;
+            set => recoveryWhenZero = value;
+        }
+
         #endregion
 
         private void RecoveryUpdate(float deltaTime)
         {
+            if (!RecoveryWhenZero && IntBehaviour.Value == 0) return;
+            
             if (IntBehaviour.Value >= IntBehaviour.MaxValue) return;
             
             if (_timer >= RecoveryPeriod)

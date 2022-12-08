@@ -1,3 +1,4 @@
+using CucuTools.DamageSystem;
 using Game.Characters;
 using UnityEngine;
 
@@ -12,19 +13,21 @@ namespace Game.Scores.Handlers
         public CharacterControllerBase character;
         public ScoreManager scoreManager;
         
-        private void OnHealthDamaged(int diff)
+        private void OnDamageReceived(DamageEvent de)
         {
-            if (diff >= 0) return;
+            if (de.receiver != character.DamageReceiver) return;
+            
+            if (de.damage.amount <= 0) return;
             
             if (damageScore == null) return;
             
-            var e = new ScoreEvent
+            var se = new ScoreEvent
             {
                 name = damageScore.scoreName,
                 score = damageScore.score
             };
 
-            scoreManager.AddScore(e);
+            scoreManager.AddScore(se);
         }
         
         private void OnDied()
@@ -48,13 +51,13 @@ namespace Game.Scores.Handlers
 
         private void OnEnable()
         {
-            character.Health.Events.OnValueChanged.AddListener(OnHealthDamaged);
+            character.DamageReceiver.OnDamageReceived.AddListener(OnDamageReceived);
             character.Health.Events.OnValueIsEmpty.AddListener(OnDied);
         }
 
         private void OnDisable()
         {
-            character.Health.Events.OnValueChanged.RemoveListener(OnHealthDamaged);
+            character.DamageReceiver.OnDamageReceived.RemoveListener(OnDamageReceived);
             character.Health.Events.OnValueIsEmpty.RemoveListener(OnDied);
         }
     }

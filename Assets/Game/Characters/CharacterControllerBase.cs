@@ -1,4 +1,5 @@
 using System.Collections;
+using CucuTools.DamageSystem;
 using Game.Stats.Impl;
 using UnityEngine;
 
@@ -9,11 +10,11 @@ namespace Game.Characters
         #region SerializeField
         
         [SerializeField] private bool enable = true;
+        
         [Space]
         [SerializeField] private CharacterInfo info = null;
         
         [Header("Settings")]
-        
         [SerializeField] private MoveSetting moveSetting = null;
         [SerializeField] private ViewSetting viewSetting = null;
         [SerializeField] private JumpSetting jumpSetting = null;
@@ -22,6 +23,10 @@ namespace Game.Characters
         [Header("References")]
         [SerializeField] private HealthIntBehaviour health = null;
         [SerializeField] private StaminaIntBehaviour stamina = null;
+        
+        [Space]
+        [SerializeField] private DamageReceiver damageReceiver = null;
+        [SerializeField] private DamageSource[] damageSources = null;
         
         #endregion
 
@@ -79,6 +84,8 @@ namespace Game.Characters
 
         public HealthIntBehaviour Health => health ??= GetComponentInChildren<HealthIntBehaviour>();
         public StaminaIntBehaviour Stamina => stamina ??= GetComponentInChildren<StaminaIntBehaviour>();
+        public DamageReceiver DamageReceiver => damageReceiver ??= GetComponentInChildren<DamageReceiver>();
+        public DamageSource[] DamageSources => damageSources ??= GetComponentsInChildren<DamageSource>();
 
         #endregion
 
@@ -231,6 +238,8 @@ namespace Game.Characters
             Info.rotationView = Self.rotation;
 
             if (Enable && Rigidbody == null) Enable = false;
+
+            damageSources = GetComponentsInChildren<DamageSource>();
         }
 
         private void Update()

@@ -28,7 +28,7 @@ namespace Game.Levels
 
         [Space]
         public CinemachineVirtualCamera cameraFollower;
-        public AllNpcDead allNpcDead;
+        public WinCondition winCondition;
         public TimerController timerController;
         public ScoreTimeHandler scoreTime;
         public ScoreManager scoreManager;
@@ -41,7 +41,7 @@ namespace Game.Levels
         [CucuButton("Start Game")]
         public void StartGame()
         {
-            allNpcDead.onAllDead.AddListener(GameWin);
+            winCondition.onWin.AddListener(GameWin);
             
             scoreManager.ClearScore();
             timerController.StartTimer();
@@ -54,7 +54,7 @@ namespace Game.Levels
         [CucuButton("Stop Game")]
         public void StopGame()
         {
-            allNpcDead.onAllDead.RemoveListener(GameWin);
+            winCondition.onWin.RemoveListener(GameWin);
             
             timerController.StopTimer();
         }
@@ -179,7 +179,7 @@ namespace Game.Levels
             base.OnAwake();
 
             if (scoreManager == null) scoreManager = ScoreManager.Instance;
-            if (allNpcDead == null) allNpcDead = FindObjectOfType<AllNpcDead>();
+            if (winCondition == null) winCondition = FindObjectOfType<WinCondition>();
             if (timerController == null) timerController = FindObjectOfType<TimerController>();
             if (scoreTime == null) scoreTime = FindObjectOfType<ScoreTimeHandler>();
         }
