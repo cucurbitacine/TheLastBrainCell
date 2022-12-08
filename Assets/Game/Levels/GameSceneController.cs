@@ -44,7 +44,7 @@ namespace Game.Levels
             winCondition.onWin.AddListener(GameWin);
             
             scoreManager.ClearScore();
-            timerController.StartTimer();
+            //timerController.StartTimer();
             
             SpawnPlayer();
             

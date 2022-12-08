@@ -29,7 +29,7 @@ namespace Game.Dev
 
         private void OnEnable()
         {
-            gameScene.events.onGameStart.AddListener(DelayedStart);
+            //gameScene.events.onGameStart.AddListener(DelayedStart);
             gameScene.events.onGameWin.AddListener(winGame.Play);
             gameScene.events.onGameLose.AddListener(loseGame.Play);
         }
